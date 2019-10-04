@@ -22,7 +22,7 @@
 import faust
 
 
-class PackageRelease(faust.Record):
+class PackageRelease(faust.Record, serializer="json"):
     """Class used for Package Release events on Kafka topic."""
 
     index_url: str
