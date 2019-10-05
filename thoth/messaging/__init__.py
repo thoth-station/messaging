@@ -17,7 +17,9 @@
 
 """This is Thoth Messaging module."""
 
-from .package_releases import PackageRelease
+from .package_releases import THOTH_PACKAGE_RELEASES_TOPIC_NAME, PackageRelease
+from .publish import KAFAK_BOOTSTRAP_SERVERS, KAFKA_CAFILE, create_topic, publish_to_topic
+
 
 __name__ = "thoth-messaging"
-__version__ = "0.1.0"
+__version__ = "0.2.0-dev"
