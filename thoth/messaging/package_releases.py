@@ -22,6 +22,9 @@
 import faust
 
 
+THOTH_PACKAGE_RELEASES_TOPIC_NAME = "thoth_package_releases"
+
+
 class PackageRelease(faust.Record, serializer="json"):
     """Class used for Package Release events on Kafka topic."""
 
