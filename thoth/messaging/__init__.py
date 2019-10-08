@@ -22,4 +22,4 @@ from .publish import KAFAK_BOOTSTRAP_SERVERS, KAFKA_CAFILE, create_topic, publis
 
 
 __name__ = "thoth-messaging"
-__version__ = "0.2.0-dev"
+__version__ = "0.2.1"
