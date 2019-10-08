@@ -202,12 +202,12 @@
         },
         "faust": {
             "hashes": [
-                "sha256:0d91ad7abdbfd6ada6210f9cbdfc465a66a54df2bc87690124f5cf8a04dd4083",
-                "sha256:a204105a70dccff29d9c061bbd4543793f59857bdf30b935b0aa6a24371a235b",
-                "sha256:bd32cd67e648d726140575031ebcd4403fa6a3a0791867fdd2f451d35138c2f3"
+                "sha256:851d8a30505212dc1109795bb1322e06039d90d95556d6fb70415486b8f2f3ab",
+                "sha256:a9da6772e45a0c3c3b4834e5ddbb70a2e2bd9c40fd5eb86cee11b281d1efb857",
+                "sha256:dcd0fdc78d529ab12492d39f98e2874d6a306b32d3bd7cb66fee5c5bc55e2746"
             ],
             "index": "pypi",
-            "version": "==1.7.4"
+            "version": "==1.8.0"
         },
         "google-auth": {
             "hashes": [
