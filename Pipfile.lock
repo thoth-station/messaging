@@ -412,10 +412,10 @@
         },
         "ruamel.yaml": {
             "hashes": [
-                "sha256:ee3264b83c3309b4ae7978afa185da6a1d278e3abc9fb942f1a0b57c622092f8",
-                "sha256:fd16843ff0ba45fa5e1ea9ea7038428b4a46f2c39deea9aa67f9eaa34823dc11"
+                "sha256:0962fd7999e064c4865f96fb1e23079075f4a2a14849bcdc5cdba53a24f9759b",
+                "sha256:099c644a778bf72ffa00524f78dd0b6476bca94a1da344130f4bf3381ce5b954"
             ],
-            "version": "==0.16.9"
+            "version": "==0.16.10"
         },
         "ruamel.yaml.clib": {
             "hashes": [
@@ -464,11 +464,11 @@
         },
         "thoth-common": {
             "hashes": [
-                "sha256:49163c97835ad80a0784e920c251f7f4d9261499e37ad1f4d08b34034588696e",
-                "sha256:cddb95c830a036ed9da9ff2fdd12a04fa7bad83775ab46da43bc215e88689fbb"
+                "sha256:415066a72e928bc060a4751f58ec7cabb8ed18fe853ff644bf29d97cdd9af8f8",
+                "sha256:ae9853682a442bdaea7b0613891141d5fe50d955340bef039269528f22996cbc"
             ],
             "index": "pypi",
-            "version": "==0.10.5"
+            "version": "==0.10.6"
         },
         "typing-extensions": {
             "hashes": [
