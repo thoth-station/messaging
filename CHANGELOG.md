@@ -68,3 +68,13 @@ all the things that you see...
 * :pushpin: Automatic update of dependency pytest from 5.2.1 to 5.2.2
 * :pushpin: Automatic update of dependency faust from 1.8.0 to 1.8.1
 * :pushpin: Automatic update of dependency thoth-common from 0.9.12 to 0.9.14
+
+## Release 0.3.1 (2020-02-13T20:30:25)
+* relocked
+* relocked
+* :pushpin: Automatic update of dependency thoth-common from 0.10.5 to 0.10.6
+* :pushpin: Automatic update of dependency faust from 1.10.1 to 1.10.2
+* Update .thoth.yaml
+* :pushpin: Automatic update of dependency thoth-common from 0.10.4 to 0.10.5
+* :pushpin: Automatic update of dependency thoth-common from 0.10.3 to 0.10.4
+* :pushpin: Automatic update of dependency thoth-common from 0.10.2 to 0.10.3
