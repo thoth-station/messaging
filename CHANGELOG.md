@@ -78,3 +78,7 @@ all the things that you see...
 * :pushpin: Automatic update of dependency thoth-common from 0.10.4 to 0.10.5
 * :pushpin: Automatic update of dependency thoth-common from 0.10.3 to 0.10.4
 * :pushpin: Automatic update of dependency thoth-common from 0.10.2 to 0.10.3
+
+## Release 0.3.2 (2020-02-13T22:08:54)
+* updated github templates
+* relocked
