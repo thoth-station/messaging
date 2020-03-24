@@ -19,13 +19,6 @@
 """This is Thoth Messaging module."""
 
 
-import os
-import json
-import logging
-from typing import List
-
-import faust
-
 from .message_base import MessageBase
 
 _LOGGER = logging.getLogger(__name__)

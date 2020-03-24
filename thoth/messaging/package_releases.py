@@ -18,16 +18,26 @@
 
 """This is Thoth Messaging module."""
 
-
-import faust
-
-
-THOTH_PACKAGE_RELEASES_TOPIC_NAME = "thoth_package_releases"
+from .message_base import MessageBase
 
 
-class PackageRelease(faust.Record, serializer="json"):
+class PackageRelease(MessageBase):
     """Class used for Package Release events on Kafka topic."""
 
-    index_url: str
-    package_name: str
-    package_version: str
+    topic_name = "thoth_package_releases"
+
+    class MessageContents(faust.Record, serializer="json"):
+        """Class used to represent a contents of a missing-package message Kafka topic."""
+
+        index_url: str
+        package_name: str
+        package_version: str
+
+    def __init__(self, num_partitions: int = 1, replication_factor: int = 1):
+        """Initialize missing-package-version topic."""
+        super(PackageRelease, self).__init__(
+            self.topic_name,
+            value_type=self.MessageContents,
+            num_partitions=num_partitions,
+            replication_factor=replication_factor,
+        )
