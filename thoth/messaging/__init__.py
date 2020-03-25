@@ -17,7 +17,7 @@
 
 """This is Thoth Messaging module."""
 
-from .package_releases import PackageRelease
+from .package_releases import PackageReleaseMessage
 from .hash_mismatch import HashMismatchMessage
 from .missing_package import MissingPackageMessage
 from .missing_version import MissingVersionMessage

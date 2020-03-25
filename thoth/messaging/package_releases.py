@@ -21,10 +21,10 @@
 from .message_base import MessageBase
 
 
-class PackageRelease(MessageBase):
+class PackageReleaseMessage(MessageBase):
     """Class used for Package Release events on Kafka topic."""
 
-    topic_name = "thoth_package_releases"
+    topic_name = "thoth.package-release.package-release"
 
     class MessageContents(faust.Record, serializer="json"):
         """Class used to represent a contents of a missing-package message Kafka topic."""
