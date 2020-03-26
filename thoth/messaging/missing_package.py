@@ -21,9 +21,6 @@
 from .message_base import MessageBase
 import faust
 
-_LOGGER = logging.getLogger(__name__)
-
-
 class MissingPackageMessage(MessageBase):
     """Class used for Package Release events on Kafka topic."""
 

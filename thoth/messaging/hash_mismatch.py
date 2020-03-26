@@ -21,8 +21,6 @@
 import faust
 from .message_base import MessageBase
 
-_LOGGER = logging.getLogger(__name__)
-
 
 class HashMismatchMessage(MessageBase):
     """Class used for Package Release events on Kafka topic."""
