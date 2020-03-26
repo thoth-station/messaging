@@ -20,6 +20,7 @@
 
 import faust
 from .message_base import MessageBase
+from typing import List
 
 
 class HashMismatchMessage(MessageBase):
