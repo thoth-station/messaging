@@ -17,12 +17,11 @@
 
 """This is Thoth Messaging module."""
 
-from .package_releases import PackageReleaseMessage
+from .message_base import MessageBase
 from .hash_mismatch import HashMismatchMessage
 from .missing_package import MissingPackageMessage
 from .missing_version import MissingVersionMessage
-from .message_base import MessageBase
-
+from .package_releases import PackageReleaseMessage
 
 __name__ = "thoth-messaging"
 __version__ = "0.2.1"
