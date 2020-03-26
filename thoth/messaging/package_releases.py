@@ -19,6 +19,7 @@
 """This is Thoth Messaging module."""
 
 from .message_base import MessageBase
+import faust
 
 
 class PackageReleaseMessage(MessageBase):

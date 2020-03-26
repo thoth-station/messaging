@@ -19,6 +19,7 @@
 """This is Thoth Messaging module."""
 
 from .message_base import MessageBase
+import faust
 
 _LOGGER = logging.getLogger(__name__)
 
