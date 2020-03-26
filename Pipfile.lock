@@ -474,11 +474,11 @@
         },
         "thoth-common": {
             "hashes": [
-                "sha256:499f967d0d624894ff3936cf5cc4787c177b6b2da2d269d83944b197a8b97def",
-                "sha256:a61a0926aec36298dd923ee3fbc0c3c64e2b3105b714bc51037dbc2b025b9f6f"
+                "sha256:2c7288d4d1f2cb049e5d601bc35b2b66821e0d9a5b8a190d7b175764c4e9e97f",
+                "sha256:e5b4ce9c7cdb0b7c5e1895d87da05f4d4b82eeef5ebc3557c6b012a390357436"
             ],
             "index": "pypi",
-            "version": "==0.12.2"
+            "version": "==0.12.3"
         },
         "typing-extensions": {
             "hashes": [
