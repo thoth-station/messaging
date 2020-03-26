@@ -16,7 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""This is Thoth Messaging module."""
+"""This is Thoth Messaging module for HashMismatchMessage."""
 
 
 from .message_base import MessageBase

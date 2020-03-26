@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # thoth-messaging
-# Copyright(C) 2020 Kevin Postlethwait
+# Copyright(C) 2020 Francesco Murdaca
 #
 # This program is free software: you can redistribute it and / or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,29 +16,35 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""This is Thoth Messaging module for MissingVersionMessage."""
+"""This is Thoth Messaging module for AdviseJustificationMessage."""
 
+
+import os
+import json
+import logging
+from typing import List
+
+import faust
 
 from .message_base import MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class MissingVersionMessage(MessageBase):
-    """Class used for Package Release events on Kafka topic."""
+class AdviseJustificationMessage(MessageBase):
+    """Class used for Advise justification events on Kafka topic."""
 
-    topic_name = "thoth.package-update.missing-package-version"
+    topic_name = "thoth.advise-reporter.advise-justification"
 
     class MessageContents(faust.Record, serializer="json"):
-        """Class used to represent a contents of a missing-package message Kafka topic."""
+        """Class used to represent contents of a message Kafka topic."""
 
-        index_url: str
-        package_name: str
-        package_version: str
+        message: str
+        count: int
 
     def __init__(self, num_partitions: int = 1, replication_factor: int = 1):
-        """Initialize missing-package-version topic."""
-        super(MissingVersionMessage, self).__init__(
+        """Initialize advise-justification topic."""
+        super(AdviseJustificationMessage, self).__init__(
             self.topic_name,
             value_type=self.MessageContents,
             num_partitions=num_partitions,
