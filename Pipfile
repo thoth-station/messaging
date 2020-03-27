@@ -13,10 +13,9 @@ pytest-timeout = "*"
 pytest-cov = "*"
 coala-bears = "*"
 pylint = "*"
-black = "*"
 
 [requires]
 python_version = "3.6"
 
 [pipenv]
-allow_prereleases = true
+allow_prereleases = false
