@@ -22,6 +22,7 @@ from .hash_mismatch import HashMismatchMessage
 from .missing_package import MissingPackageMessage
 from .missing_version import MissingVersionMessage
 from .package_releases import PackageReleaseMessage
+from .advise_justification import AdviseJustificationMessage
 
 __name__ = "thoth-messaging"
 __version__ = "0.2.1"
