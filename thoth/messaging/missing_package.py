@@ -21,6 +21,7 @@
 from .message_base import MessageBase
 import faust
 
+
 class MissingPackageMessage(MessageBase):
     """Class used for Package Release events on Kafka topic."""
 
