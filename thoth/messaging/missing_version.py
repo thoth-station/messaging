@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # thoth-messaging
-# Copyright(C) 2019, 2020 Red Hat, Inc.
+# Copyright(C) 2020 Kevin Postlethwait
 #
 # This program is free software: you can redistribute it and / or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,16 +16,17 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""This is Thoth Messaging module for PackageReleaseMessage."""
+"""This is Thoth Messaging module for MissingVersionMessage."""
+
 
 from .message_base import MessageBase
 import faust
 
 
-class PackageReleaseMessage(MessageBase):
+class MissingVersionMessage(MessageBase):
     """Class used for Package Release events on Kafka topic."""
 
-    topic_name = "thoth.package-release.package-release"
+    topic_name = "thoth.package-update.missing-package-version"
 
     class MessageContents(faust.Record, serializer="json"):
         """Class used to represent a contents of a missing-package message Kafka topic."""
@@ -36,7 +37,7 @@ class PackageReleaseMessage(MessageBase):
 
     def __init__(self, num_partitions: int = 1, replication_factor: int = 1):
         """Initialize missing-package-version topic."""
-        super(PackageRelease, self).__init__(
+        super(MissingVersionMessage, self).__init__(
             self.topic_name,
             value_type=self.MessageContents,
             num_partitions=num_partitions,
