@@ -19,12 +19,12 @@
 """This is Thoth Messaging module for HashMismatchMessage."""
 
 import faust
-from typing import Tuple, Any
+from typing import Union, Tuple, Any, GenericMeta
 from .message_base import MessageBase
 
 def message_factory(
     t_name: str,
-    message_contents: Tuple[str, type],
+    message_contents: Tuple[str, Union[type, GenericMeta]],
     num_partitions: int = 1,
     replication_factor: int = 1
     ): 
