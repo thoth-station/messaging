@@ -25,4 +25,4 @@ from .package_releases import PackageReleaseMessage
 from .advise_justification import AdviseJustificationMessage
 
 __name__ = "thoth-messaging"
-__version__ = "0.3.3"
+__version__ = "0.3.4"
