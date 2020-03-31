@@ -112,3 +112,6 @@ all the things that you see...
 * :pushpin: Automatic update of dependency thoth-common from 0.10.7 to 0.10.8
 * :pushpin: Automatic update of dependency faust from 1.10.2 to 1.10.3
 * :pushpin: Automatic update of dependency thoth-common from 0.10.6 to 0.10.7
+
+## Release 0.3.4 (2020-03-31T14:45:47)
+* Remove index configuration from requirements.txt
