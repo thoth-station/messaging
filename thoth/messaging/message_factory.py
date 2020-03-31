@@ -22,12 +22,14 @@ import faust
 from typing import Union, Tuple, Any, GenericMeta
 from .message_base import MessageBase
 
+
 def message_factory(
     t_name: str,
     message_contents: Tuple[str, Union[type, GenericMeta]],
     num_partitions: int = 1,
     replication_factor: int = 1
-    ): 
+):
+    """Create new message types dynamically."""
     class NewMessage(MessageBase):
         """Class used for Package Release events on Kafka topic."""
 
@@ -35,6 +37,7 @@ def message_factory(
 
         class MessageContents(faust.Record, serializer="json"):
             """Class used to represent a contents of a missing-package message Kafka topic."""
+
             pass
 
         MessageContents.__annotations__ = message_contents
