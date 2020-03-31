@@ -82,3 +82,33 @@ all the things that you see...
 ## Release 0.3.2 (2020-02-13T22:08:54)
 * updated github templates
 * relocked
+
+## Release 0.3.3 (2020-03-30T15:14:47)
+* List is not needed for advise_justification
+* add advise_justification to init
+* coala styling, missing new line
+* Adjust requirements not to lock sub-dependencies
+* Remove prereleases
+* :pushpin: Automatic update of dependency thoth-common from 0.12.3 to 0.12.4
+* import typing
+* remove logging
+* reorder __init__
+* import faust in messages
+* Add advise message and some details in doc strings
+* :pushpin: Automatic update of dependency thoth-common from 0.12.2 to 0.12.3
+* :pushpin: Automatic update of dependency thoth-common from 0.12.1 to 0.12.2
+* follow standard naming convention
+* :pushpin: Automatic update of dependency thoth-common from 0.12.0 to 0.12.1
+* :pushpin: Automatic update of dependency thoth-common from 0.10.12 to 0.12.0
+* Remove unnecessary imports
+* Add messaging to messaging module
+* :pushpin: Automatic update of dependency thoth-common from 0.10.11 to 0.10.12
+* :pushpin: Automatic update of dependency pytest from 5.4.0 to 5.4.1
+* :pushpin: Automatic update of dependency pytest from 5.3.5 to 5.4.0
+* :pushpin: Automatic update of dependency thoth-common from 0.10.9 to 0.10.11
+* :pushpin: Automatic update of dependency thoth-common from 0.10.9 to 0.10.11
+* :pushpin: Automatic update of dependency thoth-common from 0.10.8 to 0.10.9
+* :pushpin: Automatic update of dependency faust from 1.10.3 to 1.10.4
+* :pushpin: Automatic update of dependency thoth-common from 0.10.7 to 0.10.8
+* :pushpin: Automatic update of dependency faust from 1.10.2 to 1.10.3
+* :pushpin: Automatic update of dependency thoth-common from 0.10.6 to 0.10.7
