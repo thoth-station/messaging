@@ -26,4 +26,4 @@ from .advise_justification import AdviseJustificationMessage
 from .message_factory import message_factory
 
 __name__ = "thoth-messaging"
-__version__ = "0.3.2"
+__version__ = "0.3.4"

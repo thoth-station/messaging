@@ -16,7 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""This is Thoth Messaging module for HashMismatchMessage."""
+"""This is Thoth Messaging module for message_factory."""
 
 import faust
 from typing import Union, Tuple, Any, GenericMeta
@@ -31,20 +31,20 @@ def message_factory(
 ):
     """Create new message types dynamically."""
     class NewMessage(MessageBase):
-        """Class used for Package Release events on Kafka topic."""
+        """Class used for any events on Kafka topic."""
 
         topic_name = t_name
 
         class MessageContents(faust.Record, serializer="json"):
-            """Class used to represent a contents of a missing-package message Kafka topic."""
+            """Class used to represent a contents of a faust message Kafka topic."""
 
             pass
 
         MessageContents.__annotations__ = message_contents
 
         def __init__(self, num_partitions: int = 1, replication_factor: int = 1):
-            """Initialize hash-mismatch topic."""
-            super(HashMismatchMessage, self).__init__(
+            """Initialize arbitrary topic."""
+            super(NewMessage, self).__init__(
                 self.topic_name,
                 value_type=self.MessageContents,
                 num_partitions=num_partitions,
