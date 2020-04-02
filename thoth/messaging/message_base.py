@@ -44,7 +44,7 @@ class MessageBase:
     if KAFKA_SSL_AUTH:
         ssl_context = ssl.create_default_context(purpose=ssl.Purpose.SERVER_AUTH, cafile=KAFKA_CAFILE)
         app = faust.App(
-            "thoth-messaging",
+            KAFKA_CLIENT_ID,
             broker=KAFKA_BOOTSTRAP_SERVERS,
             value_serializer="json",
             ssl_context=ssl_context,
