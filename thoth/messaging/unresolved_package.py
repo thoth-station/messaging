@@ -16,7 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""This is Thoth Messaging module for MissingPackageMessage."""
+"""This is Thoth Messaging module for UnresolvedPackageMessage."""
 
 
 import os
