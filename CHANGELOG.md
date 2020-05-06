@@ -115,3 +115,20 @@ all the things that you see...
 
 ## Release 0.3.4 (2020-03-31T14:45:47)
 * Remove index configuration from requirements.txt
+
+## Release 0.3.5 (2020-05-06T09:03:49)
+* Correct docstring
+* Remove coala-bears
+* Add unresolved package message
+* :pushpin: Automatic dependency re-locking
+* :pushpin: Automatic update of dependency thoth-common from 0.13.1 to 0.13.2
+* :pushpin: Automatic update of dependency thoth-common from 0.13.0 to 0.13.1
+* :pushpin: Automatic update of dependency thoth-common from 0.12.10 to 0.13.0
+* :pushpin: Automatic update of dependency thoth-common from 0.12.9 to 0.12.10
+* :pushpin: Automatic update of dependency thoth-common from 0.12.8 to 0.12.9
+* :pushpin: Automatic update of dependency thoth-common from 0.12.7 to 0.12.8
+* :pushpin: Automatic update of dependency thoth-common from 0.12.6 to 0.12.7
+* get kafka_client_id from env variable
+* Add env option for disabling SSL
+* :pushpin: Automatic update of dependency thoth-common from 0.12.5 to 0.12.6
+* :pushpin: Automatic update of dependency thoth-common from 0.12.4 to 0.12.5
