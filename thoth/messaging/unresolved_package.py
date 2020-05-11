@@ -25,6 +25,8 @@ import logging
 
 import faust
 
+from typing import Optional, List
+
 from .message_base import MessageBase
 
 _LOGGER = logging.getLogger(__name__)
@@ -39,9 +41,9 @@ class UnresolvedPackageMessage(MessageBase):
         """Class used to represent contents of a message Kafka topic."""
 
         package_name: str
-        package_version: str
-        index_url: str
-        runtime_environment: str
+        package_version: Optional[str]
+        index_url: Optional[List[str]]
+        solver: Optional[str]
 
     def __init__(self, num_partitions: int = 1, replication_factor: int = 1):
         """Initialize unresolved-package topic."""
