@@ -41,7 +41,7 @@ class UnresolvedPackageMessage(MessageBase):
         package_name: str
         package_version: str
         index_url: str
-        runtime_environment: str
+        solver: str
 
     def __init__(self, num_partitions: int = 1, replication_factor: int = 1):
         """Initialize unresolved-package topic."""
