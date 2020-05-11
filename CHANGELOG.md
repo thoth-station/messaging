@@ -132,3 +132,13 @@ all the things that you see...
 * Add env option for disabling SSL
 * :pushpin: Automatic update of dependency thoth-common from 0.12.5 to 0.12.6
 * :pushpin: Automatic update of dependency thoth-common from 0.12.4 to 0.12.5
+
+## Release 0.3.6 (2020-05-11T17:31:38)
+* Adjust typing
+* Use solver
+* :pushpin: Automatic update of dependency pytest from 5.4.1 to 5.4.2
+* add message factory to readme
+* Update info strings
+* coala styling
+* Allow users to using python std lib typing
+* Create simple message factory
