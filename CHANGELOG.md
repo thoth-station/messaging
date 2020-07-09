@@ -142,3 +142,23 @@ all the things that you see...
 * coala styling
 * Allow users to using python std lib typing
 * Create simple message factory
+
+## Release 0.3.7 (2020-07-09T17:59:02)
+* Add maintainer (#156)
+* :pushpin: Automatic update of dependency pylint from 2.5.2 to 2.5.3 (#154)
+* :pushpin: Automatic update of dependency pylint from 2.5.2 to 2.5.3 (#152)
+* :pushpin: Automatic update of dependency pytest-cov from 2.9.0 to 2.10.0 (#151)
+* :pushpin: Automatic update of dependency pytest-cov from 2.9.0 to 2.10.0 (#150)
+* :pushpin: Automatic update of dependency pytest-timeout from 1.3.4 to 1.4.1 (#149)
+* :pushpin: Automatic update of dependency pytest-timeout from 1.3.4 to 1.4.1 (#148)
+* :pushpin: Automatic update of dependency thoth-common from 0.13.8 to 0.14.1 (#147)
+* :pushpin: Automatic update of dependency thoth-common from 0.13.8 to 0.14.1 (#146)
+* Add missing import to use the class (#144)
+* Create OWNERS
+* :pushpin: Automatic update of dependency pytest from 5.4.2 to 5.4.3
+* :pushpin: Automatic update of dependency thoth-common from 0.13.7 to 0.13.8
+* :pushpin: Automatic update of dependency thoth-common from 0.13.6 to 0.13.7
+* :pushpin: Automatic update of dependency pytest-cov from 2.8.1 to 2.9.0
+* :pushpin: Automatic update of dependency thoth-common from 0.13.5 to 0.13.6
+* :pushpin: Automatic update of dependency thoth-common from 0.13.4 to 0.13.5
+* :pushpin: Automatic update of dependency thoth-common from 0.13.3 to 0.13.4
