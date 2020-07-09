@@ -23,6 +23,7 @@ from .missing_package import MissingPackageMessage
 from .missing_version import MissingVersionMessage
 from .package_releases import PackageReleaseMessage
 from .advise_justification import AdviseJustificationMessage
+from .unresolved_package import UnresolvedPackageMessage
 from .message_factory import message_factory
 
 __name__ = "thoth-messaging"
