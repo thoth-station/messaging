@@ -27,4 +27,4 @@ from .unresolved_package import UnresolvedPackageMessage
 from .message_factory import message_factory
 
 __name__ = "thoth-messaging"
-__version__ = "0.3.6"
+__version__ = "0.3.7"
