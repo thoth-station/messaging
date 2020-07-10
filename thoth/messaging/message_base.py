@@ -25,6 +25,7 @@ import logging
 import ssl
 
 import faust
+from faust.types.models import ModelArg
 from typing import Optional, Any
 
 _LOGGER = logging.getLogger(__name__)
@@ -36,6 +37,7 @@ class MessageBase:
     def __init__(
         self,
         topic_name: Optional[str] = None,
+        value_type: Optional[ModelArg] = None,
         num_partitions: int = 1,
         replication_factor: int = 1,
         client_id: str = "thoth-messaging",
@@ -65,7 +67,7 @@ class MessageBase:
 
         self.topic = self.app.topic(
             self.topic_name,
-            value_type=None,
+            value_type=self.value_type,
             retention=self.bootstrap_server,
             partitions=self.num_partitions,
             internal=True,
