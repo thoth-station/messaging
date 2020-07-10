@@ -27,9 +27,10 @@ def message_factory(
     t_name: str,
     message_contents: Tuple[str, Union[type, GenericMeta]],
     num_partitions: int = 1,
-    replication_factor: int = 1
+    replication_factor: int = 1,
 ):
     """Create new message types dynamically."""
+
     class NewMessage(MessageBase):
         """Class used for any events on Kafka topic."""
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # thoth-messaging
-# Copyright(C) 2020 Kevin Postlethwait
+# Copyright(C) 2020 Kevin Postlethwait, Francesco Murdaca
 #
 # This program is free software: you can redistribute it and / or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,47 +25,51 @@ import logging
 import ssl
 
 import faust
+from typing import Optional, Any
 
 _LOGGER = logging.getLogger(__name__)
-
-
-KAFKA_BOOTSTRAP_SERVERS = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
-KAFKA_CAFILE = os.getenv("KAFKA_CAFILE", "ca.crt")
-KAFKA_CLIENT_ID = os.getenv("KAFKA_CLIENT_ID", "thoth-messaging")
-KAFKA_PROTOCOL = os.getenv("KAFKA_PROTOCOL", "SSL")
-KAFKA_TOPIC_RETENTION_TIME_SECONDS = 60 * 60 * 24 * 45
-KAFKA_SSL_AUTH = int(os.getenv("KAFKA_SSL_AUTH", 1))
-MESSAGE_BASE_TOPIC = "thoth.base-topic"
 
 
 class MessageBase:
     """Class used for Package Release events on Kafka topic."""
 
-    if KAFKA_SSL_AUTH:
-        ssl_context = ssl.create_default_context(purpose=ssl.Purpose.SERVER_AUTH, cafile=KAFKA_CAFILE)
-        app = faust.App(
-            KAFKA_CLIENT_ID,
-            broker=KAFKA_BOOTSTRAP_SERVERS,
-            value_serializer="json",
-            ssl_context=ssl_context,
-        )
-    else:
-        app = faust.App(
-            "thoth-messaging",
-            broker=KAFKA_BOOTSTRAP_SERVERS,
-            value_serializer="json",
-        )
-
     def __init__(
         self,
-        topic_name: str = MESSAGE_BASE_TOPIC,
-        value_type=None,
+        topic_name: str = "thoth.base-topic",
+        value_type: bool = None,
         num_partitions: int = 1,
         replication_factor: int = 1,
+        client_id: str = "thoth-messaging",
+        ssl_auth: Optional[int] = 1,
+        bootstrap_server: str = "localhost:9092",
+        topic_retention_time_second: str = 60 * 60 * 24 * 45,
+        protocol: str = "SSL",
     ):
         """Create general message."""
+        self.topic_name = topic_name
+        self.value_type = value_type
+        self.num_partitions = num_partitions
+        self.replication_factor = replication_factor
+        self.client_id = os.getenv("KAFKA_CLIENT_ID") or client_id
+        self.ssl_auth = os.getenv("KAFKA_SSL_AUTH") or ssl_auth
+        self.bootstrap_server = os.getenv("KAFKA_BOOTSTRAP_SERVERS") or bootstrap_server
+        self.topic_retention_time_second = topic_retention_time_second
+        self.ssl_context = None
+
+        if self.ssl_auth:
+            self.cafile = "ca.crt"
+            self.ssl_context = ssl.create_default_context(purpose=ssl.Purpose.SERVER_AUTH, cafile=self.cafile)
+
+        self.app = faust.App(
+            self.client_id, broker=self.bootstrap_server, value_serializer="json", ssl_context=self.ssl_context
+        )
+
         self.topic = self.app.topic(
-            topic_name, value_type=value_type, retention=KAFKA_TOPIC_RETENTION_TIME_SECONDS, partitions=1, internal=True
+            self.topic_name,
+            value_type=self.value_type,
+            retention=self.bootstrap_server,
+            partitions=self.num_partitions,
+            internal=True,
         )
 
     async def publish_to_topic(self, value):
