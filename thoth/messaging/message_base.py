@@ -35,29 +35,28 @@ class MessageBase:
 
     def __init__(
         self,
-        topic_name: str = "thoth.base-topic",
-        value_type: bool = None,
+        topic_name: Optional[str] = None,
         num_partitions: int = 1,
         replication_factor: int = 1,
         client_id: str = "thoth-messaging",
         ssl_auth: Optional[int] = 1,
         bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: str = 60 * 60 * 24 * 45,
+        topic_retention_time_second: int = 60 * 60 * 24 * 45,
         protocol: str = "SSL",
     ):
         """Create general message."""
-        self.topic_name = topic_name
-        self.value_type = value_type
+        self.topic_name = topic_name or "thoth.base-topic"
         self.num_partitions = num_partitions
         self.replication_factor = replication_factor
         self.client_id = os.getenv("KAFKA_CLIENT_ID") or client_id
         self.ssl_auth = os.getenv("KAFKA_SSL_AUTH") or ssl_auth
         self.bootstrap_server = os.getenv("KAFKA_BOOTSTRAP_SERVERS") or bootstrap_server
         self.topic_retention_time_second = topic_retention_time_second
+        self.protocol = os.getenv("KAFKA_PROTOCOL") or protocol
         self.ssl_context = None
 
         if self.ssl_auth:
-            self.cafile = "ca.crt"
+            self.cafile = os.getenv("KAFKA_CAFILE") "ca.crt"
             self.ssl_context = ssl.create_default_context(purpose=ssl.Purpose.SERVER_AUTH, cafile=self.cafile)
 
         self.app = faust.App(
@@ -66,7 +65,7 @@ class MessageBase:
 
         self.topic = self.app.topic(
             self.topic_name,
-            value_type=self.value_type,
+            value_type=None,
             retention=self.bootstrap_server,
             partitions=self.num_partitions,
             internal=True,
