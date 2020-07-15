@@ -48,6 +48,7 @@ class MessageBase:
     ):
         """Create general message."""
         self.topic_name = topic_name or "thoth.base-topic"
+        self.value_type = value_type
         self.num_partitions = num_partitions
         self.replication_factor = replication_factor
         self.client_id = os.getenv("KAFKA_CLIENT_ID") or client_id
@@ -58,7 +59,7 @@ class MessageBase:
         self.ssl_context = None
 
         if self.ssl_auth:
-            self.cafile = os.getenv("KAFKA_CAFILE") "ca.crt"
+            self.cafile = os.getenv("KAFKA_CAFILE") or "ca.crt"
             self.ssl_context = ssl.create_default_context(purpose=ssl.Purpose.SERVER_AUTH, cafile=self.cafile)
 
         self.app = faust.App(
