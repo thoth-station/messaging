@@ -61,6 +61,7 @@ class UnresolvedPackageMessage(MessageBase):
             topic_name=self.topic_name,
             value_type=self.MessageContents,
             num_partitions=num_partitions,
+            replication_factor=replication_factor,
             client_id=client_id,
             ssl_auth=ssl_auth,
             bootstrap_server=bootstrap_server,
