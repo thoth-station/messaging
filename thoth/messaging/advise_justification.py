@@ -60,5 +60,5 @@ class AdviseJustificationMessage(MessageBase):
             ssl_auth=ssl_auth,
             bootstrap_server=bootstrap_server,
             topic_retention_time_second=topic_retention_time_second,
-            protocol=protocol
+            protocol=protocol,
         )

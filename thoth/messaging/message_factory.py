@@ -48,9 +48,7 @@ def message_factory(
 
         MessageContents.__annotations__ = message_contents
 
-        def __init__(
-            self
-        ):
+        def __init__(self):
             """Initialize unresolved-package topic."""
             super(NewMessage, self).__init__(
                 topic_name=self.topic_name,
@@ -60,7 +58,7 @@ def message_factory(
                 ssl_auth=ssl_auth,
                 bootstrap_server=bootstrap_server,
                 topic_retention_time_second=topic_retention_time_second,
-                protocol=protocol
+                protocol=protocol,
             )
 
     return NewMessage
