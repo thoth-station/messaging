@@ -36,15 +36,16 @@ class MessageBase:
 
     def __init__(
         self,
-        topic_name: Optional[str] = None,
-        value_type: Optional[ModelArg] = None,
+        *,
+        topic_name: Optional[str],
+        value_type: Optional[ModelArg],
         num_partitions: int = 1,
         replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        ssl_auth: Optional[int] = 1,
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: str = "SSL",
+        client_id: str,
+        ssl_auth: int,
+        bootstrap_server: str,
+        topic_retention_time_second: int,
+        protocol: str,
     ):
         """Create general message."""
         self.topic_name = topic_name or "thoth.base-topic"
@@ -58,7 +59,7 @@ class MessageBase:
         self.protocol = os.getenv("KAFKA_PROTOCOL") or protocol
         self.ssl_context = None
 
-        if self.ssl_auth:
+        if self.ssl_auth == 1:
             self.cafile = os.getenv("KAFKA_CAFILE") or "ca.crt"
             self.ssl_context = ssl.create_default_context(purpose=ssl.Purpose.SERVER_AUTH, cafile=self.cafile)
 
