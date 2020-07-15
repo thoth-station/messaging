@@ -56,7 +56,7 @@ class UnresolvedPackageMessage(MessageBase):
         topic_retention_time_second: int = 60 * 60 * 24 * 45,
         protocol: str = "SSL",
     ):
-        """Initialize unresolved-package topic."""
+        """Initialize unresolved package topic."""
         super(UnresolvedPackageMessage, self).__init__(
             topic_name=self.topic_name,
             value_type=self.MessageContents,

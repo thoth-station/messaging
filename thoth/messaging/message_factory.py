@@ -49,7 +49,7 @@ def message_factory(
         MessageContents.__annotations__ = message_contents
 
         def __init__(self):
-            """Initialize unresolved-package topic."""
+            """Initialize arbitrary topic."""
             super(NewMessage, self).__init__(
                 topic_name=self.topic_name,
                 value_type=self.MessageContents,
