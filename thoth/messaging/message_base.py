@@ -37,15 +37,15 @@ class MessageBase:
     def __init__(
         self,
         *,
-        topic_name: Optional[str],
-        value_type: Optional[ModelArg],
-        num_partitions: int,
-        replication_factor: int,
-        client_id: str,
-        ssl_auth: int,
-        bootstrap_server: str,
-        topic_retention_time_second: int,
-        protocol: str,
+        topic_name: Optional[str] = None,
+        value_type: Optional[ModelArg] = None,
+        num_partitions: int = 1,
+        replication_factor: int = 1,
+        client_id: str = "thoth-messaging",
+        ssl_auth: int = 1,
+        bootstrap_server: str = "localhost:9092",
+        topic_retention_time_second: int = 60 * 60 * 24 * 45,
+        protocol: str = "SSL",
     ):
         """Create general message."""
         self.topic_name = topic_name or "thoth.base-topic"
@@ -57,23 +57,34 @@ class MessageBase:
         self.bootstrap_server = os.getenv("KAFKA_BOOTSTRAP_SERVERS") or bootstrap_server
         self.topic_retention_time_second = topic_retention_time_second
         self.protocol = os.getenv("KAFKA_PROTOCOL") or protocol
+
+    def start_app(self):
+        """Start Faust app."""
         self.ssl_context = None
 
         if self.ssl_auth == 1:
             self.cafile = os.getenv("KAFKA_CAFILE") or "ca.crt"
             self.ssl_context = ssl.create_default_context(purpose=ssl.Purpose.SERVER_AUTH, cafile=self.cafile)
 
-        self.app = faust.App(
+        app = faust.App(
             self.client_id, broker=self.bootstrap_server, value_serializer="json", ssl_context=self.ssl_context
         )
+        return app
 
-        self.topic = self.app.topic(
+    def create_topic(
+        self,
+        app: faust.App
+    ):
+        """Create topic from app."""
+        self.topic = app.topic(
             self.topic_name,
             value_type=self.value_type,
-            retention=self.bootstrap_server,
+            retention=self.topic_retention_time_second,
             partitions=self.num_partitions,
             internal=True,
         )
+
+        return self.topic
 
     async def publish_to_topic(self, value):
         """Publish to this messages topic."""
