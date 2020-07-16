@@ -162,3 +162,8 @@ all the things that you see...
 * :pushpin: Automatic update of dependency thoth-common from 0.13.5 to 0.13.6
 * :pushpin: Automatic update of dependency thoth-common from 0.13.4 to 0.13.5
 * :pushpin: Automatic update of dependency thoth-common from 0.13.3 to 0.13.4
+
+## Release 0.4.0 (2020-07-16T17:20:56)
+* :pushpin: Automatic update of dependency pytest-timeout from 1.4.1 to 1.4.2 (#164)
+* Modify class not be initialized during import (#160)
+* Adjust message specs (#162)
