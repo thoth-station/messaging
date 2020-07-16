@@ -41,11 +41,25 @@ class AdviseJustificationMessage(MessageBase):
         message: str
         count: int
 
-    def __init__(self, num_partitions: int = 1, replication_factor: int = 1):
+    def __init__(
+        self,
+        num_partitions: int = 1,
+        replication_factor: int = 1,
+        client_id: str = "thoth-messaging",
+        ssl_auth: int = 1,
+        bootstrap_server: str = "localhost:9092",
+        topic_retention_time_second: int = 60 * 60 * 24 * 45,
+        protocol: str = "SSL",
+    ):
         """Initialize advise-justification topic."""
         super(AdviseJustificationMessage, self).__init__(
-            self.topic_name,
+            topic_name=self.topic_name,
             value_type=self.MessageContents,
             num_partitions=num_partitions,
             replication_factor=replication_factor,
+            client_id=client_id,
+            ssl_auth=ssl_auth,
+            bootstrap_server=bootstrap_server,
+            topic_retention_time_second=topic_retention_time_second,
+            protocol=protocol,
         )

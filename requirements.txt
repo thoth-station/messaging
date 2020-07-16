@@ -1,2 +1,1 @@
-thoth-common
 faust
