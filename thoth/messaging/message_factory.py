@@ -43,8 +43,11 @@ def message_factory(
 
         class MessageContents(faust.Record, serializer="json"):
             """Class used to represent a contents of a faust message Kafka topic."""
-
-            pass
+            def __init__(self, **kwargs):
+                for k, v in message_contents:
+                    if kwargs.get(k) is None or type(kwargs.get(k)) != v:
+                        raise RuntimeError(f"{k} was not supplied or the wrong type was passed.")
+                    setattr(self, k, kwargs.get(k))
 
         MessageContents.__annotations__ = message_contents
 
