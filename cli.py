@@ -3,13 +3,13 @@ import click
 import os
 import json
 
-from hash_mismatch import HashMismatchMessage
-from message_base import MessageBase
-from message_factory import message_factory
-from missing_package import MissingPackageMessage
-from missing_version import MissingVersionMessage
-from package_releases import PackageReleaseMessage
-from unresolved_package import UnresolvedPackageMessage
+from thoth.messaging.hash_mismatch import HashMismatchMessage
+from thoth.messaging.message_base import MessageBase
+from thoth.messaging.message_factory import message_factory
+from thoth.messaging.missing_package import MissingPackageMessage
+from thoth.messaging.missing_version import MissingVersionMessage
+from thoth.messaging.package_releases import PackageReleaseMessage
+from thoth.messaging.unresolved_package import UnresolvedPackageMessage
 
 ALL_MESSAGES = [
     HashMismatchMessage,
@@ -26,7 +26,7 @@ ALL_MESSAGES = [
     "--topic-name",
     "-n",
     envvar="THOTH_MESSAGING_TOPIC_NAME",
-    help="Name of topic to send message to."
+    help="Name of topic to send message to.",
     required=True,
     type=str,
 )
@@ -41,16 +41,16 @@ ALL_MESSAGES = [
     "message-contents",
     "-m",
     envvar="THOTH_MESSAGING_MESSAGE_CONTENTS",
-    help="JSON representation of message to send including typing hints."
+    help="JSON representation of message to send including typing hints.",
     required=True,
     type=str,
 )  # {<name>: {"type":, "value":},...}
 @click.argument(
-    "--kafka_bootstrap",
+    "--kafka-bootstrap",
     "-b",
     default="localhost:9092",
     envvar="KAFKA_BOOTSTRAP_SERVERS",
-    help="Address of Kafka bootstrap servers."
+    help="Address of Kafka bootstrap servers.",
     required=True,
     type=str,
 )
@@ -66,15 +66,15 @@ ALL_MESSAGES = [
     "--partitions",
     default=1,
     envvar="THOTH_MESSAGING_PARTITIONS",
-    help="Number of partitions for this topic."
+    help="Number of partitions for this topic.",
     required=True,
     type=int
 )
 @click.argument(
     "--replication",
     default=1,
-    envvar="THOTH_MESSAGING_REPLICATION"
-    help="Replication factor of this topic."
+    envvar="THOTH_MESSAGING_REPLICATION",
+    help="Replication factor of this topic.",
     required=True,
     type=int,
 )
@@ -82,7 +82,7 @@ ALL_MESSAGES = [
     "--client-id",
     default="thoth-messaging",
     envvar="KAFKA_CLIENT_ID",
-    help="Kafka client id."
+    help="Kafka client id.",
     required=True,
     type=str,
 )
@@ -94,12 +94,12 @@ ALL_MESSAGES = [
     required=True,
     type=int,
 )
-def cli(
+def messaging(
     topic_name: str,
     create_if_not_exist: bool,
     message_contents: str,
-    kafka_ssl: bool,
     kafka_bootstrap: str,
+    kafka_ssl: int,
     partitions: int,
     replication: int,
     client_id: str,
@@ -124,7 +124,7 @@ def cli(
     else:
         if not create_if_not_exist:
             raise Exception("Topic name does not match messages and message should not be created.")
-        message_types = [(i, eval(message_contents[i]["type"]) for i in message_contents]
+        message_types = [(i, eval(message_contents[i]["type"])) for i in message_contents]
         topic = message_factory(
             t_name=topic_name,
             message_contents=message_types,
@@ -132,7 +132,7 @@ def cli(
             num_partitions=partitions,
             client_id=client_id,
             ssl_auth=int(kafka_ssl),
-            bootstrap_server=bootstrap_server=,
+            bootstrap_server=bootstrap_server,
             topic_retention_time_second=topic_retention_time,
         )
 
