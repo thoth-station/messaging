@@ -19,6 +19,7 @@
 """This is Thoth Messaging module for message_factory."""
 
 import faust
+import typing
 from typing import Union, Tuple, Any, GenericMeta
 from .message_base import MessageBase
 
