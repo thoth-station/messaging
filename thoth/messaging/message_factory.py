@@ -25,7 +25,7 @@ from .message_base import MessageBase
 
 def message_factory(
     t_name: str,
-    message_contents: Tuple[str, Union[type, GenericMeta]],
+    message_contents: Tuple[str, str],
     num_partitions: int = 1,
     replication_factor: int = 1,
     client_id: str = "thoth-messaging",
@@ -43,13 +43,14 @@ def message_factory(
 
         class MessageContents(faust.Record, serializer="json"):
             """Class used to represent a contents of a faust message Kafka topic."""
+            for name, t in message_contents:
+                exec(f"{name}: {t}")
+
             def __init__(self, **kwargs):
                 for k, v in message_contents:
-                    if kwargs.get(k) is None or type(kwargs.get(k)) != v:
+                    if kwargs.get(k) is None:
                         raise RuntimeError(f"{k} was not supplied or the wrong type was passed.")
                     setattr(self, k, kwargs.get(k))
-
-        MessageContents.__annotations__ = message_contents
 
         def __init__(self):
             """Initialize arbitrary topic."""

@@ -94,7 +94,7 @@ async def messaging(
     else:
         if not create_if_not_exist:
             raise Exception("Topic name does not match messages and message should not be created.")
-        message_types = [(i, eval(message_contents[i]["type"])) for i in message_contents]
+        message_types = [(i, message_contents[i]["type"]) for i in message_contents]
         topic = message_factory(
             t_name=topic_name,
             message_contents=message_types,
