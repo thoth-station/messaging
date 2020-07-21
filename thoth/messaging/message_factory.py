@@ -45,10 +45,15 @@ def message_factory(
         class MessageContents(faust.Record, serializer="json"):
             """Class used to represent a contents of a faust message Kafka topic."""
             for name, t in message_contents:
-                exec(f"{name}: {t}")
+                # here we add type annotations such as `test: str` based on message_contents setting annotations
+                # outside the functions resulted in no content to faust messages.
+                # Whatever gets passed MUST be cleaned
+                exec(f"{name}: {t}")  
 
             def __init__(self, **kwargs):
-                for k, v in message_contents:
+                # Go through attributes provided by message contents and if it is passed to __init__ set attribute to
+                # the value that was passed
+                for k, _ in message_contents:
                     if kwargs.get(k) is None:
                         raise RuntimeError(f"{k} was not supplied or the wrong type was passed.")
                     setattr(self, k, kwargs.get(k))
