@@ -8,6 +8,8 @@ from time import sleep
 from faust import cli
 
 from thoth.messaging import ALL_MESSAGES
+from thoth.messaging import message_factory
+from thoth.messaging import MessageBase
 
 app = MessageBase().app
 
