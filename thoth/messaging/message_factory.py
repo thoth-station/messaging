@@ -19,13 +19,14 @@
 """This is Thoth Messaging module for message_factory."""
 
 import faust
+import typing
 from typing import Union, Tuple, Any, GenericMeta
 from .message_base import MessageBase
 
 
 def message_factory(
     t_name: str,
-    message_contents: Tuple[str, Union[type, GenericMeta]],
+    message_contents: Tuple[str, str],
     num_partitions: int = 1,
     replication_factor: int = 1,
     client_id: str = "thoth-messaging",
@@ -43,10 +44,19 @@ def message_factory(
 
         class MessageContents(faust.Record, serializer="json"):
             """Class used to represent a contents of a faust message Kafka topic."""
+            for name, t in message_contents:
+                # here we add type annotations such as `test: str` based on message_contents setting annotations
+                # outside the functions resulted in no content to faust messages.
+                # Whatever gets passed MUST be cleaned
+                exec(f"{name}: {t}")  
 
-            pass
-
-        MessageContents.__annotations__ = message_contents
+            def __init__(self, **kwargs):
+                # Go through attributes provided by message contents and if it is passed to __init__ set attribute to
+                # the value that was passed
+                for k, _ in message_contents:
+                    if kwargs.get(k) is None:
+                        raise RuntimeError(f"{k} was not supplied or the wrong type was passed.")
+                    setattr(self, k, kwargs.get(k))
 
         def __init__(self):
             """Initialize arbitrary topic."""
