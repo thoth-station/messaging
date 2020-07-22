@@ -36,4 +36,4 @@ ALL_MESSAGES = [
 
 
 __name__ = "thoth-messaging"
-__version__ = "0.4.0"
+__version__ = "0.5.0"

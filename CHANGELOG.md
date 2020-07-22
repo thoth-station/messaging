@@ -177,3 +177,10 @@ all the things that you see...
 - :pushpin: Automatic update of dependency pytest-timeout from 1.4.1 to 1.4.2 (#164)
 - Modify class not be initialized during import (#160)
 - Adjust message specs (#162)
+
+## Release 0.5.0 (2020-07-22T17:41:08)
+* Add cli for sending a single message to a topic (#170)
+* revert back to v0.4.0
+* revert the release of v0.5.0 and v0.6.0 (#171)
+* Release of version 0.6.0 (#169)
+* Release of version 0.5.0 (#168)
