@@ -7,21 +7,7 @@ from time import sleep
 
 from faust import cli
 
-from thoth.messaging.hash_mismatch import HashMismatchMessage
-from thoth.messaging.message_base import MessageBase
-from thoth.messaging.message_factory import message_factory
-from thoth.messaging.missing_package import MissingPackageMessage
-from thoth.messaging.missing_version import MissingVersionMessage
-from thoth.messaging.package_releases import PackageReleaseMessage
-from thoth.messaging.unresolved_package import UnresolvedPackageMessage
-
-ALL_MESSAGES = [
-    HashMismatchMessage,
-    MissingVersionMessage,
-    MissingPackageMessage,
-    PackageReleaseMessage,
-    UnresolvedPackageMessage,
-]
+from thoth.messaging import ALL_MESSAGES
 
 app = MessageBase().app
 

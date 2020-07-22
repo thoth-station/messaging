@@ -26,5 +26,14 @@ from .advise_justification import AdviseJustificationMessage
 from .unresolved_package import UnresolvedPackageMessage
 from .message_factory import message_factory
 
+ALL_MESSAGES = [
+    HashMismatchMessage,
+    MissingVersionMessage,
+    MissingPackageMessage,
+    PackageReleaseMessage,
+    UnresolvedPackageMessage,
+]
+
+
 __name__ = "thoth-messaging"
 __version__ = "0.5.0"
