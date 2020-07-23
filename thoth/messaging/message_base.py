@@ -85,21 +85,6 @@ class MessageBase:
         )
         MessageBase.app = app
 
-    def create_topic(
-        self,
-        app: faust.App
-    ):
-        """Create topic from app."""
-        self.topic = app.topic(
-            self.topic_name,
-            value_type=self.value_type,
-            retention=self.topic_retention_time_second,
-            partitions=self.num_partitions,
-            internal=True,
-        )
-
-        return self.topic
-
     async def publish_to_topic(self, value):
         """Publish to this messages topic."""
         await self.topic.send(value=value)
