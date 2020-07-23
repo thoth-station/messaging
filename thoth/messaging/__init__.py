@@ -34,6 +34,17 @@ ALL_MESSAGES = [
     UnresolvedPackageMessage,
 ]
 
+__all__ = [
+    "MessageBase",
+    "HashMismatchMessage",
+    "MissingPackageMessage",
+    "MissingVersionMessage",
+    "PackageReleaseMessage",
+    "AdviseJustificationMessage",
+    "UnresolvedPackageMessage",
+    "message_factory",
+]
+
 
 __name__ = "thoth-messaging"
 __version__ = "0.5.0"

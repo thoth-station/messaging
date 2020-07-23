@@ -20,14 +20,13 @@
 
 
 import os
-import json
 import logging
 import ssl
 import asyncio
 
 import faust
 from faust.types.models import ModelArg
-from typing import Optional, Any
+from typing import Optional
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -35,7 +34,7 @@ _LOGGER = logging.getLogger(__name__)
 class MessageBase:
     """Class used for Package Release events on Kafka topic."""
 
-    app = None
+    app = None  # type: Optional[faust.App]
 
     def __init__(
         self,
@@ -64,7 +63,7 @@ class MessageBase:
         if MessageBase.app is None:
             self.start_app()
 
-        self.topic = MessageBase.app.topic(
+        self.topic = MessageBase.app.topic(  # type: ignore
             self.topic_name,
             value_type=self.value_type,
             retention=self.topic_retention_time_second,
@@ -85,10 +84,7 @@ class MessageBase:
         )
         MessageBase.app = app
 
-    def create_topic(
-        self,
-        app: faust.App
-    ):
+    def create_topic(self, app: faust.App):
         """Create topic from app."""
         self.topic = app.topic(
             self.topic_name,
@@ -106,5 +102,6 @@ class MessageBase:
         print("message sent")
 
     def sync_publish_to_topic(self, value):
+        """Publish to topic synchronously."""
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.publish_to_topic(value=value))
