@@ -187,3 +187,11 @@ all the things that you see...
 
 ## Release 0.6.0 (2020-07-24T08:42:19)
 * remove create topic, topic is created during __init__ (#174)
+
+## Release 0.6.1 (2020-07-24T14:10:28)
+* Add missing PR template (#182)
+* Adjust README (#180)
+* Code quality/add precommit (#175)
+* Add missing import (#181)
+* Add solved message (#178)
+* Add paramter to AdviseJustificaitonMessage (#179)
