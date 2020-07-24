@@ -34,7 +34,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 class SolvedPackageMessage(MessageBase):
-    """Class used by Investigator producer events on Kafka topic."""
+    """Class used for Solved Package events on Kafka topic."""
 
     topic_name = "thoth.investigator.solved-package"
 
