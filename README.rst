@@ -12,7 +12,8 @@ wanted to allow individuals to be able to use our module without having to add t
 and development purposes you can use `message_factory(...)` which allows you to create arbitrary messages using
 `thoth-messaging` using the following syntax:
 
-```
-message_factory(t_name=<str>, message_contents=<dict<str, type>>, [num_partitions=<int>], [replication_factor=<int>])
-```
+.. code-block:: python
+
+    message_factory(t_name=<str>, message_contents=<dict<str, type>>, [num_partitions=<int>], [replication_factor=<int>])
+
 bracketed arguments are optional.
