@@ -16,8 +16,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""This is Thoth Messaging module for AdviseJustificationMessage."""
+"""This is Thoth Messaging module for SolvedPackageMessage."""
 
+import json
 import logging
 
 import faust
@@ -27,17 +28,18 @@ from .message_base import MessageBase
 _LOGGER = logging.getLogger(__name__)
 
 
-class AdviseJustificationMessage(MessageBase):
-    """Class used for Advise justification events on Kafka topic."""
+class SolvedPackageMessage(MessageBase):
+    """Class used for Solved Package events on Kafka topic."""
 
-    topic_name = "thoth.advise-reporter.advise-justification"
+    topic_name = "thoth.solver.solved-package"
 
-    class MessageContents(faust.Record, serializer="json"):  # type: ignore
+    class MessageContents(faust.Record, serializer="json"):
         """Class used to represent contents of a message Kafka topic."""
 
-        message: str
-        justification_type: str
-        count: int
+        package_name: str
+        package_version: str
+        index_url: str
+        solver: str
 
     def __init__(
         self,
@@ -49,8 +51,8 @@ class AdviseJustificationMessage(MessageBase):
         topic_retention_time_second: int = 60 * 60 * 24 * 45,
         protocol: str = "SSL",
     ):
-        """Initialize advise-justification topic."""
-        super(AdviseJustificationMessage, self).__init__(
+        """Initialize solved package topic."""
+        super(SolvedPackageMessage, self).__init__(
             topic_name=self.topic_name,
             value_type=self.MessageContents,
             num_partitions=num_partitions,

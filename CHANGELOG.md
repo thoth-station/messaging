@@ -184,3 +184,6 @@ all the things that you see...
 * revert the release of v0.5.0 and v0.6.0 (#171)
 * Release of version 0.6.0 (#169)
 * Release of version 0.5.0 (#168)
+
+## Release 0.6.0 (2020-07-24T08:42:19)
+* remove create topic, topic is created during __init__ (#174)

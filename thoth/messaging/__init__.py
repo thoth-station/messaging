@@ -23,6 +23,7 @@ from .missing_package import MissingPackageMessage
 from .missing_version import MissingVersionMessage
 from .package_releases import PackageReleaseMessage
 from .advise_justification import AdviseJustificationMessage
+from .solved_package import SolvedPackageMessage
 from .unresolved_package import UnresolvedPackageMessage
 from .message_factory import message_factory
 
@@ -31,6 +32,7 @@ ALL_MESSAGES = [
     MissingVersionMessage,
     MissingPackageMessage,
     PackageReleaseMessage,
+    SolvedPackageMessage,
     UnresolvedPackageMessage,
 ]
 
@@ -47,4 +49,4 @@ __all__ = [
 
 
 __name__ = "thoth-messaging"
-__version__ = "0.5.0"
+__version__ = "0.6.0"
