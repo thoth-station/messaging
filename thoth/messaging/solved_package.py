@@ -36,7 +36,7 @@ _LOGGER = logging.getLogger(__name__)
 class SolvedPackageMessage(MessageBase):
     """Class used for Solved Package events on Kafka topic."""
 
-    topic_name = "thoth.investigator.solved-package"
+    topic_name = "thoth.solver.solved-package"
 
     class MessageContents(faust.Record, serializer="json"):
         """Class used to represent contents of a message Kafka topic."""
