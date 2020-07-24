@@ -39,6 +39,7 @@ class AdviseJustificationMessage(MessageBase):
         """Class used to represent contents of a message Kafka topic."""
 
         message: str
+        justification_type: str
         count: int
 
     def __init__(
