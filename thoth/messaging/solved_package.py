@@ -44,6 +44,7 @@ class SolvedPackageMessage(MessageBase):
         package_name: str
         package_version: str
         index_url: str
+        solver: str
 
     def __init__(
         self,
