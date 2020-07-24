@@ -18,7 +18,6 @@
 
 """This is Thoth Messaging module for SolvedPackageMessage."""
 
-import json
 import logging
 
 import faust
@@ -33,7 +32,7 @@ class SolvedPackageMessage(MessageBase):
 
     topic_name = "thoth.solver.solved-package"
 
-    class MessageContents(faust.Record, serializer="json"):
+    class MessageContents(faust.Record, serializer="json"):  # type: ignore
         """Class used to represent contents of a message Kafka topic."""
 
         package_name: str

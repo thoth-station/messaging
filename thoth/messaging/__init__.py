@@ -29,6 +29,7 @@ from .message_factory import message_factory
 
 ALL_MESSAGES = [
     HashMismatchMessage,
+    AdviseJustificationMessage,
     MissingVersionMessage,
     MissingPackageMessage,
     PackageReleaseMessage,
@@ -36,16 +37,7 @@ ALL_MESSAGES = [
     UnresolvedPackageMessage,
 ]
 
-__all__ = [
-    "MessageBase",
-    "HashMismatchMessage",
-    "MissingPackageMessage",
-    "MissingVersionMessage",
-    "PackageReleaseMessage",
-    "AdviseJustificationMessage",
-    "UnresolvedPackageMessage",
-    "message_factory",
-]
+__all__ = [msg_cls.__name__ for msg_cls in ALL_MESSAGES] + ["MessageBase", "message_factory"]
 
 
 __name__ = "thoth-messaging"
