@@ -1,9 +1,24 @@
-import click
+#!/usr/bin/env python3
+# thoth-messaging
+# Copyright(C) 2020 Kevin Postlethwait
+#
+# This program is free software: you can redistribute it and / or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import os
+"""Messaging CLI to send single message to Kafka using Faust."""
+
 import json
-import asyncio
-from time import sleep
+from typing import Dict
 
 from faust import cli
 
@@ -12,6 +27,7 @@ from thoth.messaging import message_factory
 from thoth.messaging import MessageBase
 
 app = MessageBase().app
+
 
 ## create cli
 @app.command(
@@ -54,7 +70,7 @@ app = MessageBase().app
     ),
     cli.option(
         "--topic-retention-time",
-        default=60*60*24*25,
+        default=60 * 60 * 24 * 25,
         envvar="THOTH_MESSAGING_TOPIC_RETENTION_TIME",
         type=int,
         help="How many seconds a message for this topic should persist after being created.",
@@ -69,7 +85,10 @@ async def messaging(
     replication: int,
     topic_retention_time: int,
 ):
-    message_contents = json.loads(message_contents)
+    """Run messaging cli with the given arguments."""
+    loaded_message = json.loads(message_contents)  # type: Dict[str, Dict[str, str]]
+    if type(loaded_message) != dict:
+        raise ValueError("Message must be in dict representation. {<name>: {value: <value>, type: <type>},...}")
 
     # get or create message type
     for message in ALL_MESSAGES:
@@ -82,7 +101,7 @@ async def messaging(
     else:
         if not create_if_not_exist:
             raise Exception("Topic name does not match messages and message should not be created.")
-        message_types = [(i, message_contents[i]["type"]) for i in message_contents]
+        message_types = [(i, loaded_message[i]["type"]) for i in loaded_message]
         topic = message_factory(
             t_name=topic_name,
             message_contents=message_types,
@@ -91,6 +110,6 @@ async def messaging(
             topic_retention_time_second=topic_retention_time,
         )()
 
-    message_dict = {i: message_contents[i]["value"] for i in message_contents}
+    message_dict = {i: loaded_message[i]["value"] for i in loaded_message}
     message = topic.MessageContents(**message_dict)
     await topic.publish_to_topic(message)

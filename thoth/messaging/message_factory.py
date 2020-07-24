@@ -19,8 +19,7 @@
 """This is Thoth Messaging module for message_factory."""
 
 import faust
-import typing
-from typing import Union, Tuple, Any, GenericMeta
+from typing import Tuple
 from .message_base import MessageBase
 
 
@@ -42,13 +41,14 @@ def message_factory(
 
         topic_name = t_name
 
-        class MessageContents(faust.Record, serializer="json"):
+        class MessageContents(faust.Record, serializer="json"):  # type: ignore
             """Class used to represent a contents of a faust message Kafka topic."""
-            for name, t in message_contents:
+
+            for item in message_contents:
                 # here we add type annotations such as `test: str` based on message_contents setting annotations
                 # outside the functions resulted in no content to faust messages.
                 # Whatever gets passed MUST be cleaned
-                exec(f"{name}: {t}")  
+                exec(f"{item[0]}: {item[1]}")
 
             def __init__(self, **kwargs):
                 # Go through attributes provided by message contents and if it is passed to __init__ set attribute to

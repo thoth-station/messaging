@@ -27,7 +27,7 @@ class MissingPackageMessage(MessageBase):
 
     topic_name = "thoth.package-update.missing-package"
 
-    class MessageContents(faust.Record, serializer="json"):
+    class MessageContents(faust.Record, serializer="json"):  # type: ignore
         """Class used to represent a contents of a missing-package message Kafka topic."""
 
         index_url: str

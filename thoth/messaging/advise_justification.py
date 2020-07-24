@@ -18,9 +18,6 @@
 
 """This is Thoth Messaging module for AdviseJustificationMessage."""
 
-
-import os
-import json
 import logging
 
 import faust
@@ -35,7 +32,7 @@ class AdviseJustificationMessage(MessageBase):
 
     topic_name = "thoth.advise-reporter.advise-justification"
 
-    class MessageContents(faust.Record, serializer="json"):
+    class MessageContents(faust.Record, serializer="json"):  # type: ignore
         """Class used to represent contents of a message Kafka topic."""
 
         message: str

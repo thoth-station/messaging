@@ -29,12 +29,15 @@ from .message_factory import message_factory
 
 ALL_MESSAGES = [
     HashMismatchMessage,
+    AdviseJustificationMessage,
     MissingVersionMessage,
     MissingPackageMessage,
     PackageReleaseMessage,
     SolvedPackageMessage,
     UnresolvedPackageMessage,
 ]
+
+__all__ = [msg_cls.__name__ for msg_cls in ALL_MESSAGES] + ["MessageBase", "message_factory"]
 
 
 __name__ = "thoth-messaging"
