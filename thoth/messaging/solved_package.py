@@ -18,16 +18,11 @@
 
 """This is Thoth Messaging module for SolvedPackageMessage."""
 
-
-import os
 import json
 import logging
 
 import faust
 
-from typing import Optional, List
-
-from faust.types.models import ModelArg
 from .message_base import MessageBase
 
 _LOGGER = logging.getLogger(__name__)
