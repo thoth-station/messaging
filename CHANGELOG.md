@@ -195,3 +195,6 @@ all the things that you see...
 * Add missing import (#181)
 * Add solved message (#178)
 * Add paramter to AdviseJustificaitonMessage (#179)
+
+## Release 0.6.2 (2020-07-24T14:26:08)
+* Deployment/add script (#185)
