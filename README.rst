@@ -14,6 +14,6 @@ and development purposes you can use `message_factory(...)` which allows you to 
 
 .. code-block:: python
 
-    message_factory(t_name=<str>, message_contents=<dict<str, type>>, [num_partitions=<int>], [replication_factor=<int>])
+    message_factory(t_name=<str>, message_contents=<Tuple[str, str]>, [num_partitions=<int>], [replication_factor=<int>])
 
 bracketed arguments are optional.
