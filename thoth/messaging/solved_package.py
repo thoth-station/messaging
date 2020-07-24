@@ -42,9 +42,8 @@ class SolvedPackageMessage(MessageBase):
         """Class used to represent contents of a message Kafka topic."""
 
         package_name: str
-        package_version: Optional[str]
-        index_url: Optional[List[str]]
-        solver: Optional[str]
+        package_version: str
+        index_url: str
 
     def __init__(
         self,
