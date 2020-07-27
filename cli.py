@@ -112,4 +112,5 @@ async def messaging(
 
     message_dict = {i: loaded_message[i]["value"] for i in loaded_message}
     message = topic.MessageContents(**message_dict)
+    await topic.topic.maybe_declare()
     await topic.publish_to_topic(message)
