@@ -19,8 +19,27 @@
 """This is Thoth Messaging module for message_factory."""
 
 import faust
+
 from typing import Tuple
+from typing import Dict  # noqa
+from typing import List  # noqa
+from typing import Set  # noqa
+from keyword import iskeyword
+
 from .message_base import MessageBase
+
+TYPE_SET = {
+    "str",
+    "int",
+    "float",
+    "bool",
+    "complex",
+    "bytes",
+    "bytearray",
+    "Tuple",
+    "Dict",
+    "List",
+}
 
 
 def message_factory(
@@ -35,6 +54,9 @@ def message_factory(
     protocol: str = "SSL",
 ):
     """Create new message types dynamically."""
+    for i in message_contents:
+        if not i[0].isidentifier() or iskeyword(i[0]) or i[0].startswith("__") or not i[1] in TYPE_SET:
+            raise ValueError('Message contents are illformed and may be malicious. ("%r", "%r")', i[0], i[1])
 
     class NewMessage(MessageBase):
         """Class used for any events on Kafka topic."""
