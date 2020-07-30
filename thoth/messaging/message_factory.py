@@ -19,13 +19,13 @@
 """This is Thoth Messaging module for message_factory."""
 
 import faust
-from typing import Tuple
+import typing
 from .message_base import MessageBase
 
 
 def message_factory(
     t_name: str,
-    message_contents: Tuple[str, str],
+    message_contents: typing.Tuple[str, str],
     num_partitions: int = 1,
     replication_factor: int = 1,
     client_id: str = "thoth-messaging",
