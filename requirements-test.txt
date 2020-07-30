@@ -1,5 +1,4 @@
 pytest
 pytest-timeout
 pytest-cov
-coala-bears
 pylint
