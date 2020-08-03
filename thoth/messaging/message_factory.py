@@ -39,6 +39,7 @@ TYPE_SET = {
     "Tuple",
     "Dict",
     "List",
+    "Set",
 }
 
 
