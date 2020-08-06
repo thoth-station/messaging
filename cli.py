@@ -97,7 +97,7 @@ async def messaging(
                 num_partitions=partitions,
                 replication_factor=replication,
                 topic_retention_time_second=topic_retention_time,
-            )()
+            )
     else:
         if not create_if_not_exist:
             raise Exception("Topic name does not match messages and message should not be created.")
