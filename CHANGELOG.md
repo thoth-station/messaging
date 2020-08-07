@@ -198,3 +198,15 @@ all the things that you see...
 
 ## Release 0.6.2 (2020-07-24T14:26:08)
 * Deployment/add script (#185)
+
+## Release 0.6.3 (2020-08-07T19:03:59)
+* be strict about message contents (#191)
+* extra set of parenthesis removed (#195)
+* wait for topic to be declared before trying to publish (#190)
+* Included typing in message factory (#189)
+* :pushpin: Automatic update of dependency pytest from 6.0.0 to 6.0.1 (#194)
+* remove coala-bears from requirements-test.txt (#193)
+* :pushpin: Automatic update of dependency pytest from 5.4.3 to 6.0.0 (#192)
+* :arrow_down: removed the files as they are no longer required
+* :bug: fixes #161
+* :truck: include aicoe-ci configuration file (#188)
