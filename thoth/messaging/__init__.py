@@ -25,6 +25,7 @@ from .package_releases import PackageReleaseMessage
 from .advise_justification import AdviseJustificationMessage
 from .solved_package import SolvedPackageMessage
 from .unresolved_package import UnresolvedPackageMessage
+from .unrevsolved_package import UnrevsolvedPackageMessage
 from .message_factory import message_factory
 
 ALL_MESSAGES = [
@@ -35,6 +36,7 @@ ALL_MESSAGES = [
     PackageReleaseMessage,
     SolvedPackageMessage,
     UnresolvedPackageMessage,
+    UnrevsolvedPackageMessage,
 ]
 
 __all__ = [msg_cls.__name__ for msg_cls in ALL_MESSAGES] + ["MessageBase", "message_factory"]
