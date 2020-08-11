@@ -17,3 +17,19 @@ and development purposes you can use `message_factory(...)` which allows you to 
     message_factory(t_name=<str>, message_contents=<Tuple[str, str]>, [num_partitions=<int>], [replication_factor=<int>])
 
 bracketed arguments are optional.
+
+Development and Testing
+#######################
+For development and testing it is very useful to have a local instance of Kafka running on your machine
+
+See here for simple docker compose to get your own Kafka server up and running quickly.
+`Single Zookeeper/Multiple Kafka<https://github.com/simplesteph/kafka-stack-docker-compose#single-zookeeper--multiple-kafka`
+Once you have Kafka up and running you should be ready to begin coding your own messaging producers and consumers.  The
+interface between `Kafka` and `Python` is handled by a library called `Faust<https://faust.readthedocs.io/en/latest/>_`.
+Faust's documentation will be extremely helpful to you when you are developing your own applications. If you would like
+examples of producers and consumers from Team Thoth, look at the following two repositories, `investigator
+<https://github.com/thoth-station/investigator>_` and `package-update<https://github.com/thoth-station/package-update-job>_`.
+
+*Note*
+Faust producers and consumers can't be run by calling `$ python producer.py`, instead they are Faust specific applications,
+in order to run them you need to call `faust -A <filename> <function> [options]`
