@@ -42,7 +42,7 @@ kafka command that you may find useful.
 
 example:
 ```
-$ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+$ kafka-console-consumer --bootstrap-server localhost:9092 --topic test --from-beginning
 ```
 
 *Note*
