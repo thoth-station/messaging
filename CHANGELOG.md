@@ -210,3 +210,9 @@ all the things that you see...
 * :arrow_down: removed the files as they are no longer required
 * :bug: fixes #161
 * :truck: include aicoe-ci configuration file (#188)
+
+## Release 0.6.4 (2020-08-17T20:58:31)
+* Update .thoth.yaml (#202)
+* add dev documentation for thoth-messaging (#200)
+* Added unrevsolved class (#199)
+* :truck: allow ci to release the project to pypi (#198)
