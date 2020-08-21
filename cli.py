@@ -17,8 +17,9 @@
 
 """Messaging CLI to send single message to Kafka using Faust."""
 
+import asyncio
 import json
-from typing import Dict
+from typing import Optional
 
 from faust import cli
 
@@ -75,6 +76,11 @@ app = MessageBase().app
         type=int,
         help="How many seconds a message for this topic should persist after being created.",
     ),
+    cli.option(
+        "--message-file",  # if we topic name and message contents will be ignored
+        envvar="THOTH_MESSAGING_FROM_FILE",
+        type=Optional[str],  # file in json format [{"topic_name": <str>, "message_contents": <dict>}, ...]
+    ),
 )
 async def messaging(
     ctx,
@@ -84,33 +90,48 @@ async def messaging(
     partitions: int,
     replication: int,
     topic_retention_time: int,
+    message_file: Optional[str],
 ):
     """Run messaging cli with the given arguments."""
-    loaded_message = json.loads(message_contents)  # type: Dict[str, Dict[str, str]]
-    if type(loaded_message) != dict:
-        raise ValueError("Message must be in dict representation. {<name>: {value: <value>, type: <type>},...}")
-
-    # get or create message type
-    for message in ALL_MESSAGES:
-        if topic_name == message.topic_name:
-            topic = message(
-                num_partitions=partitions,
-                replication_factor=replication,
-                topic_retention_time_second=topic_retention_time,
-            )
+    if message_file:
+        with open("message_file", "r") as m_file:
+            all_messages = json.load(m_file)
     else:
-        if not create_if_not_exist:
-            raise Exception("Topic name does not match messages and message should not be created.")
-        message_types = [(i, loaded_message[i]["type"]) for i in loaded_message]
-        topic = message_factory(
-            t_name=topic_name,
-            message_contents=message_types,
-            replication_factor=replication,
-            num_partitions=partitions,
-            topic_retention_time_second=topic_retention_time,
-        )()
+        temp_message = {}
+        temp_message["message_contents"] = json.loads(message_contents)
+        temp_message["topic_name"] = topic_name
+        all_messages = [temp_message]
 
-    message_dict = {i: loaded_message[i]["value"] for i in loaded_message}
-    message = topic.MessageContents(**message_dict)
-    await topic.topic.maybe_declare()
-    await topic.publish_to_topic(message)
+    tasks = []
+
+    async for m in all_messages:
+        m_contents = m["message_contents"]
+        m_topic_name = m["topic_name"]
+        # get or create message type
+        for message in ALL_MESSAGES:
+            if m_topic_name == message.topic_name:
+                topic = message(
+                    num_partitions=partitions,
+                    replication_factor=replication,
+                    topic_retention_time_second=topic_retention_time,
+                )
+        else:
+            if not create_if_not_exist:
+                raise Exception("Topic name does not match messages and message should not be created.")
+            message_types = [(i, m_contents[i]["type"]) for i in m_contents]
+            topic = message_factory(
+                t_name=m_topic_name,
+                message_contents=message_types,
+                replication_factor=replication,
+                num_partitions=partitions,
+                topic_retention_time_second=topic_retention_time,
+            )()
+
+        message_dict = {i: m_contents[i]["value"] for i in m_contents}
+        message = topic.MessageContents(**message_dict)
+        await topic.topic.maybe_declare()
+        tasks.append(topic.publish_to_topic(message))
+
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.gather(*tasks))
+    loop.close()
