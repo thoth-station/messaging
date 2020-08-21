@@ -33,17 +33,11 @@ app = MessageBase().app
 ## create cli
 @app.command(
     cli.option(
-        "--topic-name",
-        "-n",
-        envvar="THOTH_MESSAGING_TOPIC_NAME",
-        required=True,
-        type=str,
-        help="Name of topic to send message to.",
+        "--topic-name", "-n", envvar="THOTH_MESSAGING_TOPIC_NAME", type=str, help="Name of topic to send message to.",
     ),
     cli.option(
         "--create-if-not-exist",
         envvar="THOTH_MESSAGING_CREATE_IF_NOT_EXIST",
-        is_flag=True,
         default=False,
         help="If topic doesn't already exist on Kafka then create it.",
     ),
@@ -84,9 +78,9 @@ app = MessageBase().app
 )
 async def messaging(
     ctx,
-    topic_name: str,
+    topic_name: Optional[str],
     create_if_not_exist: bool,
-    message_contents: str,
+    message_contents: Optional[str],
     partitions: int,
     replication: int,
     topic_retention_time: int,
@@ -97,6 +91,8 @@ async def messaging(
         with open(message_file, "r") as m_file:
             all_messages = json.load(m_file)
     else:
+        if topic_name is None or message_contents is None:
+            raise AttributeError("Both topic_name and message_contents must be set when not reading from file.")
         temp_message = {}
         temp_message["message_contents"] = json.loads(message_contents)
         temp_message["topic_name"] = topic_name
