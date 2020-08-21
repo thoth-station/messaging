@@ -77,9 +77,9 @@ app = MessageBase().app
         help="How many seconds a message for this topic should persist after being created.",
     ),
     cli.option(
-        "--message-file",  # if we topic name and message contents will be ignored
+        "--message-file",  # if present topic_name and message_contents will be ignored
         envvar="THOTH_MESSAGING_FROM_FILE",
-        type=Optional[str],  # file in json format [{"topic_name": <str>, "message_contents": <dict>}, ...]
+        type=Optional[str],  # file path to file in json format [{"topic_name": <str>, "message_contents": <dict>}, ...]
     ),
 )
 async def messaging(
@@ -94,7 +94,7 @@ async def messaging(
 ):
     """Run messaging cli with the given arguments."""
     if message_file:
-        with open("message_file", "r") as m_file:
+        with open(message_file, "r") as m_file:
             all_messages = json.load(m_file)
     else:
         temp_message = {}
