@@ -22,6 +22,8 @@ import logging
 
 import faust
 
+from typing import Optional, Dict, Any
+
 from .message_base import MessageBase
 
 _LOGGER = logging.getLogger(__name__)
@@ -35,7 +37,19 @@ class AdviserReRunMessage(MessageBase):
     class MessageContents(faust.Record, serializer="json"):  # type: ignore
         """Class used to represent contents of a message Kafka topic."""
 
-        adviser_id: str
+        re_run_adviser_id: str
+
+        application_stack: Dict[Any, Any]
+        recommendation_type: str
+        runtime_environment: Optional[Dict[Any, Any]] = None
+
+        origin: Optional[str] = None
+        github_event_type: Optional[str] = None
+        github_check_run_id: Optional[int] = None
+        github_installation_id: Optional[int] = None
+        github_base_repo_url: Optional[str] = None
+
+        source_type: Optional[str] = None
 
     def __init__(
         self,
