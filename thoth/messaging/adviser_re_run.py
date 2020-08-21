@@ -28,7 +28,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 class AdviserReRunMessage(MessageBase):
-    """Class used for Advise justification events on Kafka topic."""
+    """Class used for Adviser re run events on Kafka topic."""
 
     topic_name = "thoth.investigator.adviser-re-run"
 
@@ -47,7 +47,7 @@ class AdviserReRunMessage(MessageBase):
         topic_retention_time_second: int = 60 * 60 * 24 * 45,
         protocol: str = "SSL",
     ):
-        """Initialize advise-justification topic."""
+        """Initialize adviser-re-run topic."""
         super(AdviserReRunMessage, self).__init__(
             topic_name=self.topic_name,
             value_type=self.MessageContents,
