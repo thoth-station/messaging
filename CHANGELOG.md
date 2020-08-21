@@ -216,3 +216,9 @@ all the things that you see...
 * add dev documentation for thoth-messaging (#200)
 * Added unrevsolved class (#199)
 * :truck: allow ci to release the project to pypi (#198)
+
+## Release 0.6.5 (2020-08-21T13:44:21)
+* :pushpin: Automatic update of dependency pylint from 2.5.3 to 2.6.0 (#210)
+* Add parameters to re run adviser (#208)
+* Add new message (#207)
+* :pushpin: Automatic update of dependency pytest-cov from 2.10.0 to 2.10.1 (#206)
