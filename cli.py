@@ -20,14 +20,19 @@
 import asyncio
 import json
 from typing import Optional
+import logging
 
 from faust import cli
 
 from thoth.messaging import ALL_MESSAGES
 from thoth.messaging import message_factory
 from thoth.messaging import MessageBase
+from thtoh.common import init_logging
 
 app = MessageBase().app
+init_logging()
+
+_LOGGER = logging.getLogger("thoth.messaging")
 
 
 ## create cli
@@ -45,7 +50,6 @@ app = MessageBase().app
         "--message-contents",
         "-m",
         envvar="THOTH_MESSAGING_MESSAGE_CONTENTS",
-        required=True,
         type=str,
         help="JSON representation of message to send including typing hints.",
     ),  # {<name>: {"type":, "value":},...}
@@ -73,7 +77,7 @@ app = MessageBase().app
     cli.option(
         "--message-file",  # if present topic_name and message_contents will be ignored
         envvar="THOTH_MESSAGING_FROM_FILE",
-        type=Optional[str],  # file path to file in json format [{"topic_name": <str>, "message_contents": <dict>}, ...]
+        type=str,  # file path to file in json format [{"topic_name": <str>, "message_contents": <dict>}, ...]
     ),
 )
 async def messaging(
@@ -88,6 +92,8 @@ async def messaging(
 ):
     """Run messaging cli with the given arguments."""
     if message_file:
+        if topic_name or message_contents:
+            _LOGGER.warning("Topic name and/or message contents are being ignored due to presence of message file.")
         with open(message_file, "r") as m_file:
             all_messages = json.load(m_file)
     else:
