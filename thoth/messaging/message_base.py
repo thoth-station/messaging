@@ -50,7 +50,10 @@ class MessageBase:
         protocol: str = "SSL",
     ):
         """Create general message."""
+        topic_prefix = os.getenv("THOTH_DEPLOYMENT_NAME", None)
         self.topic_name = topic_name or "thoth.base-topic"
+        if topic_prefix is not None:
+            self.topic_name = f"{topic_prefix}.{self.topic_name}"
         self.value_type = value_type
         self.num_partitions = num_partitions
         self.replication_factor = replication_factor
