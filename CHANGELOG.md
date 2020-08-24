@@ -222,3 +222,7 @@ all the things that you see...
 * Add parameters to re run adviser (#208)
 * Add new message (#207)
 * :pushpin: Automatic update of dependency pytest-cov from 2.10.0 to 2.10.1 (#206)
+
+## Release 0.6.6 (2020-08-24T16:25:28)
+* prepend deployment_name if it exists (#217)
+* allow for batch sending of messages (#213)
