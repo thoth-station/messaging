@@ -106,6 +106,7 @@ async def messaging(
 
     tasks = []
 
+    # NOTE: we don't need to check based on deployment because it is only prepended after we call __init__
     async for m in all_messages:
         m_contents = m["message_contents"]
         m_topic_name = m["topic_name"]
