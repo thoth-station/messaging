@@ -14,7 +14,7 @@ pytest-cov = "*"
 pylint = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.8"
 
 [pipenv]
 allow_prereleases = false
