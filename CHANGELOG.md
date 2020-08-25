@@ -226,3 +226,6 @@ all the things that you see...
 ## Release 0.6.6 (2020-08-24T16:25:28)
 * prepend deployment_name if it exists (#217)
 * allow for batch sending of messages (#213)
+
+## Release 0.6.7 (2020-08-25T11:40:40)
+* Correct typo in import (#221)
