@@ -27,7 +27,7 @@ from faust import cli
 from thoth.messaging import ALL_MESSAGES
 from thoth.messaging import message_factory
 from thoth.messaging import MessageBase
-from thtoh.common import init_logging
+from thoth.common import init_logging
 
 app = MessageBase().app
 init_logging()
