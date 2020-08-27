@@ -31,6 +31,13 @@ from typing import Optional
 _LOGGER = logging.getLogger(__name__)
 
 
+class BaseMessageContents(faust.Record, serializer="json"):  # type: ignore
+    """Default params for message contents."""
+
+    component_name: str = "WARNING: component_name not set"  # what component sent the message?
+    service_version: str = "WARNING: service_version not set"  # what version was that component?
+
+
 class MessageBase:
     """Class used for Package Release events on Kafka topic."""
 

@@ -19,9 +19,7 @@
 
 import logging
 
-import faust
-
-from .message_base import MessageBase
+from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -31,7 +29,7 @@ class UnrevsolvedPackageMessage(MessageBase):
 
     topic_name = "thoth.investigator.unrevsolved-package"
 
-    class MessageContents(faust.Record, serializer="json"):  # type: ignore
+    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent contents of a message Kafka topic."""
 
         package_name: str
