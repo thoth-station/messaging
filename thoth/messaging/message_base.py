@@ -34,8 +34,8 @@ _LOGGER = logging.getLogger(__name__)
 class BaseMessageContents(faust.Record, serializer="json"):  # type: ignore
     """Default params for message contents."""
 
-    component_name: str = "WARNING: component_name not set"  # what component sent the message?
-    service_version: str = "WARNING: service_version not set"  # what version was that component?
+    component_name: str  # what component sent the message?
+    service_version: str  # what version was that component?
 
 
 class MessageBase:
@@ -76,6 +76,7 @@ class MessageBase:
         self.topic = MessageBase.app.topic(  # type: ignore
             self.topic_name,
             value_type=self.value_type,
+            key_type=self.value_type,
             retention=self.topic_retention_time_second,
             partitions=self.num_partitions,
             internal=True,
@@ -97,7 +98,6 @@ class MessageBase:
     async def publish_to_topic(self, value):
         """Publish to this messages topic."""
         await self.topic.send(value=value)
-        print("message sent")
 
     def sync_publish_to_topic(self, value):
         """Publish to topic synchronously."""
