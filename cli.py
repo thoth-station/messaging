@@ -28,6 +28,7 @@ from thoth.messaging import ALL_MESSAGES
 from thoth.messaging import message_factory
 from thoth.messaging import MessageBase
 from thoth.common import init_logging
+from thoth.messaging import __version__ as messaging_version
 
 app = MessageBase().app
 init_logging()
@@ -109,6 +110,10 @@ async def messaging(
     # NOTE: we don't need to check based on deployment because it is only prepended after we call __init__
     async for m in all_messages:
         m_contents = m["message_contents"]
+        if "component_name" not in m_contents:
+            m_contents["component_name"] = "messaging-cli"
+        if "service_version" not in m_contents:
+            m_contents["service_version"] = messaging_version
         m_topic_name = m["topic_name"]
         # get or create message type
         for message in ALL_MESSAGES:
