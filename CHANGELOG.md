@@ -229,3 +229,11 @@ all the things that you see...
 
 ## Release 0.6.7 (2020-08-25T11:40:40)
 * Correct typo in import (#221)
+
+## Release 0.7.0 (2020-08-31T16:34:39)
+### Features
+* add default message contents for traceability (#224)
+* Provide service version (#228)
+### Automatic Updates
+* :pushpin: Automatic update of dependency thoth-common from 0.16.1 to 0.17.0 (#227)
+* :pushpin: Automatic update of dependency thoth-common from 0.16.1 to 0.17.0 (#226)
