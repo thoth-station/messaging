@@ -18,8 +18,7 @@
 
 """This is Thoth Messaging module for HashMismatchMessage."""
 
-import faust
-from .message_base import MessageBase
+from .message_base import MessageBase, BaseMessageContents
 from typing import List
 
 
@@ -28,7 +27,7 @@ class HashMismatchMessage(MessageBase):
 
     topic_name = "thoth.package-update.hash-mismatch"
 
-    class MessageContents(faust.Record, serializer="json"):  # type: ignore
+    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent a contents of a missing-package message Kafka topic."""
 
         index_url: str
