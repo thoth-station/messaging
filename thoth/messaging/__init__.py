@@ -44,4 +44,4 @@ __all__ = [msg_cls.__name__ for msg_cls in ALL_MESSAGES] + ["MessageBase", "mess
 
 
 __name__ = "thoth-messaging"
-__version__ = "0.6.7"
+__version__ = "0.7.0"
