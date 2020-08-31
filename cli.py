@@ -28,11 +28,17 @@ from thoth.messaging import ALL_MESSAGES
 from thoth.messaging import message_factory
 from thoth.messaging import MessageBase
 from thoth.common import init_logging
+from thoth.messaging import __version__
+from thoth.common import __version__ as __common__version__
 
 app = MessageBase().app
 init_logging()
 
 _LOGGER = logging.getLogger("thoth.messaging")
+
+__service_version__ = f"{__version__}+common.{__common__version__}"
+
+_LOGGER.info("This is Thoth Messaginig CLI v%s", __service_version__)
 
 
 ## create cli
