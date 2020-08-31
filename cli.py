@@ -27,12 +27,17 @@ from thoth.messaging import ALL_MESSAGES
 from thoth.messaging import message_factory
 from thoth.messaging import MessageBase
 from thoth.common import init_logging
-from thoth.messaging import __version__ as messaging_version
+from thoth.messaging import __version__
+from thoth.common import __version__ as __common__version__
 
 app = MessageBase().app
 init_logging()
 
 _LOGGER = logging.getLogger("thoth.messaging")
+
+__service_version__ = f"{__version__}+common.{__common__version__}"
+
+_LOGGER.info("This is Thoth Messaging CLI v%s", __service_version__)
 
 
 ## create cli
@@ -118,7 +123,7 @@ async def messaging(
         if "component_name" not in m_contents:
             m_contents["component_name"] = {"value": "messaging-cli", "type": "str"}
         if "service_version" not in m_contents:
-            m_contents["service_version"] = {"value": messaging_version, "type": "str"}
+            m_contents["service_version"] = {"value": __version__, "type": "str"}
         m_topic_name = m["topic_name"]
         # get or create message type
         for message in ALL_MESSAGES:
