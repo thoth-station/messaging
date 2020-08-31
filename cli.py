@@ -148,7 +148,3 @@ async def messaging(
         message = topic.MessageContents(**message_dict)
         await topic.topic.maybe_declare()
         await topic.publish_to_topic(message)
-
-    # loop = asyncio.get_event_loop()
-    # loop.run_until_complete(asyncio.gather(*tasks))
-    # loop.close()
