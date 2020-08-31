@@ -38,7 +38,7 @@ _LOGGER = logging.getLogger("thoth.messaging")
 
 __service_version__ = f"{__version__}+common.{__common__version__}"
 
-_LOGGER.info("This is Thoth Messaginig CLI v%s", __service_version__)
+_LOGGER.info("This is Thoth Messaging CLI v%s", __service_version__)
 
 
 ## create cli
