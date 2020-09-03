@@ -17,7 +17,6 @@
 
 """Messaging CLI to send single message to Kafka using Faust."""
 
-import asyncio
 import json
 from typing import Optional
 import logging
@@ -28,23 +27,35 @@ from thoth.messaging import ALL_MESSAGES
 from thoth.messaging import message_factory
 from thoth.messaging import MessageBase
 from thoth.common import init_logging
+from thoth.messaging import __version__
+from thoth.common import __version__ as __common__version__
 
 app = MessageBase().app
 init_logging()
 
 _LOGGER = logging.getLogger("thoth.messaging")
 
+__service_version__ = f"{__version__}+common.{__common__version__}"
+
+_LOGGER.info("This is Thoth Messaging CLI v%s", __service_version__)
+
 
 ## create cli
 @app.command(
     cli.option(
-        "--topic-name", "-n", envvar="THOTH_MESSAGING_TOPIC_NAME", type=str, help="Name of topic to send message to.",
+        "--topic-name",
+        "-n",
+        envvar="THOTH_MESSAGING_TOPIC_NAME",
+        type=str,
+        help="Name of topic to send message to.",
+        required=False,
     ),
     cli.option(
         "--create-if-not-exist",
         envvar="THOTH_MESSAGING_CREATE_IF_NOT_EXIST",
         default=False,
         help="If topic doesn't already exist on Kafka then create it.",
+        flag_value=True,
     ),
     cli.option(
         "--message-contents",
@@ -52,6 +63,7 @@ _LOGGER = logging.getLogger("thoth.messaging")
         envvar="THOTH_MESSAGING_MESSAGE_CONTENTS",
         type=str,
         help="JSON representation of message to send including typing hints.",
+        required=False,
     ),  # {<name>: {"type":, "value":},...}
     cli.option(
         "--partitions",
@@ -78,6 +90,7 @@ _LOGGER = logging.getLogger("thoth.messaging")
         "--message-file",  # if present topic_name and message_contents will be ignored
         envvar="THOTH_MESSAGING_FROM_FILE",
         type=str,  # file path to file in json format [{"topic_name": <str>, "message_contents": <dict>}, ...]
+        required=False,
     ),
 )
 async def messaging(
@@ -104,11 +117,13 @@ async def messaging(
         temp_message["topic_name"] = topic_name
         all_messages = [temp_message]
 
-    tasks = []
-
     # NOTE: we don't need to check based on deployment because it is only prepended after we call __init__
-    async for m in all_messages:
+    for m in all_messages:
         m_contents = m["message_contents"]
+        if "component_name" not in m_contents:
+            m_contents["component_name"] = {"value": "messaging-cli", "type": "str"}
+        if "service_version" not in m_contents:
+            m_contents["service_version"] = {"value": __version__, "type": "str"}
         m_topic_name = m["topic_name"]
         # get or create message type
         for message in ALL_MESSAGES:
@@ -129,12 +144,7 @@ async def messaging(
                 num_partitions=partitions,
                 topic_retention_time_second=topic_retention_time,
             )()
-
         message_dict = {i: m_contents[i]["value"] for i in m_contents}
         message = topic.MessageContents(**message_dict)
         await topic.topic.maybe_declare()
-        tasks.append(topic.publish_to_topic(message))
-
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(asyncio.gather(*tasks))
-    loop.close()
+        await topic.publish_to_topic(message)

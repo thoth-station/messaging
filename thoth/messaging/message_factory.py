@@ -18,15 +18,13 @@
 
 """This is Thoth Messaging module for message_factory."""
 
-import faust
-
 from typing import Tuple
 from typing import Dict  # noqa
 from typing import List  # noqa
 from typing import Set  # noqa
 from keyword import iskeyword
 
-from .message_base import MessageBase
+from .message_base import MessageBase, BaseMessageContents
 
 TYPE_SET = {
     "str",
@@ -64,7 +62,7 @@ def message_factory(
 
         topic_name = t_name
 
-        class MessageContents(faust.Record, serializer="json"):  # type: ignore
+        class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
             """Class used to represent a contents of a faust message Kafka topic."""
 
             for item in message_contents:

@@ -18,6 +18,7 @@
 """This is Thoth Messaging module."""
 
 from .message_base import MessageBase
+from .message_base import BaseMessageContents
 from .hash_mismatch import HashMismatchMessage
 from .missing_package import MissingPackageMessage
 from .missing_version import MissingVersionMessage
@@ -49,8 +50,8 @@ ALL_MESSAGES = [
     ScheduleThamosMessage,
 ]
 
-__all__ = [msg_cls.__name__ for msg_cls in ALL_MESSAGES] + ["MessageBase", "message_factory"]
+__all__ = [msg_cls.__name__ for msg_cls in ALL_MESSAGES] + ["MessageBase", "message_factory", "BaseMessageContents"]
 
 
 __name__ = "thoth-messaging"
-__version__ = "0.6.7"
+__version__ = "0.7.0"

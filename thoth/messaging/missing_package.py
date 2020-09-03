@@ -18,8 +18,7 @@
 
 """This is Thoth Messaging module for MissingPackageMessage."""
 
-from .message_base import MessageBase
-import faust
+from .message_base import MessageBase, BaseMessageContents
 
 
 class MissingPackageMessage(MessageBase):
@@ -27,7 +26,7 @@ class MissingPackageMessage(MessageBase):
 
     topic_name = "thoth.package-update.missing-package"
 
-    class MessageContents(faust.Record, serializer="json"):  # type: ignore
+    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent a contents of a missing-package message Kafka topic."""
 
         index_url: str
