@@ -27,6 +27,11 @@ from .solved_package import SolvedPackageMessage
 from .unresolved_package import UnresolvedPackageMessage
 from .unrevsolved_package import UnrevsolvedPackageMessage
 from .message_factory import message_factory
+from .schedule_adviser import ScheduleAdviserMessage
+from .schedule_kebechet import ScheduleKebechetMessage
+from .schedule_package_extract import SchedulePackageExtract
+from .schedule_provenance_checker import ScheduleProvenanceCheckerMessage
+from .schedule_thamos import ScheduleThamosMessage
 
 ALL_MESSAGES = [
     HashMismatchMessage,
@@ -37,6 +42,11 @@ ALL_MESSAGES = [
     SolvedPackageMessage,
     UnresolvedPackageMessage,
     UnrevsolvedPackageMessage,
+    ScheduleAdviserMessage,
+    ScheduleKebechetMessage,
+    SchedulePackageExtract,
+    ScheduleProvenanceCheckerMessage,
+    ScheduleThamosMessage,
 ]
 
 __all__ = [msg_cls.__name__ for msg_cls in ALL_MESSAGES] + ["MessageBase", "message_factory"]
