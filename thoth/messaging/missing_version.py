@@ -28,7 +28,7 @@ class MissingVersionMessage(MessageBase):
     topic_name = "thoth.package-update.missing-package-version"
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
-        """Class used to represent a contents of a missing-package message Kafka topic."""
+        """Class used to represent a contents of a missing-package version message Kafka topic."""
 
         index_url: str
         package_name: str

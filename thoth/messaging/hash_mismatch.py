@@ -28,7 +28,7 @@ class HashMismatchMessage(MessageBase):
     topic_name = "thoth.package-update.hash-mismatch"
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
-        """Class used to represent a contents of a missing-package message Kafka topic."""
+        """Class used to represent a contents of a hash-mismatch message Kafka topic."""
 
         index_url: str
         package_name: str
