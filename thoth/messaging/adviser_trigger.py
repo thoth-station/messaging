@@ -30,7 +30,7 @@ from .message_base import MessageBase
 _LOGGER = logging.getLogger(__name__)
 
 
-class ScheduleAdviserMessage(MessageBase):
+class AdviserTriggerMessage(MessageBase):
     """Class used for Advise justification events on Kafka topic."""
 
     topic_name = "thoth.schedule-adviser"
@@ -67,7 +67,7 @@ class ScheduleAdviserMessage(MessageBase):
         protocol: str = "SSL",
     ):
         """Initialize advise-justification topic."""
-        super(ScheduleAdviserMessage, self).__init__(
+        super(AdviserTriggerMessage, self).__init__(
             topic_name=self.topic_name,
             value_type=self.MessageContents,
             num_partitions=num_partitions,
