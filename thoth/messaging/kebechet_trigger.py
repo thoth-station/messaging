@@ -19,6 +19,8 @@
 """This is Thoth Messaging module for AdviseJustificationMessage."""
 
 import logging
+from typing import Any
+from typing import Dict
 
 import faust
 
@@ -27,22 +29,15 @@ from .message_base import MessageBase
 _LOGGER = logging.getLogger(__name__)
 
 
-class ScheduleThamosMessage(MessageBase):
+class KebechetTriggerMessage(MessageBase):
     """Class used for Advise justification events on Kafka topic."""
 
-    topic_name = "thoth.schedule-adviser"
+    topic_name = "thoth.schedule-kebechet"
 
     class MessageContents(faust.Record, serializer="json"):  # type: ignore
         """Class used to represent contents of a message Kafka topic."""
 
-        github_event_type: str
-        github_check_run_id: int
-        github_installation_id: int
-        github_base_repo_url: str
-        github_head_repo_url: str
-        origin: str
-        revision: str
-        host: str
+        webhook_payload: Dict[str, Any]
 
     def __init__(
         self,
@@ -55,7 +50,7 @@ class ScheduleThamosMessage(MessageBase):
         protocol: str = "SSL",
     ):
         """Initialize advise-justification topic."""
-        super(ScheduleThamosMessage, self).__init__(
+        super(KebechetTriggerMessage, self).__init__(
             topic_name=self.topic_name,
             value_type=self.MessageContents,
             num_partitions=num_partitions,
