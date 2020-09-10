@@ -31,7 +31,7 @@ class AdviseJustificationMessage(MessageBase):
     topic_name = "thoth.advise-reporter.advise-justification"
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
-        """Class used to represent contents of a message Kafka topic."""
+        """Class used to represent contents of advise justification message Kafka topic."""
 
         message: str
         justification_type: str

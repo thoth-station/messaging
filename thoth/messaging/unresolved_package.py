@@ -32,7 +32,7 @@ class UnresolvedPackageMessage(MessageBase):
     topic_name = "thoth.investigator.unresolved-package"
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
-        """Class used to represent contents of a message Kafka topic."""
+        """Class used to represent contents of a unresolved package message Kafka topic."""
 
         package_name: str
         package_version: Optional[str]
