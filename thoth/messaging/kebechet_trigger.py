@@ -21,6 +21,7 @@
 import logging
 from typing import Any
 from typing import Dict
+from typing import Optional
 
 import faust
 
@@ -38,6 +39,7 @@ class KebechetTriggerMessage(MessageBase):
         """Class used to represent contents of a message Kafka topic."""
 
         webhook_payload: Dict[str, Any]
+        job_id: Optional[str] = None
 
     def __init__(
         self,

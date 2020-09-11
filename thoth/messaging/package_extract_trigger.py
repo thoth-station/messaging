@@ -39,12 +39,12 @@ class PackageExtractTriggerMessage(MessageBase):
         image: str
         environment_type: str
         is_external: bool = True
-        origin: Optional[str] = None
-        registry_user: Optional[str] = None
-        registry_password: Optional[str] = None
         verify_tls: bool = True
         debug: bool = False
         job_id: Optional[str] = None
+        origin: Optional[str] = None
+        registry_user: Optional[str] = None
+        registry_password: Optional[str] = None
 
     def __init__(
         self,

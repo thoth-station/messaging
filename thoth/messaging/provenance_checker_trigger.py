@@ -40,9 +40,9 @@ class ProvenanceCheckerTriggerMessage(MessageBase):
         """Class used to represent contents of a message Kafka topic."""
 
         application_stack: Dict[Any, Any]
+        debug: bool = False
         origin: Optional[str] = None
         whitelisted_sources: Optional[List[str]] = None
-        debug: bool = False
         job_id: Optional[str] = None
 
     def __init__(

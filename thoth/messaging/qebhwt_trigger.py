@@ -19,6 +19,7 @@
 """This is Thoth Messaging module for AdviseJustificationMessage."""
 
 import logging
+from typing import Optional
 
 import faust
 
@@ -43,6 +44,7 @@ class QebHwtTriggerMessage(MessageBase):
         origin: str
         revision: str
         host: str
+        job_id: Optional[str] = None
 
     def __init__(
         self,

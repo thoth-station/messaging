@@ -40,13 +40,13 @@ class AdviserTriggerMessage(MessageBase):
 
         application_stack: Dict[Any, Any]
         recommendation_type: str
+        dev: bool = False
+        debug: bool = False
         count: Optional[int] = None
         limit: Optional[int] = None
         runtime_environment: Optional[Dict[Any, Any]] = None
         library_usage: Optional[Dict[Any, Any]] = None
         origin: Optional[str] = None
-        dev: bool = False
-        debug: bool = False
         job_id: Optional[str] = None
         limit_latest_versions: Optional[int] = None
         github_event_type: Optional[str] = None
