@@ -19,35 +19,36 @@
 
 from .message_base import MessageBase
 from .message_base import BaseMessageContents
+from .message_factory import message_factory
+
+from .advise_justification import AdviseJustificationMessage
+from .adviser_trigger import AdviserTriggerMessage
 from .hash_mismatch import HashMismatchMessage
+from .kebechet_trigger import KebechetTriggerMessage
 from .missing_package import MissingPackageMessage
 from .missing_version import MissingVersionMessage
+from .package_extract_trigger import PackageExtractTriggerMessage
 from .package_releases import PackageReleaseMessage
-from .advise_justification import AdviseJustificationMessage
+from .provenance_checker_trigger import ProvenanceCheckerTriggerMessage
+from .qebhwt_trigger import QebHwtTriggerMessage
 from .solved_package import SolvedPackageMessage
 from .unresolved_package import UnresolvedPackageMessage
 from .unrevsolved_package import UnrevsolvedPackageMessage
-from .message_factory import message_factory
-from .adviser_trigger import AdviserTriggerMessage
-from .kebechet_trigger import KebechetTriggerMessage
-from .package_extract_trigger import PackageExtractTriggerMessage
-from .provenance_checker_trigger import ProvenanceCheckerTriggerMessage
-from .thamos_trigger import ThamosTriggerMessage
 
 ALL_MESSAGES = [
-    HashMismatchMessage,
     AdviseJustificationMessage,
+    AdviserTriggerMessage,
+    HashMismatchMessage,
+    KebechetTriggerMessage,
     MissingVersionMessage,
     MissingPackageMessage,
+    PackageExtractTriggerMessage,
     PackageReleaseMessage,
+    ProvenanceCheckerTriggerMessage,
+    QebHwtTriggerMessage,
     SolvedPackageMessage,
     UnresolvedPackageMessage,
     UnrevsolvedPackageMessage,
-    AdviserTriggerMessage,
-    KebechetTriggerMessage,
-    PackageExtractTriggerMessage,
-    ProvenanceCheckerTriggerMessage,
-    ThamosTriggerMessage,
 ]
 
 __all__ = [msg_cls.__name__ for msg_cls in ALL_MESSAGES] + ["MessageBase", "message_factory", "BaseMessageContents"]
