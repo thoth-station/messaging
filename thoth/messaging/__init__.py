@@ -27,6 +27,7 @@ from .advise_justification import AdviseJustificationMessage
 from .solved_package import SolvedPackageMessage
 from .unresolved_package import UnresolvedPackageMessage
 from .unrevsolved_package import UnrevsolvedPackageMessage
+from .si_unanalyzed_package import SIUnanalyzedPackageMessage
 from .message_factory import message_factory
 
 ALL_MESSAGES = [
