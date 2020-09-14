@@ -16,7 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""This is Thoth Messaging module for AdviseJustificationMessage."""
+"""This is Thoth Messaging module for PackageExtractTriggerMessage."""
 
 import logging
 from typing import Optional
@@ -27,9 +27,9 @@ _LOGGER = logging.getLogger(__name__)
 
 
 class PackageExtractTriggerMessage(MessageBase):
-    """Class used for Advise justification events on Kafka topic."""
+    """Class used for Package Extract events on Kafka topic."""
 
-    topic_name = "thoth.schedule-package-extract"
+    topic_name = "thoth.package-extract-trigger"
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent contents of a message Kafka topic."""

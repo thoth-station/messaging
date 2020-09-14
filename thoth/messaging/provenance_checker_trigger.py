@@ -16,7 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""This is Thoth Messaging module for AdviseJustificationMessage."""
+"""This is Thoth Messaging module for ProvenanceCheckerTriggerMessage."""
 
 import logging
 from typing import Any
@@ -30,9 +30,9 @@ _LOGGER = logging.getLogger(__name__)
 
 
 class ProvenanceCheckerTriggerMessage(MessageBase):
-    """Class used for Advise justification events on Kafka topic."""
+    """Class used for Provenance Checker events on Kafka topic."""
 
-    topic_name = "thoth.schedule-adviser"
+    topic_name = "thoth.provenance-checker-trigger"
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent contents of a message Kafka topic."""
