@@ -23,16 +23,16 @@ Development and Testing
 For development and testing it is very useful to have a local instance of Kafka running on your machine
 
 We provide a docker-compose file to get you up and running quickly with a basic Kafka server; this file is based on
-`Single Zookeeper/Multiple Kafka<https://github.com/simplesteph/kafka-stack-docker-compose#single-zookeeper--multiple-kafka`.
+`Single Zookeeper/Multiple Kafka <https://github.com/simplesteph/kafka-stack-docker-compose#single-zookeeper--multiple-kafka>`__.
 
 In order to start Zookeeper as well as the Kafka Servers simply run `$ podman-compose up` or `$ docker-compose up`,
 choose the appropriate option based on the system which you are using.
 
 Once you have Kafka up and running you should be ready to begin coding your own messaging producers and consumers.  The
-interface between `Kafka` and `Python` is handled by a library called `Faust<https://faust.readthedocs.io/en/latest/>_`.
+interface between `Kafka` and `Python` is handled by a library called `Faust <https://faust.readthedocs.io/en/latest/>`__.
 Faust's documentation will be extremely helpful to you when you are developing your own applications. If you would like
-examples of producers and consumers from Team Thoth, look at the following two repositories, `investigator
-<https://github.com/thoth-station/investigator>_` and `package-update<https://github.com/thoth-station/package-update-job>_`.
+examples of producers and consumers from Team Thoth, look at the following two repositories,
+`investigator <https://github.com/thoth-station/investigator>`__ and `package-update <https://github.com/thoth-station/package-update-job>`__.
 
 You may find it useful to use console producers and consumers while testing your, to create one simply attach a bash shell
 to one of your Kafka Servers by running: `$ podman exec -it messaging_kafka1_1 bash`, your container names should be

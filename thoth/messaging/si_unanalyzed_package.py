@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # thoth-messaging
-# Copyright(C) 2020 Kevin Postlethwait
+# Copyright(C) 2020 Sai Sankar Gochhayat
 #
 # This program is free software: you can redistribute it and / or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,26 +15,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+"""This is Thoth Messaging module for SIUnanalyzedPackageMessage."""
 
-"""This is Thoth Messaging module for HashMismatchMessage."""
+import logging
 
 from .message_base import MessageBase, BaseMessageContents
-from typing import List
+
+_LOGGER = logging.getLogger(__name__)
 
 
-class HashMismatchMessage(MessageBase):
-    """Class used for Package Release events on Kafka topic."""
+class SIUnanalyzedPackageMessage(MessageBase):
+    """Class used by Producer events on Kafka topic on packages not analyzed by SI."""
 
-    topic_name = "thoth.package-update.hash-mismatch"
+    topic_name = "thoth.investigator.si-unanalyzed-package"
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
-        """Class used to represent a contents of a hash-mismatch message Kafka topic."""
+        """Class used to represent contents of a SI unanalyzed package message Kafka topic."""
 
-        index_url: str
         package_name: str
         package_version: str
-        missing_from_source: List[str]
-        missing_from_database: List[str]
+        index_url: str
 
     def __init__(
         self,
@@ -46,8 +46,8 @@ class HashMismatchMessage(MessageBase):
         topic_retention_time_second: int = 60 * 60 * 24 * 45,
         protocol: str = "SSL",
     ):
-        """Initialize hash mismatch topic."""
-        super(HashMismatchMessage, self).__init__(
+        """Initialize si-unanalyzed-package topic."""
+        super(SIUnanalyzedPackageMessage, self).__init__(
             topic_name=self.topic_name,
             value_type=self.MessageContents,
             num_partitions=num_partitions,

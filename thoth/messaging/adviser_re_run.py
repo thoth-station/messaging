@@ -33,7 +33,7 @@ class AdviserReRunMessage(MessageBase):
     topic_name = "thoth.investigator.adviser-re-run"
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
-        """Class used to represent contents of a message Kafka topic."""
+        """Class used to represent contents of adviser re run message Kafka topic."""
 
         re_run_adviser_id: str
 

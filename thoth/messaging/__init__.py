@@ -34,6 +34,7 @@ from .qebhwt_trigger import QebHwtTriggerMessage
 from .solved_package import SolvedPackageMessage
 from .unresolved_package import UnresolvedPackageMessage
 from .unrevsolved_package import UnrevsolvedPackageMessage
+from .si_unanalyzed_package import SIUnanalyzedPackageMessage
 
 ALL_MESSAGES = [
     AdviseJustificationMessage,
@@ -46,6 +47,7 @@ ALL_MESSAGES = [
     PackageReleaseMessage,
     ProvenanceCheckerTriggerMessage,
     QebHwtTriggerMessage,
+    SIUnanalyzedPackageMessage,
     SolvedPackageMessage,
     UnresolvedPackageMessage,
     UnrevsolvedPackageMessage,

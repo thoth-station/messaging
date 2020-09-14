@@ -31,7 +31,7 @@ class SolvedPackageMessage(MessageBase):
     topic_name = "thoth.solver.solved-package"
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
-        """Class used to represent contents of a message Kafka topic."""
+        """Class used to represent contents of a solved package message Kafka topic."""
 
         package_name: str
         package_version: str
