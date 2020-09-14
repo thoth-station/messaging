@@ -23,9 +23,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
-import faust
-
-from .message_base import MessageBase
+from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -35,7 +33,7 @@ class KebechetTriggerMessage(MessageBase):
 
     topic_name = "thoth.schedule-kebechet"
 
-    class MessageContents(faust.Record, serializer="json"):  # type: ignore
+    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent contents of a message Kafka topic."""
 
         webhook_payload: Dict[str, Any]

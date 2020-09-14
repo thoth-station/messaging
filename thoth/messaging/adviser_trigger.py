@@ -23,9 +23,7 @@ from typing import Any
 from typing import Optional
 from typing import Dict
 
-import faust
-
-from .message_base import MessageBase
+from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -35,7 +33,7 @@ class AdviserTriggerMessage(MessageBase):
 
     topic_name = "thoth.schedule-adviser"
 
-    class MessageContents(faust.Record, serializer="json"):  # type: ignore
+    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent contents of a message Kafka topic."""
 
         application_stack: Dict[Any, Any]

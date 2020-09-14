@@ -21,9 +21,7 @@
 import logging
 from typing import Optional
 
-import faust
-
-from .message_base import MessageBase
+from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -33,7 +31,7 @@ class QebHwtTriggerMessage(MessageBase):
 
     topic_name = "thoth.schedule-adviser"
 
-    class MessageContents(faust.Record, serializer="json"):  # type: ignore
+    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent contents of a message Kafka topic."""
 
         github_event_type: str
