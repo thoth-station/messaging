@@ -237,3 +237,16 @@ all the things that you see...
 ### Automatic Updates
 * :pushpin: Automatic update of dependency thoth-common from 0.16.1 to 0.17.0 (#227)
 * :pushpin: Automatic update of dependency thoth-common from 0.16.1 to 0.17.0 (#226)
+
+## Release 0.7.1 (2020-09-14T17:33:34)
+### Features
+* add scheduling messages (#235)
+* Added un analyzed topic (#243)
+* Adjust links in README (#240)
+* Adjust docstrings (#237)
+### Automatic Updates
+* :pushpin: Automatic update of dependency pytest from 6.0.1 to 6.0.2 (#242)
+* :pushpin: Automatic update of dependency thoth-common from 0.18.1 to 0.18.3 (#241)
+* :pushpin: Automatic update of dependency thoth-common from 0.18.0 to 0.18.1 (#239)
+* :pushpin: Automatic update of dependency thoth-common from 0.17.2 to 0.18.0 (#238)
+* :pushpin: Automatic update of dependency thoth-common from 0.17.0 to 0.17.2 (#234)
