@@ -23,7 +23,7 @@ Development and Testing
 For development and testing it is very useful to have a local instance of Kafka running on your machine
 
 We provide a docker-compose file to get you up and running quickly with a basic Kafka server; this file is based on
-`Single-Zookeeper/Multiple-Kafka <https://github.com/simplesteph/kafka-stack-docker-compose#single-zookeeper--multiple-kafka`__.
+`Single Zookeeper/Multiple Kafka <https://github.com/simplesteph/kafka-stack-docker-compose#single-zookeeper--multiple-kafka>`__.
 
 In order to start Zookeeper as well as the Kafka Servers simply run `$ podman-compose up` or `$ docker-compose up`,
 choose the appropriate option based on the system which you are using.
