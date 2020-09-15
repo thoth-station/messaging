@@ -250,3 +250,7 @@ all the things that you see...
 * :pushpin: Automatic update of dependency thoth-common from 0.18.0 to 0.18.1 (#239)
 * :pushpin: Automatic update of dependency thoth-common from 0.17.2 to 0.18.0 (#238)
 * :pushpin: Automatic update of dependency thoth-common from 0.17.0 to 0.17.2 (#234)
+
+## Release 0.7.2 (2020-09-15T08:53:15)
+### Features
+* rename to PackageReleasedMessage (#248)
