@@ -28,7 +28,7 @@ from .kebechet_trigger import KebechetTriggerMessage
 from .missing_package import MissingPackageMessage
 from .missing_version import MissingVersionMessage
 from .package_extract_trigger import PackageExtractTriggerMessage
-from .package_releases import PackageReleaseMessage
+from .package_releases import PackageReleasedMessage
 from .provenance_checker_trigger import ProvenanceCheckerTriggerMessage
 from .qebhwt_trigger import QebHwtTriggerMessage
 from .solved_package import SolvedPackageMessage
@@ -44,7 +44,7 @@ ALL_MESSAGES = [
     MissingVersionMessage,
     MissingPackageMessage,
     PackageExtractTriggerMessage,
-    PackageReleaseMessage,
+    PackageReleasedMessage,
     ProvenanceCheckerTriggerMessage,
     QebHwtTriggerMessage,
     SIUnanalyzedPackageMessage,
