@@ -16,18 +16,18 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""This is Thoth Messaging module for PackageReleaseMessage."""
+"""This is Thoth Messaging module for PackageReleasedMessage."""
 
 from .message_base import MessageBase, BaseMessageContents
 
 
-class PackageReleaseMessage(MessageBase):
+class PackageReleasedMessage(MessageBase):
     """Class used for Package Release events on Kafka topic."""
 
-    topic_name = "thoth.package-release.package-release"
+    topic_name = "thoth.package-release.package-released"
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
-        """Class used to represent contents of a package-release message Kafka topic."""
+        """Class used to represent contents of a package-released message Kafka topic."""
 
         index_url: str
         package_name: str
@@ -44,7 +44,7 @@ class PackageReleaseMessage(MessageBase):
         protocol: str = "SSL",
     ):
         """Initialize package releases topic."""
-        super(PackageReleaseMessage, self).__init__(
+        super(PackageReleasedMessage, self).__init__(
             topic_name=self.topic_name,
             value_type=self.MessageContents,
             num_partitions=num_partitions,
