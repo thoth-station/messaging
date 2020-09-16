@@ -22,6 +22,7 @@ from .message_base import BaseMessageContents
 from .message_factory import message_factory
 
 from .advise_justification import AdviseJustificationMessage
+from .adviser_re_run import AdviserReRunMessage
 from .adviser_trigger import AdviserTriggerMessage
 from .hash_mismatch import HashMismatchMessage
 from .kebechet_trigger import KebechetTriggerMessage
@@ -31,13 +32,14 @@ from .package_extract_trigger import PackageExtractTriggerMessage
 from .package_releases import PackageReleasedMessage
 from .provenance_checker_trigger import ProvenanceCheckerTriggerMessage
 from .qebhwt_trigger import QebHwtTriggerMessage
+from .si_unanalyzed_package import SIUnanalyzedPackageMessage
 from .solved_package import SolvedPackageMessage
 from .unresolved_package import UnresolvedPackageMessage
 from .unrevsolved_package import UnrevsolvedPackageMessage
-from .si_unanalyzed_package import SIUnanalyzedPackageMessage
 
 ALL_MESSAGES = [
     AdviseJustificationMessage,
+    AdviserReRunMessage,
     AdviserTriggerMessage,
     HashMismatchMessage,
     KebechetTriggerMessage,
