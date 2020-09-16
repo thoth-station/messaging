@@ -254,3 +254,11 @@ all the things that you see...
 ## Release 0.7.2 (2020-09-15T08:53:15)
 ### Features
 * rename to PackageReleasedMessage (#248)
+
+## Release 0.7.3 (2020-09-16T16:03:51)
+### Features
+* :rocket: enable messaging packages to be imported (#255)
+### Automatic Updates
+* :pushpin: Automatic update of dependency thoth-common from 0.18.3 to 0.19.0 (#254)
+* :pushpin: Automatic update of dependency thoth-common from 0.18.3 to 0.19.0 (#253)
+* :pushpin: Automatic update of dependency thoth-common from 0.18.3 to 0.19.0 (#252)
