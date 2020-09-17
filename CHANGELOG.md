@@ -266,3 +266,7 @@ all the things that you see...
 ## Release 0.7.4 (2020-09-17T10:42:18)
 ### Non-functional
 * Adjust logic and improve logging (#258)
+
+## Release 0.7.5 (2020-09-17T13:28:09)
+### Features
+* Remove key_type (#262)
