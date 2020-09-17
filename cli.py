@@ -31,7 +31,6 @@ from thoth.messaging import __version__
 from thoth.common import __version__ as __common__version__
 
 app = MessageBase().app
-init_logging()
 
 _LOGGER = logging.getLogger("thoth.messaging")
 
@@ -104,6 +103,7 @@ async def messaging(
     message_file: Optional[str],
 ):
     """Run messaging cli with the given arguments."""
+    init_logging()  # We init logging here so that we don't use faust logging
     if message_file:
         if topic_name or message_contents:
             _LOGGER.warning("Topic name and/or message contents are being ignored due to presence of message file.")
