@@ -76,7 +76,6 @@ class MessageBase:
         self.topic = MessageBase.app.topic(  # type: ignore
             self.topic_name,
             value_type=self.value_type,
-            key_type=self.value_type,
             retention=self.topic_retention_time_second,
             partitions=self.num_partitions,
             internal=True,
