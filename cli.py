@@ -160,3 +160,5 @@ async def messaging(
         message = topic.MessageContents(**message_dict)
         await topic.topic.maybe_declare()
         await topic.publish_to_topic(message)
+
+        _LOGGER.info(f"Sent message {m_topic_name} with content: {message}")
