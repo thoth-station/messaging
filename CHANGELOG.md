@@ -270,3 +270,7 @@ all the things that you see...
 ## Release 0.7.5 (2020-09-17T13:28:09)
 ### Features
 * Remove key_type (#262)
+
+## Release 0.7.6 (2020-09-17T13:54:48)
+### Features
+* move init_logging (#265)
