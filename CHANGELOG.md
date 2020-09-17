@@ -262,3 +262,7 @@ all the things that you see...
 * :pushpin: Automatic update of dependency thoth-common from 0.18.3 to 0.19.0 (#254)
 * :pushpin: Automatic update of dependency thoth-common from 0.18.3 to 0.19.0 (#253)
 * :pushpin: Automatic update of dependency thoth-common from 0.18.3 to 0.19.0 (#252)
+
+## Release 0.7.4 (2020-09-17T10:42:18)
+### Non-functional
+* Adjust logic and improve logging (#258)
