@@ -109,9 +109,11 @@ async def messaging(
             _LOGGER.warning("Topic name and/or message contents are being ignored due to presence of message file.")
         with open(message_file, "r") as m_file:
             all_messages = json.load(m_file)
+
     else:
         if topic_name is None or message_contents is None:
             raise AttributeError("Both topic_name and message_contents must be set when not reading from file.")
+
         temp_message = {}
         temp_message["message_contents"] = json.loads(message_contents)
         temp_message["topic_name"] = topic_name
@@ -125,17 +127,26 @@ async def messaging(
         if "service_version" not in m_contents:
             m_contents["service_version"] = {"value": __version__, "type": "str"}
         m_topic_name = m["topic_name"]
+
         # get or create message type
+        message_found = False
         for message in ALL_MESSAGES:
             if m_topic_name == message.topic_name:
+                _LOGGER.info(f"Found message in registered list: {m_topic_name}")
                 topic = message(
                     num_partitions=partitions,
                     replication_factor=replication,
                     topic_retention_time_second=topic_retention_time,
                 )
-        else:
+                message_found = True
+                break
+
+        if not message_found:
+            _LOGGER.info("Message not in the registered list, creating one...")
+
             if not create_if_not_exist:
                 raise Exception("Topic name does not match messages and message should not be created.")
+
             message_types = [(i, m_contents[i]["type"]) for i in m_contents]
             topic = message_factory(
                 t_name=m_topic_name,
@@ -144,6 +155,7 @@ async def messaging(
                 num_partitions=partitions,
                 topic_retention_time_second=topic_retention_time,
             )()
+
         message_dict = {i: m_contents[i]["value"] for i in m_contents}
         message = topic.MessageContents(**message_dict)
         await topic.topic.maybe_declare()
