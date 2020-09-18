@@ -7,6 +7,12 @@
 - [ ] Yes
 - [ ] No
 
+## Has a Message Class been changed? Version incremented? 
+
+- [ ] Yes
+- [ ] No
+
+
 ## This should yield a new module release
 
 - [ ] Yes
