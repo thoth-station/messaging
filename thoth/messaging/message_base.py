@@ -84,14 +84,23 @@ class MessageBase:
     def start_app(self):
         """Start Faust app."""
         self.ssl_context = None
-
+        db_store = os.getenv("THOTH_MESSAGING_DB_LOCATION", None)
         if self.ssl_auth == 1:
             self.cafile = os.getenv("KAFKA_CAFILE") or "ca.crt"
             self.ssl_context = ssl.create_default_context(purpose=ssl.Purpose.SERVER_AUTH, cafile=self.cafile)
-
-        app = faust.App(
-            self.client_id, broker=self.bootstrap_server, value_serializer="json", ssl_context=self.ssl_context
-        )
+        if db_store is None:
+            app = faust.App(
+                self.client_id, broker=self.bootstrap_server, value_serializer="json", ssl_context=self.ssl_context
+            )
+        else:
+            app = faust.App(
+                self.client_id,
+                broker=self.bootstrap_server,
+                value_serializer="json",
+                ssl_context=self.ssl_context,
+                store="rocksdb://",
+                datadir=db_store,
+            )
         MessageBase.app = app
 
     async def publish_to_topic(self, value):
