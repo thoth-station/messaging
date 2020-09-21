@@ -61,6 +61,7 @@ def message_factory(
         """Class used for any events on Kafka topic."""
 
         topic_name = t_name
+        # we cannot have a message version for message factory so it will just default to v{message_base}.0
 
         class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
             """Class used to represent a contents of a faust message Kafka topic."""

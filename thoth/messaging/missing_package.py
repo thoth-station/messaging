@@ -25,6 +25,7 @@ class MissingPackageMessage(MessageBase):
     """Class used for Package Release events on Kafka topic."""
 
     topic_name = "thoth.package-update.missing-package"
+    _message_version = 1  # update on schema change
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent a contents of a missing-package message Kafka topic."""
@@ -53,4 +54,5 @@ class MissingPackageMessage(MessageBase):
             bootstrap_server=bootstrap_server,
             topic_retention_time_second=topic_retention_time_second,
             protocol=protocol,
+            message_version=self._message_version,
         )
