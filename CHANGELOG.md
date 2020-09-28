@@ -274,3 +274,15 @@ all the things that you see...
 ## Release 0.7.6 (2020-09-17T13:54:48)
 ### Features
 * move init_logging (#265)
+
+## Release 0.7.7 (2020-09-28T20:05:24)
+### Features
+* add new message to update flag (#271)
+* add message for completed inspections (#270)
+* add versions to all messages (#268)
+### Improvements
+* pass directory to store rocksDB (#269)
+### Automatic Updates
+* :pushpin: Automatic update of dependency pytest from 6.0.2 to 6.1.0 (#275)
+* :pushpin: Automatic update of dependency thoth-common from 0.19.0 to 0.20.0 (#274)
+* :pushpin: Automatic update of dependency thoth-common from 0.19.0 to 0.20.0 (#273)
