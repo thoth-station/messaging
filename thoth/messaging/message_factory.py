@@ -20,7 +20,7 @@
 
 from typing import Tuple
 from typing import Dict  # noqa
-from typing import List  # noqa
+from typing import List
 from typing import Set  # noqa
 from keyword import iskeyword
 
@@ -43,7 +43,7 @@ TYPE_SET = {
 
 def message_factory(
     t_name: str,
-    message_contents: Tuple[str, str],
+    message_contents: List[Tuple[str, str]],
     num_partitions: int = 1,
     replication_factor: int = 1,
     client_id: str = "thoth-messaging",
