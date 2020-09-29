@@ -16,19 +16,19 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""This is Thoth Messaging module for IsPackageSIAnalyzableMessage."""
+"""This is Thoth Messaging module for UpdateProvidesSourceDistroMessage."""
 
 from .message_base import MessageBase, BaseMessageContents
 
 
-class IsPackageSIAnalyzableMessage(MessageBase):
-    """Class used for updating python package version database flag."""
+class UpdateProvidesSourceDistroMessage(MessageBase):
+    """Class used for updating python package version provides_source_distro flag."""
 
-    topic_name = "thoth.security-indicator.update-is-si-analyzable"
+    topic_name = "thoth.update-provides-source-distro"
     _message_version = 1  # update on schema change
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
-        """Class used to represent a contents of a update-is-si-analyzable message."""
+        """Class used to represent a contents of a update-provides-source-distro message."""
 
         package_name: str
         package_version: str
@@ -46,7 +46,7 @@ class IsPackageSIAnalyzableMessage(MessageBase):
         protocol: str = "SSL",
     ):
         """Initialize missing package topic."""
-        super(IsPackageSIAnalyzableMessage, self).__init__(
+        super(UpdateProvidesSourceDistroMessage, self).__init__(
             topic_name=self.topic_name,
             value_type=self.MessageContents,
             num_partitions=num_partitions,
