@@ -286,3 +286,7 @@ all the things that you see...
 * :pushpin: Automatic update of dependency pytest from 6.0.2 to 6.1.0 (#275)
 * :pushpin: Automatic update of dependency thoth-common from 0.19.0 to 0.20.0 (#274)
 * :pushpin: Automatic update of dependency thoth-common from 0.19.0 to 0.20.0 (#273)
+
+## Release 0.7.8 (2020-09-29T09:14:53)
+### Features
+* Change message (#278)
