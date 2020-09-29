@@ -16,19 +16,19 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""This is Thoth Messaging module for UpdateIsDownloadableMessage."""
+"""This is Thoth Messaging module for IsPackageSIAnalyzableMessage."""
 
 from .message_base import MessageBase, BaseMessageContents
 
 
-class UpdateIsDownloadableMessage(MessageBase):
+class IsPackageSIAnalyzableMessage(MessageBase):
     """Class used for updating python package version database flag."""
 
-    topic_name = "thoth.security-indicator.update-is-downloadable"
+    topic_name = "thoth.security-indicator.update-is-si-analyzable"
     _message_version = 1  # update on schema change
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
-        """Class used to represent a contents of a update-is-downloadable message."""
+        """Class used to represent a contents of a update-is-si-analyzable message."""
 
         package_name: str
         package_version: str
@@ -46,7 +46,7 @@ class UpdateIsDownloadableMessage(MessageBase):
         protocol: str = "SSL",
     ):
         """Initialize missing package topic."""
-        super(UpdateIsDownloadableMessage, self).__init__(
+        super(IsPackageSIAnalyzableMessage, self).__init__(
             topic_name=self.topic_name,
             value_type=self.MessageContents,
             num_partitions=num_partitions,
