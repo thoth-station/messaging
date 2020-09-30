@@ -290,3 +290,7 @@ all the things that you see...
 ## Release 0.7.8 (2020-09-29T09:14:53)
 ### Features
 * Change message (#278)
+
+## Release 0.7.9 (2020-09-30T20:38:07)
+### Features
+* change name of message (#281)
