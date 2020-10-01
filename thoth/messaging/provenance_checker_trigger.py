@@ -33,7 +33,6 @@ class ProvenanceCheckerTriggerMessage(MessageBase):
     """Class used for Provenance Checker events on Kafka topic."""
 
     topic_name = "thoth.provenance-checker-trigger"
-    _message_version = 1  # update on schema change
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent contents of a message Kafka topic."""
@@ -43,6 +42,7 @@ class ProvenanceCheckerTriggerMessage(MessageBase):
         origin: Optional[str] = None
         whitelisted_sources: Optional[List[str]] = None
         job_id: Optional[str] = None
+        version: int = 1
 
     def __init__(
         self,
@@ -65,5 +65,4 @@ class ProvenanceCheckerTriggerMessage(MessageBase):
             bootstrap_server=bootstrap_server,
             topic_retention_time_second=topic_retention_time_second,
             protocol=protocol,
-            message_version=self._message_version,
         )

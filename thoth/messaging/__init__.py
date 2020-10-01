@@ -54,7 +54,7 @@ ALL_MESSAGES = [
     SolvedPackageMessage,
     UnresolvedPackageMessage,
     UnrevsolvedPackageMessage,
-    UpdateProvidesSourceDistroMessage
+    UpdateProvidesSourceDistroMessage,
 ]
 
 __all__ = [msg_cls.__name__ for msg_cls in ALL_MESSAGES] + ["MessageBase", "message_factory", "BaseMessageContents"]

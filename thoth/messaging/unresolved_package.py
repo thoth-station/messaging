@@ -30,7 +30,6 @@ class UnresolvedPackageMessage(MessageBase):
     """Class used by Investigator producer events on Kafka topic."""
 
     topic_name = "thoth.investigator.unresolved-package"
-    _message_version = 1  # update on schema change
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent contents of a unresolved package message Kafka topic."""
@@ -39,6 +38,7 @@ class UnresolvedPackageMessage(MessageBase):
         package_version: Optional[str]
         index_url: Optional[List[str]]
         solver: Optional[str]
+        version: int = 1
 
     def __init__(
         self,
@@ -61,5 +61,4 @@ class UnresolvedPackageMessage(MessageBase):
             bootstrap_server=bootstrap_server,
             topic_retention_time_second=topic_retention_time_second,
             protocol=protocol,
-            message_version=self._message_version,
         )

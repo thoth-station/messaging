@@ -29,7 +29,6 @@ class AdviseJustificationMessage(MessageBase):
     """Class used for Advise justification events on Kafka topic."""
 
     topic_name = "thoth.advise-reporter.advise-justification"
-    _message_version = 1  # update on schema change
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent contents of advise justification message Kafka topic."""
@@ -37,6 +36,7 @@ class AdviseJustificationMessage(MessageBase):
         message: str
         justification_type: str
         count: int
+        version: int = 1  # update on schema change
 
     def __init__(
         self,
@@ -59,5 +59,4 @@ class AdviseJustificationMessage(MessageBase):
             bootstrap_server=bootstrap_server,
             topic_retention_time_second=topic_retention_time_second,
             protocol=protocol,
-            message_version=self._message_version,
         )

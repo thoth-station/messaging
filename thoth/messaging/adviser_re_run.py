@@ -31,7 +31,6 @@ class AdviserReRunMessage(MessageBase):
     """Class used for Adviser re run events on Kafka topic."""
 
     topic_name = "thoth.investigator.adviser-re-run"
-    _message_version = 1  # update on schema change
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent contents of adviser re run message Kafka topic."""
@@ -49,6 +48,7 @@ class AdviserReRunMessage(MessageBase):
         github_base_repo_url: Optional[str] = None
 
         source_type: Optional[str] = None
+        version: int = 1  # update on schema change
 
     def __init__(
         self,
@@ -71,5 +71,4 @@ class AdviserReRunMessage(MessageBase):
             bootstrap_server=bootstrap_server,
             topic_retention_time_second=topic_retention_time_second,
             protocol=protocol,
-            message_version=self._message_version,
         )

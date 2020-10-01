@@ -63,7 +63,7 @@ class MessageBase:
         self.topic_name = topic_name or "thoth.base-topic"
         if topic_prefix is not None:
             self.topic_name = f"{topic_prefix}.{self.topic_name}"
-        self.topic_name = f"{self.topic_name}.v{self._base_version}.{message_version}"
+        self.version = f"{self._base_version}.{message_version}"
         self.value_type = value_type
         self.num_partitions = num_partitions
         self.replication_factor = replication_factor

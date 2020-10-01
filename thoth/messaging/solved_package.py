@@ -29,7 +29,6 @@ class SolvedPackageMessage(MessageBase):
     """Class used for Solved Package events on Kafka topic."""
 
     topic_name = "thoth.solver.solved-package"
-    _message_version = 1  # update on schema change
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent contents of a solved package message Kafka topic."""
@@ -38,6 +37,7 @@ class SolvedPackageMessage(MessageBase):
         package_version: str
         index_url: str
         solver: str
+        version: int = 1
 
     def __init__(
         self,
@@ -60,5 +60,4 @@ class SolvedPackageMessage(MessageBase):
             bootstrap_server=bootstrap_server,
             topic_retention_time_second=topic_retention_time_second,
             protocol=protocol,
-            message_version=self._message_version,
         )
