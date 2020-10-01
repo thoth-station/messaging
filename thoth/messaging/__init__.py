@@ -36,6 +36,7 @@ from .si_unanalyzed_package import SIUnanalyzedPackageMessage
 from .solved_package import SolvedPackageMessage
 from .unresolved_package import UnresolvedPackageMessage
 from .unrevsolved_package import UnrevsolvedPackageMessage
+from .update_provides_src_distro import UpdateProvidesSourceDistroMessage
 
 ALL_MESSAGES = [
     AdviseJustificationMessage,
@@ -53,6 +54,7 @@ ALL_MESSAGES = [
     SolvedPackageMessage,
     UnresolvedPackageMessage,
     UnrevsolvedPackageMessage,
+    UpdateProvidesSourceDistroMessage
 ]
 
 __all__ = [msg_cls.__name__ for msg_cls in ALL_MESSAGES] + ["MessageBase", "message_factory", "BaseMessageContents"]
