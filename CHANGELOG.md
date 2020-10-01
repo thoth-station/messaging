@@ -294,3 +294,7 @@ all the things that you see...
 ## Release 0.7.9 (2020-09-30T20:38:07)
 ### Features
 * change name of message (#281)
+
+## Release 0.7.10 (2020-10-01T09:41:36)
+### Features
+* Add missing import in init (#284)
