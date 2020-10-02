@@ -33,7 +33,7 @@ class UpdateProvidesSourceDistroMessage(MessageBase):
         package_name: str
         package_version: str
         index_url: str
-        value: bool
+        is_provided: bool
 
     def __init__(
         self,
