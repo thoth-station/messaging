@@ -38,7 +38,7 @@ class UnresolvedPackageMessage(MessageBase):
         package_version: Optional[str]
         index_url: Optional[List[str]]
         solver: Optional[str]
-        version: int = 1
+        version: str = "v1"
 
     def __init__(
         self,

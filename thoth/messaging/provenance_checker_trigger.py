@@ -42,7 +42,7 @@ class ProvenanceCheckerTriggerMessage(MessageBase):
         origin: Optional[str] = None
         whitelisted_sources: Optional[List[str]] = None
         job_id: Optional[str] = None
-        version: int = 1
+        version: str = "v1"
 
     def __init__(
         self,

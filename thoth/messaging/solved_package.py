@@ -37,7 +37,7 @@ class SolvedPackageMessage(MessageBase):
         package_version: str
         index_url: str
         solver: str
-        version: int = 1
+        version: str = "v1"
 
     def __init__(
         self,

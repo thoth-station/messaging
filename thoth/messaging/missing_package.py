@@ -31,7 +31,7 @@ class MissingPackageMessage(MessageBase):
 
         index_url: str
         package_name: str
-        version: int = 1
+        version: str = "v1"
 
     def __init__(
         self,

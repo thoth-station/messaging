@@ -35,7 +35,7 @@ class HashMismatchMessage(MessageBase):
         package_version: str
         missing_from_source: List[str]
         missing_from_database: List[str]
-        version: int = 1
+        version: str = "v1"
 
     def __init__(
         self,

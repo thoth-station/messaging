@@ -48,7 +48,7 @@ class AdviserReRunMessage(MessageBase):
         github_base_repo_url: Optional[str] = None
 
         source_type: Optional[str] = None
-        version: int = 1  # update on schema change
+        version: str = "v1"
 
     def __init__(
         self,

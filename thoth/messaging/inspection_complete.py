@@ -32,7 +32,7 @@ class InspectionCompletedMessage(MessageBase):
         inspection_id: str
         amun_api_url: str
         deployment_name: str
-        version: int = 1
+        version: str = "v1"
 
     def __init__(
         self,

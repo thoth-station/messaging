@@ -35,7 +35,7 @@ class SIUnanalyzedPackageMessage(MessageBase):
         package_name: str
         package_version: str
         index_url: str
-        version: int = 1
+        version: str = "v1"
 
     def __init__(
         self,

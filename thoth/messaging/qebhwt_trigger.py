@@ -43,7 +43,7 @@ class QebHwtTriggerMessage(MessageBase):
         revision: str
         host: str
         job_id: Optional[str] = None
-        version: int = 1
+        version: str = "v1"
 
     def __init__(
         self,

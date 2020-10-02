@@ -43,7 +43,7 @@ class PackageExtractTriggerMessage(MessageBase):
         origin: Optional[str] = None
         registry_user: Optional[str] = None
         registry_password: Optional[str] = None
-        version: int = 1
+        version: str = "v1"
 
     def __init__(
         self,

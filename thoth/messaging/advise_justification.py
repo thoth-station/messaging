@@ -36,7 +36,7 @@ class AdviseJustificationMessage(MessageBase):
         message: str
         justification_type: str
         count: int
-        version: int = 1  # update on schema change
+        version: str = "v1"
 
     def __init__(
         self,

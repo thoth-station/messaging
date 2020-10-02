@@ -38,7 +38,7 @@ class KebechetTriggerMessage(MessageBase):
 
         webhook_payload: Dict[str, Any]
         job_id: Optional[str] = None
-        version: int = 1
+        version: str = "v1"
 
     def __init__(
         self,
