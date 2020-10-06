@@ -37,6 +37,7 @@ class AdviseJustificationMessage(MessageBase):
         message: str
         justification_type: str
         count: int
+        adviser_version: str
 
     def __init__(
         self,
