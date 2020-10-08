@@ -23,32 +23,29 @@ import os
 import logging
 import ssl
 import asyncio
-
-import faust
-from faust.types.models import ModelArg
+import attr
 from typing import Optional
+
+from confluent_kafka import TopicPartition
 
 _LOGGER = logging.getLogger(__name__)
 
-
-class BaseMessageContents(faust.Record, serializer="json"):  # type: ignore
+@attr.s
+class BaseMessageContents:
     """Default params for message contents."""
 
-    component_name: str  # what component sent the message?
-    service_version: str  # what version was that component?
+    component_name = attr.ib(type=str)  # what component sent the message?
+    service_version = attr.ib(type=str)  # what version was that component?
 
 
 class MessageBase:
     """Class used for Package Release events on Kafka topic."""
 
-    app = None  # type: Optional[faust.App]
-    _base_version = 1  # update on schema change
-
     def __init__(
         self,
         *,
         topic_name: Optional[str] = None,
-        value_type: Optional[ModelArg] = None,
+        value_type: Optional[BaseMessageContents] = None,
         num_partitions: int = 1,
         replication_factor: int = 1,
         client_id: str = "thoth-messaging",
@@ -73,16 +70,9 @@ class MessageBase:
         self.topic_retention_time_second = topic_retention_time_second
         self.protocol = os.getenv("KAFKA_PROTOCOL") or protocol
 
-        if MessageBase.app is None:
-            self.start_app()
+        self.topic = TopicPartition(self.topic_name)
 
-        self.topic = MessageBase.app.topic(  # type: ignore
-            self.topic_name,
-            value_type=self.value_type,
-            retention=self.topic_retention_time_second,
-            partitions=self.num_partitions,
-            internal=True,
-        )
+
 
     def start_app(self):
         """Start Faust app."""

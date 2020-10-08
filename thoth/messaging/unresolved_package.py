@@ -19,6 +19,7 @@
 """This is Thoth Messaging module for UnresolvedPackageMessage."""
 
 import logging
+import attr
 from typing import Optional, List
 
 from .message_base import MessageBase, BaseMessageContents
@@ -32,13 +33,14 @@ class UnresolvedPackageMessage(MessageBase):
     topic_name = "thoth.investigator.unresolved-package"
     _message_version = 1  # update on schema change
 
-    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+    @attr.s
+    class MessageContents(BaseMessageContents):
         """Class used to represent contents of a unresolved package message Kafka topic."""
 
-        package_name: str
-        package_version: Optional[str]
-        index_url: Optional[List[str]]
-        solver: Optional[str]
+        package_name = attr.ib(type=str)
+        package_version = attr.ib(default=None, type=str)
+        index_url = attr.ib(default=None, type=str)
+        solver = attr.ib(default=None, type=str)
 
     def __init__(
         self,
