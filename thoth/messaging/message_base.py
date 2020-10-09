@@ -52,7 +52,6 @@ class MessageBase:
         num_partitions: int = 1,
         replication_factor: int = 1,
         client_id: str = "thoth-messaging",
-        ssl_auth: int = 1,
         bootstrap_server: str = "localhost:9092",
         topic_retention_time_second: int = 60 * 60 * 24 * 45,
         protocol: Optional[str] = None,
@@ -68,7 +67,6 @@ class MessageBase:
         self.num_partitions = num_partitions
         self.replication_factor = replication_factor
         self.client_id = os.getenv("KAFKA_CLIENT_ID") or client_id
-        self.ssl_auth = os.getenv("KAFKA_SSL_AUTH") or ssl_auth
         self.bootstrap_server = os.getenv("KAFKA_BOOTSTRAP_SERVERS") or bootstrap_server
         self.topic_retention_time_second = topic_retention_time_second
         self.protocol = os.getenv("KAFKA_PROTOCOL") or protocol
