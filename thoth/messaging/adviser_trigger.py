@@ -31,10 +31,9 @@ _LOGGER = logging.getLogger(__name__)
 class AdviserTriggerMessage(MessageBase):
     """Class used for Advise events on Kafka topic."""
 
-    topic_name = "thoth.adviser-trigger"
-    _message_version = 1  # update on schema change
+    base_name = "thoth.adviser-trigger"
 
-    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+    class MessageContents(BaseMessageContents):  # type: ignore
         """Class used to represent contents of a message Kafka topic."""
 
         application_stack: Dict[Any, Any]
@@ -54,27 +53,10 @@ class AdviserTriggerMessage(MessageBase):
         github_base_repo_url: Optional[str] = None
         re_run_adviser_id: Optional[str] = None
         source_type: Optional[str] = None
+        version: str = "v1"
 
-    def __init__(
-        self,
-        num_partitions: int = 1,
-        replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        ssl_auth: int = 1,
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: str = "SSL",
-    ):
+    def __init__(self,):
         """Initialize advise-justification topic."""
         super(AdviserTriggerMessage, self).__init__(
-            topic_name=self.topic_name,
-            value_type=self.MessageContents,
-            num_partitions=num_partitions,
-            replication_factor=replication_factor,
-            client_id=client_id,
-            ssl_auth=ssl_auth,
-            bootstrap_server=bootstrap_server,
-            topic_retention_time_second=topic_retention_time_second,
-            protocol=protocol,
-            message_version=self._message_version,
+            base_name=self.base_name, value_type=self.MessageContents,
         )

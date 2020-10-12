@@ -18,41 +18,28 @@
 
 """This is Thoth Messaging module for PackageReleasedMessage."""
 
+from typing import Optional
+import attr
+
 from .message_base import MessageBase, BaseMessageContents
 
 
 class PackageReleasedMessage(MessageBase):
     """Class used for Package Release events on Kafka topic."""
 
-    topic_name = "thoth.package-release.package-released"
-    _message_version = 1  # update on schema change
+    base_name = "thoth.package-release.package-released"
 
-    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+    @attr.s
+    class MessageContents(BaseMessageContents):
         """Class used to represent contents of a package-released message Kafka topic."""
 
-        index_url: str
-        package_name: str
-        package_version: str
+        index_url = attr.ib(type=str)
+        package_name = attr.ib(type=str)
+        package_version = attr.ib(type=str)
+        version = attr.ib(type=str, default="v1", init=False)
 
-    def __init__(
-        self,
-        num_partitions: int = 1,
-        replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        ssl_auth: int = 1,
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: str = "SSL",
-    ):
+    def __init__(self):
         """Initialize package releases topic."""
         super(PackageReleasedMessage, self).__init__(
-            topic_name=self.topic_name,
-            value_type=self.MessageContents,
-            num_partitions=num_partitions,
-            client_id=client_id,
-            ssl_auth=ssl_auth,
-            bootstrap_server=bootstrap_server,
-            topic_retention_time_second=topic_retention_time_second,
-            protocol=protocol,
-            message_version=self._message_version,
+            base_name=self.base_name, value_type=self.MessageContents,
         )

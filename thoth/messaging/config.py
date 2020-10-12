@@ -1,5 +1,8 @@
 import os
 
+# For more configuration options go to https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md
+# and add them to these dictionaries
+
 confluent_config = {
     "bootstrap.servers": ("KAFKA_BOOTSTRAP_SERVERS", str),
     "client.id": ("KAFKA_CLIENT_ID", str),
@@ -17,12 +20,32 @@ confluent_config = {
     "enable.auto.commit": ("KAFKA_CONSUMER_ENABLE_AUTO_COMMIT", bool),
 }
 
+topic_config = {
+    "compression.type": ("KAFKA_TOPIC_PRODUCER_COMPRESSION_TYPE", str),
+    "compression.level": ("KAFKA_TOPIC_PRODUCER_COMPRESSION_LEVEL", int),
+    "enable.auto.commit": ("KAFKA_TOPIC_CONSUMER_ENABLE_AUTO_COMMIT", bool),
+}
+
+
 def kafka_config_from_env():
     config = dict()
-    for k, v in confluent_config:
-        value = os.getenv(v[0], None)
-        if v:
-            if v[1] is bool:
+    for k in confluent_config:
+        value = os.getenv(confluent_config[k][0], None)
+        if value:
+            if confluent_config[k][1] is bool:
                 config[k] = value.title() != "False"
             else:
-                config[k] = v[1](value)
+                config[k] = confluent_config[k][1](value)
+    return config
+
+
+def topic_config_from_env():
+    config = dict()
+    for k in topic_config:
+        value = os.getenv(topic_config[k][0], None)
+        if value:
+            if topic_config[k][1] is bool:
+                config[k] = value.title() != "False"
+            else:
+                config[k] = topic_config[k][1](value)
+    return config

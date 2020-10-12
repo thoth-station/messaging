@@ -18,6 +18,7 @@
 
 """This is Thoth Messaging module for SolvedPackageMessage."""
 
+import attr
 import logging
 
 from .message_base import MessageBase, BaseMessageContents
@@ -28,37 +29,20 @@ _LOGGER = logging.getLogger(__name__)
 class SolvedPackageMessage(MessageBase):
     """Class used for Solved Package events on Kafka topic."""
 
-    topic_name = "thoth.solver.solved-package"
-    _message_version = 1  # update on schema change
+    base_name = "thoth.solver.solved-package"
 
-    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+    @attr.s
+    class MessageContents(BaseMessageContents):
         """Class used to represent contents of a solved package message Kafka topic."""
 
-        package_name: str
-        package_version: str
-        index_url: str
-        solver: str
+        package_name = attr.ib(type=str)
+        package_version = attr.ib(type=str)
+        index_url = attr.ib(type=str)
+        solver = attr.ib(type=str)
+        version = attr.ib(type=str, default="v1", init=False)
 
-    def __init__(
-        self,
-        num_partitions: int = 1,
-        replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        ssl_auth: int = 1,
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: str = "SSL",
-    ):
+    def __init__(self):
         """Initialize solved package topic."""
         super(SolvedPackageMessage, self).__init__(
-            topic_name=self.topic_name,
-            value_type=self.MessageContents,
-            num_partitions=num_partitions,
-            replication_factor=replication_factor,
-            client_id=client_id,
-            ssl_auth=ssl_auth,
-            bootstrap_server=bootstrap_server,
-            topic_retention_time_second=topic_retention_time_second,
-            protocol=protocol,
-            message_version=self._message_version,
+            base_name=self.base_name, value_type=self.MessageContents,
         )

@@ -19,6 +19,7 @@
 """This is Thoth Messaging module for AdviserReRunMessage."""
 
 import logging
+import attr
 
 from typing import Optional, Dict, Any
 
@@ -30,17 +31,17 @@ _LOGGER = logging.getLogger(__name__)
 class AdviserReRunMessage(MessageBase):
     """Class used for Adviser re run events on Kafka topic."""
 
-    topic_name = "thoth.investigator.adviser-re-run"
-    _message_version = 1  # update on schema change
+    base_name = "thoth.investigator.adviser-re-run"
 
-    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+    @attr.s
+    class MessageContents(BaseMessageContents):
         """Class used to represent contents of adviser re run message Kafka topic."""
 
-        re_run_adviser_id: str
+        re_run_adviser_id = attr.ib(type=str)
 
-        application_stack: Dict[Any, Any]
-        recommendation_type: str
-        runtime_environment: Optional[Dict[Any, Any]] = None
+        application_stack = attr.ib(type=Dict[Any, Any])
+        recommendation_type = attr.ib(type=str)
+        runtime_environment = attr.ib(type=Optional[Dict[Any, Any]], default=None)
 
         origin: Optional[str] = None
         github_event_type: Optional[str] = None
@@ -49,27 +50,10 @@ class AdviserReRunMessage(MessageBase):
         github_base_repo_url: Optional[str] = None
 
         source_type: Optional[str] = None
+        version: str = "v1"
 
-    def __init__(
-        self,
-        num_partitions: int = 1,
-        replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        ssl_auth: int = 1,
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: str = "SSL",
-    ):
+    def __init__(self):
         """Initialize adviser-re-run topic."""
         super(AdviserReRunMessage, self).__init__(
-            topic_name=self.topic_name,
-            value_type=self.MessageContents,
-            num_partitions=num_partitions,
-            replication_factor=replication_factor,
-            client_id=client_id,
-            ssl_auth=ssl_auth,
-            bootstrap_server=bootstrap_server,
-            topic_retention_time_second=topic_retention_time_second,
-            protocol=protocol,
-            message_version=self._message_version,
+            base_name=self.base_name, value_type=self.MessageContents,
         )

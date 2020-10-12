@@ -24,35 +24,18 @@ from .message_base import MessageBase, BaseMessageContents
 class InspectionCompletedMessage(MessageBase):
     """Class used to indicate when amun inspections complete."""
 
-    topic_name = "thoth.inspection-completed"
-    _message_version = 1  # update on schema change
+    base_name = "thoth.inspection-completed"
 
-    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+    class MessageContents(BaseMessageContents):
         """Class used to represent contents of a inspection-completed message Kafka topic."""
 
         inspection_id: str
         amun_api_url: str
         deployment_name: str
+        version: str = "v1"
 
-    def __init__(
-        self,
-        num_partitions: int = 1,
-        replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        ssl_auth: int = 1,
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: str = "SSL",
-    ):
+    def __init__(self):
         """Initialize package releases topic."""
         super(InspectionCompletedMessage, self).__init__(
-            topic_name=self.topic_name,
-            value_type=self.MessageContents,
-            num_partitions=num_partitions,
-            client_id=client_id,
-            ssl_auth=ssl_auth,
-            bootstrap_server=bootstrap_server,
-            topic_retention_time_second=topic_retention_time_second,
-            protocol=protocol,
-            message_version=self._message_version,
+            base_name=self.base_name, value_type=self.MessageContents,
         )

@@ -21,14 +21,13 @@
 
 import os
 import logging
-import ssl
-import asyncio
 import attr
 from typing import Optional
 
 from confluent_kafka import TopicPartition
 
 _LOGGER = logging.getLogger(__name__)
+
 
 @attr.s
 class BaseMessageContents:
@@ -42,65 +41,15 @@ class MessageBase:
     """Class used for Package Release events on Kafka topic."""
 
     def __init__(
-        self,
-        *,
-        topic_name: Optional[str] = None,
-        value_type: Optional[BaseMessageContents] = None,
-        num_partitions: int = 1,
-        replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        ssl_auth: int = 1,
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: str = "SSL",
-        message_version: int = 0,
+        self, *, base_name: Optional[str] = None, value_type: Optional[BaseMessageContents] = None,
     ):
         """Create general message."""
-        topic_prefix = os.getenv("THOTH_DEPLOYMENT_NAME", None)
-        self.topic_name = topic_name or "thoth.base-topic"
-        if topic_prefix is not None:
-            self.topic_name = f"{topic_prefix}.{self.topic_name}"
-        self.topic_name = f"{self.topic_name}.v{self._base_version}.{message_version}"
+        self.base_name = base_name or "thoth.base-topic"
         self.value_type = value_type
-        self.num_partitions = num_partitions
-        self.replication_factor = replication_factor
-        self.client_id = os.getenv("KAFKA_CLIENT_ID") or client_id
-        self.ssl_auth = os.getenv("KAFKA_SSL_AUTH") or ssl_auth
-        self.bootstrap_server = os.getenv("KAFKA_BOOTSTRAP_SERVERS") or bootstrap_server
-        self.topic_retention_time_second = topic_retention_time_second
-        self.protocol = os.getenv("KAFKA_PROTOCOL") or protocol
 
-        self.topic = TopicPartition(self.topic_name)
-
-
-
-    def start_app(self):
-        """Start Faust app."""
-        self.ssl_context = None
-        db_store = os.getenv("THOTH_MESSAGING_DB_LOCATION", None)
-        if self.ssl_auth == 1:
-            self.cafile = os.getenv("KAFKA_CAFILE") or "ca.crt"
-            self.ssl_context = ssl.create_default_context(purpose=ssl.Purpose.SERVER_AUTH, cafile=self.cafile)
-        if db_store is None:
-            app = faust.App(
-                self.client_id, broker=self.bootstrap_server, value_serializer="json", ssl_context=self.ssl_context
-            )
-        else:
-            app = faust.App(
-                self.client_id,
-                broker=self.bootstrap_server,
-                value_serializer="json",
-                ssl_context=self.ssl_context,
-                store="rocksdb://",
-                datadir=db_store,
-            )
-        MessageBase.app = app
-
-    async def publish_to_topic(self, value):
-        """Publish to this messages topic."""
-        await self.topic.send(value=value)
-
-    def sync_publish_to_topic(self, value):
-        """Publish to topic synchronously."""
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(self.publish_to_topic(value=value))
+    @property
+    def topic_name(self):
+        prefix = os.getenv("THOTH_DEPLOYMENT_NAME", None)
+        if prefix is not None:
+            return f"{prefix}.{self.base_name}"
+        return self.base_name

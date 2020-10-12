@@ -18,6 +18,7 @@
 
 """This is Thoth Messaging module for message_factory."""
 
+import attr
 from typing import Tuple
 from typing import Dict  # noqa
 from typing import List
@@ -60,17 +61,14 @@ def message_factory(
     class NewMessage(MessageBase):
         """Class used for any events on Kafka topic."""
 
-        topic_name = t_name
+        base_name = t_name
         # we cannot have a message version for message factory so it will just default to v{message_base}.0
 
-        class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+        class MessageContents(BaseMessageContents):
             """Class used to represent a contents of a faust message Kafka topic."""
 
             for item in message_contents:
-                # here we add type annotations such as `test: str` based on message_contents setting annotations
-                # outside the functions resulted in no content to faust messages.
-                # Whatever gets passed MUST be cleaned
-                exec(f"{item[0]}: {item[1]}")
+                exec(f"{item[0]} = attr.ib(type={item[1]})")
 
             def __init__(self, **kwargs):
                 # Go through attributes provided by message contents and if it is passed to __init__ set attribute to
@@ -83,15 +81,7 @@ def message_factory(
         def __init__(self):
             """Initialize arbitrary topic."""
             super(NewMessage, self).__init__(
-                topic_name=self.topic_name,
-                value_type=self.MessageContents,
-                num_partitions=num_partitions,
-                replication_factor=replication_factor,
-                client_id=client_id,
-                ssl_auth=ssl_auth,
-                bootstrap_server=bootstrap_server,
-                topic_retention_time_second=topic_retention_time_second,
-                protocol=protocol,
+                base_name=self.base_name, value_type=self.MessageContents,
             )
 
     return NewMessage
