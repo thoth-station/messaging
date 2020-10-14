@@ -298,3 +298,15 @@ all the things that you see...
 ## Release 0.7.10 (2020-10-01T09:41:36)
 ### Features
 * Add missing import in init (#284)
+
+## Release 0.7.11 (2020-10-06T09:32:25)
+### Features
+* Add adviser version parameter (#290)
+### Automatic Updates
+* :pushpin: Automatic update of dependency pytest from 6.1.0 to 6.1.1 (#292)
+
+## Release 0.7.12 (2020-10-12T06:36:43)
+### Features
+* add option for SASL auth (#295)
+### Automatic Updates
+* :pushpin: Automatic update of dependency thoth-common from 0.20.0 to 0.20.1 (#297)

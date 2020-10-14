@@ -52,10 +52,9 @@ class MessageBase:
         num_partitions: int = 1,
         replication_factor: int = 1,
         client_id: str = "thoth-messaging",
-        ssl_auth: int = 1,
         bootstrap_server: str = "localhost:9092",
         topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: str = "SSL",
+        protocol: Optional[str] = None,
         message_version: int = 0,
     ):
         """Create general message."""
@@ -68,7 +67,6 @@ class MessageBase:
         self.num_partitions = num_partitions
         self.replication_factor = replication_factor
         self.client_id = os.getenv("KAFKA_CLIENT_ID") or client_id
-        self.ssl_auth = os.getenv("KAFKA_SSL_AUTH") or ssl_auth
         self.bootstrap_server = os.getenv("KAFKA_BOOTSTRAP_SERVERS") or bootstrap_server
         self.topic_retention_time_second = topic_retention_time_second
         self.protocol = os.getenv("KAFKA_PROTOCOL") or protocol
@@ -86,21 +84,25 @@ class MessageBase:
 
     def start_app(self):
         """Start Faust app."""
-        self.ssl_context = None
+        self.credentials = None
         db_store = os.getenv("THOTH_MESSAGING_DB_LOCATION", None)
-        if self.ssl_auth == 1:
+        if self.protocol == "SSL":
             self.cafile = os.getenv("KAFKA_CAFILE") or "ca.crt"
-            self.ssl_context = ssl.create_default_context(purpose=ssl.Purpose.SERVER_AUTH, cafile=self.cafile)
+            self.credentials = ssl.create_default_context(purpose=ssl.Purpose.SERVER_AUTH, cafile=self.cafile)
+        elif self.protocol == "SASL":
+            username = os.environ.get("KAFKA_BROKER_USERNAME")
+            password = os.environ.get("KAFKA_BROKER_PASSWORD")
+            self.credentials = faust.SASLCredentials(username=username, password=password)
         if db_store is None:
             app = faust.App(
-                self.client_id, broker=self.bootstrap_server, value_serializer="json", ssl_context=self.ssl_context
+                self.client_id, broker=self.bootstrap_server, value_serializer="json", ssl_context=self.credentials
             )
         else:
             app = faust.App(
                 self.client_id,
                 broker=self.bootstrap_server,
                 value_serializer="json",
-                ssl_context=self.ssl_context,
+                broker_credentials=self.credentials,
                 store="rocksdb://",
                 datadir=db_store,
             )
