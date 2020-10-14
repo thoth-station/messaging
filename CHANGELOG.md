@@ -310,3 +310,8 @@ all the things that you see...
 * add option for SASL auth (#295)
 ### Automatic Updates
 * :pushpin: Automatic update of dependency thoth-common from 0.20.0 to 0.20.1 (#297)
+
+## Release 0.7.13 (2020-10-14T16:33:32)
+### Features
+* Added Kebechet Run Url Message (#303)
+* add version to message contents (#288)
