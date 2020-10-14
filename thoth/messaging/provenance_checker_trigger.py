@@ -53,7 +53,7 @@ class ProvenanceCheckerTriggerMessage(MessageBase):
         topic_retention_time_second: int = 60 * 60 * 24 * 45,
         protocol: Optional[str] = None,
     ):
-        """Initialize advise-justification topic."""
+        """Initialize provenance-checker-trigger topic."""
         super(ProvenanceCheckerTriggerMessage, self).__init__(
             topic_name=self.topic_name,
             value_type=self.MessageContents,

@@ -54,7 +54,7 @@ class PackageExtractTriggerMessage(MessageBase):
         topic_retention_time_second: int = 60 * 60 * 24 * 45,
         protocol: Optional[str] = None,
     ):
-        """Initialize advise-justification topic."""
+        """Initialize package-extract-trigger topic."""
         super(PackageExtractTriggerMessage, self).__init__(
             topic_name=self.topic_name,
             value_type=self.MessageContents,

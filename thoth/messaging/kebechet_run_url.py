@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # thoth-messaging
-# Copyright(C) 2020 Kevin Postlethwait
+# Copyright(C) 2020 Sai Sankar Gochhayat
 #
 # This program is free software: you can redistribute it and / or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,11 +16,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""This is Thoth Messaging module for KebechetTriggerMessage."""
+"""This is Thoth Messaging module for KebechetRunUrlTriggerMessage."""
 
 import logging
-from typing import Any
-from typing import Dict
 from typing import Optional
 
 from .message_base import MessageBase, BaseMessageContents
@@ -28,15 +26,17 @@ from .message_base import MessageBase, BaseMessageContents
 _LOGGER = logging.getLogger(__name__)
 
 
-class KebechetTriggerMessage(MessageBase):
-    """Class used for Kebechet events on Kafka topic."""
+class KebechetRunUrlTriggerMessage(MessageBase):
+    """Class used for Kebechet Run Url events on Kafka topic."""
 
-    topic_name = "thoth.kebechet-trigger"
+    topic_name = "thoth.kebechet-run-url-trigger"
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent contents of a message Kafka topic."""
 
-        webhook_payload: Dict[str, Any]
+        url: Optional[str] = None
+        service_name: Optional[str] = None
+        installation_id: Optional[str] = None
         job_id: Optional[str] = None
         version: str = "v1"
 
@@ -49,8 +49,8 @@ class KebechetTriggerMessage(MessageBase):
         topic_retention_time_second: int = 60 * 60 * 24 * 45,
         protocol: Optional[str] = None,
     ):
-        """Initialize kebechet-trigger topic."""
-        super(KebechetTriggerMessage, self).__init__(
+        """Initialize kebechet-run-url topic."""
+        super(KebechetRunUrlTriggerMessage, self).__init__(
             topic_name=self.topic_name,
             value_type=self.MessageContents,
             num_partitions=num_partitions,
