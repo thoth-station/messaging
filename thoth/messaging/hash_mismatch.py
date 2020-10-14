@@ -26,7 +26,6 @@ class HashMismatchMessage(MessageBase):
     """Class used for Package Release events on Kafka topic."""
 
     topic_name = "thoth.package-update.hash-mismatch"
-    _message_version = 1  # update on schema change
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent a contents of a hash-mismatch message Kafka topic."""
@@ -36,6 +35,7 @@ class HashMismatchMessage(MessageBase):
         package_version: str
         missing_from_source: List[str]
         missing_from_database: List[str]
+        version: str = "v1"
 
     def __init__(
         self,
@@ -56,5 +56,4 @@ class HashMismatchMessage(MessageBase):
             bootstrap_server=bootstrap_server,
             topic_retention_time_second=topic_retention_time_second,
             protocol=protocol,
-            message_version=self._message_version,
         )

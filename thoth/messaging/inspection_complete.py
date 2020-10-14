@@ -27,7 +27,6 @@ class InspectionCompletedMessage(MessageBase):
     """Class used to indicate when amun inspections complete."""
 
     topic_name = "thoth.inspection-completed"
-    _message_version = 1  # update on schema change
 
     class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
         """Class used to represent contents of a inspection-completed message Kafka topic."""
@@ -35,6 +34,7 @@ class InspectionCompletedMessage(MessageBase):
         inspection_id: str
         amun_api_url: str
         deployment_name: str
+        version: str = "v1"
 
     def __init__(
         self,
@@ -54,5 +54,4 @@ class InspectionCompletedMessage(MessageBase):
             bootstrap_server=bootstrap_server,
             topic_retention_time_second=topic_retention_time_second,
             protocol=protocol,
-            message_version=self._message_version,
         )
