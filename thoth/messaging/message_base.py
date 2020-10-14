@@ -24,8 +24,6 @@ import logging
 import attr
 from typing import Optional
 
-from confluent_kafka import TopicPartition
-
 _LOGGER = logging.getLogger(__name__)
 
 
@@ -49,6 +47,7 @@ class MessageBase:
 
     @property
     def topic_name(self):
+        """Generate topic name."""
         prefix = os.getenv("THOTH_DEPLOYMENT_NAME", None)
         if prefix is not None:
             return f"{prefix}.{self.base_name}"

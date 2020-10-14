@@ -1,3 +1,23 @@
+#!/usr/bin/env python3
+# thoth-messaging
+# Copyright(C) 2020 Kevin Postlethwait
+#
+# This program is free software: you can redistribute it and / or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+
+"""Helper functions for generating confluent kafka configuration."""
+
 import os
 
 # For more configuration options go to https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md
@@ -28,6 +48,8 @@ topic_config = {
 
 
 def kafka_config_from_env():
+    """Generate Kafka configuration from environment variables."""
+    # NOTE: if a different config is desired please open an issue
     config = dict()
     for k in confluent_config:
         value = os.getenv(confluent_config[k][0], None)
@@ -40,6 +62,7 @@ def kafka_config_from_env():
 
 
 def topic_config_from_env():
+    """Generate topic config from environment variables."""
     config = dict()
     for k in topic_config:
         value = os.getenv(topic_config[k][0], None)

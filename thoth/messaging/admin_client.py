@@ -19,11 +19,16 @@
 """Helper functions for using confluent kafka admin client with thoth.messaging."""
 
 from typing import Optional, Dict
+import logging
 
 from .config import kafka_config_from_env, topic_config_from_env
 from . import ALL_MESSAGES
+from . import MessageBase
 
 from confluent_kafka.admin import AdminClient, NewTopic
+
+
+_LOGGER = logging.Logger(__name__)
 
 
 def create_admin_client(config: Optional[Dict[str, str]] = None) -> AdminClient:
@@ -44,3 +49,22 @@ def create_all_topics(admin: AdminClient, partitions: int = 1, replication_facto
         admin.create_topics(
             [NewTopic(t_name, partitions, replication_factor=replication_factor, config=topic_config_from_env(),)]
         )
+
+
+def create_topic(admin: AdminClient, message: MessageBase, partitions: int = 1, replication_factor: int = 1):
+    """Create single topic."""
+    # NOTE: we assume `message` is initialized
+    topics = admin.list_topics().topics
+    t_name = message.topic_name
+
+    if t_name in topics:
+        _LOGGER.warn("Topic %s already exists on Kafka cluster.", t_name)
+        return
+
+    admin.create_topics(
+        [
+            NewTopic(
+                message.topic_name, partitions, replication_factor=replication_factor, config=topic_config_from_env(),
+            )
+        ]
+    )

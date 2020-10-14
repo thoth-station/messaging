@@ -18,7 +18,6 @@
 
 """This is Thoth Messaging module for PackageReleasedMessage."""
 
-from typing import Optional
 import attr
 
 from .message_base import MessageBase, BaseMessageContents

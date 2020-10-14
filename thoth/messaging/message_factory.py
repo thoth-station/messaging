@@ -43,15 +43,7 @@ TYPE_SET = {
 
 
 def message_factory(
-    t_name: str,
-    message_contents: List[Tuple[str, str]],
-    num_partitions: int = 1,
-    replication_factor: int = 1,
-    client_id: str = "thoth-messaging",
-    ssl_auth: int = 1,
-    bootstrap_server: str = "localhost:9092",
-    topic_retention_time_second: int = 60 * 60 * 24 * 45,
-    protocol: str = "SSL",
+    b_name: str, message_contents: List[Tuple[str, str]],
 ):
     """Create new message types dynamically."""
     for i in message_contents:
@@ -61,9 +53,10 @@ def message_factory(
     class NewMessage(MessageBase):
         """Class used for any events on Kafka topic."""
 
-        base_name = t_name
+        base_name = b_name
         # we cannot have a message version for message factory so it will just default to v{message_base}.0
 
+        @attr.s
         class MessageContents(BaseMessageContents):
             """Class used to represent a contents of a faust message Kafka topic."""
 

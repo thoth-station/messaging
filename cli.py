@@ -15,22 +15,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Messaging CLI to send single message to Kafka using Faust."""
+"""Messaging CLI to send single message to Kafka using Confluent Kafka."""
 
+import click as cli
 import json
 from typing import Optional
 import logging
 
-from faust import cli
-
 from thoth.messaging import ALL_MESSAGES
 from thoth.messaging import message_factory
-from thoth.messaging import MessageBase
+import thoth.messaging.admin_client as admin_client
+import thoth.messaging.producer as producer
 from thoth.common import init_logging
 from thoth.messaging import __version__
 from thoth.common import __version__ as __common__version__
-
-app = MessageBase().app
 
 _LOGGER = logging.getLogger("thoth.messaging")
 
@@ -38,72 +36,64 @@ __service_version__ = f"{__version__}+common.{__common__version__}"
 
 _LOGGER.info("This is Thoth Messaging CLI v%s", __service_version__)
 
+init_logging()
 
-## create cli
-@app.command(
-    cli.option(
-        "--topic-name",
-        "-n",
-        envvar="THOTH_MESSAGING_TOPIC_NAME",
-        type=str,
-        help="Name of topic to send message to.",
-        required=False,
-    ),
-    cli.option(
-        "--create-if-not-exist",
-        envvar="THOTH_MESSAGING_CREATE_IF_NOT_EXIST",
-        default=False,
-        help="If topic doesn't already exist on Kafka then create it.",
-        flag_value=True,
-    ),
-    cli.option(
-        "--message-contents",
-        "-m",
-        envvar="THOTH_MESSAGING_MESSAGE_CONTENTS",
-        type=str,
-        help="JSON representation of message to send including typing hints.",
-        required=False,
-    ),  # {<name>: {"type":, "value":},...}
-    cli.option(
-        "--partitions",
-        default=1,
-        envvar="THOTH_MESSAGING_PARTITIONS",
-        type=int,
-        help="Number of partitions for this topic.",
-    ),
-    cli.option(
-        "--replication",
-        default=1,
-        envvar="THOTH_MESSAGING_REPLICATION",
-        type=int,
-        help="Replication factor of this topic.",
-    ),
-    cli.option(
-        "--topic-retention-time",
-        default=60 * 60 * 24 * 25,
-        envvar="THOTH_MESSAGING_TOPIC_RETENTION_TIME",
-        type=int,
-        help="How many seconds a message for this topic should persist after being created.",
-    ),
-    cli.option(
-        "--message-file",  # if present topic_name and message_contents will be ignored
-        envvar="THOTH_MESSAGING_FROM_FILE",
-        type=str,  # file path to file in json format [{"topic_name": <str>, "message_contents": <dict>}, ...]
-        required=False,
-    ),
+
+@cli.command()
+@cli.option(
+    "--partitions",
+    default=1,
+    envvar="THOTH_MESSAGING_PARTITIONS",
+    type=int,
+    help="Number of partitions for this topic.",
 )
-async def messaging(
-    ctx,
+@cli.option(
+    "--replication",
+    default=1,
+    envvar="THOTH_MESSAGING_REPLICATION",
+    type=int,
+    help="Replication factor for this topic.",
+)
+@cli.option(
+    "--topic-name",
+    "-n",
+    envvar="THOTH_MESSAGING_TOPIC_NAME",
+    type=str,
+    help="Name of topic to send message to — excluding prefix.",
+    required=False,
+)
+@cli.option(
+    "--create-if-not-exist",
+    envvar="THOTH_MESSAGING_CREATE_IF_NOT_EXIST",
+    default=False,
+    help="If topic doesn't already exist on Kafka then create it.",
+    flag_value=True,
+)
+@cli.option(
+    "--message-contents",
+    "-m",
+    envvar="THOTH_MESSAGING_MESSAGE_CONTENTS",
+    type=str,
+    help="JSON representation of message to send including typing hints.",
+    required=False,
+)  # {<name>: {"type":, "value":},...}
+@cli.option(
+    "--message-file",  # if present topic_name and message_contents will be ignored
+    envvar="THOTH_MESSAGING_FROM_FILE",
+    type=str,  # file path to file in json format [{"topic_name": <str>, "message_contents": <dict>}, ...]
+    required=False,
+)
+def messaging(
+    partitions: int,
+    replication: int,
     topic_name: Optional[str],
     create_if_not_exist: bool,
     message_contents: Optional[str],
-    partitions: int,
-    replication: int,
-    topic_retention_time: int,
     message_file: Optional[str],
 ):
     """Run messaging cli with the given arguments."""
-    init_logging()  # We init logging here so that we don't use faust logging
+    admin = admin_client.create_admin_client()
+    prod = producer.create_producer()
     if message_file:
         if topic_name or message_contents:
             _LOGGER.warning("Topic name and/or message contents are being ignored due to presence of message file.")
@@ -126,39 +116,36 @@ async def messaging(
             m_contents["component_name"] = {"value": "messaging-cli", "type": "str"}
         if "service_version" not in m_contents:
             m_contents["service_version"] = {"value": __version__, "type": "str"}
-        m_topic_name = m["topic_name"]
+        m_base_name = m["topic_name"]
 
         # get or create message type
         message_found = False
         for message in ALL_MESSAGES:
-            if m_topic_name == message.topic_name:
-                _LOGGER.info(f"Found message in registered list: {m_topic_name}")
-                topic = message(
-                    num_partitions=partitions,
-                    replication_factor=replication,
-                    topic_retention_time_second=topic_retention_time,
-                )
+            if m_base_name == message.base_name:
+                _LOGGER.info(f"Found message in registered list: {m_base_name}")
+                topic = message()
                 message_found = True
                 break
 
         if not message_found:
-            _LOGGER.info("Message not in the registered list, creating one...")
+            _LOGGER.info("Message not in the registered list checking topics on Kafka...")
 
-            if not create_if_not_exist:
-                raise Exception("Topic name does not match messages and message should not be created.")
-
+            kafka_topic_list = admin.list_topics().topics
             message_types = [(i, m_contents[i]["type"]) for i in m_contents]
-            topic = message_factory(
-                t_name=m_topic_name,
-                message_contents=message_types,
-                replication_factor=replication,
-                num_partitions=partitions,
-                topic_retention_time_second=topic_retention_time,
-            )()
+            topic = message_factory(b_name=m_base_name, message_contents=message_types,)()
+
+            if topic.topic_name not in kafka_topic_list:
+                if not create_if_not_exist:
+                    raise Exception("Topic name does not match messages and message should not be created.")
+                _LOGGER.info("Creating new topic.")
+                admin_client.create_topic(admin, topic, partitions=partitions, replication_factor=replication)
 
         message_dict = {i: m_contents[i]["value"] for i in m_contents}
         message = topic.MessageContents(**message_dict)
-        await topic.topic.maybe_declare()
-        await topic.publish_to_topic(message)
+        producer.publish_to_topic(prod, topic, message)
 
-        _LOGGER.info(f"Sent message {m_topic_name} with content: {message}")
+        _LOGGER.info(f"Sent message {topic.topic_name} with content: {message_dict}")
+
+
+if __name__ == "__main__":
+    messaging()

@@ -20,7 +20,7 @@
 
 import logging
 import attr
-from typing import Optional, List
+from typing import Optional
 
 from .message_base import MessageBase, BaseMessageContents
 
@@ -37,9 +37,9 @@ class UnresolvedPackageMessage(MessageBase):
         """Class used to represent contents of a unresolved package message Kafka topic."""
 
         package_name = attr.ib(type=str)
-        package_version = attr.ib(default=None, type=str)
-        index_url = attr.ib(default=None, type=str)
-        solver = attr.ib(default=None, type=str)
+        package_version = attr.ib(default=None, type=Optional[str])
+        index_url = attr.ib(default=None, type=Optional[str])
+        solver = attr.ib(default=None, type=Optional[str])
         version = attr.ib(type=str, default=None, init=False)
 
     def __init__(self):
