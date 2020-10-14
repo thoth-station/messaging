@@ -46,7 +46,7 @@ class UpdateProvidesSourceDistroMessage(MessageBase):
         topic_retention_time_second: int = 60 * 60 * 24 * 45,
         protocol: Optional[str] = None,
     ):
-        """Initialize missing package topic."""
+        """Initialize update-provides-source-distro topic."""
         super(UpdateProvidesSourceDistroMessage, self).__init__(
             topic_name=self.topic_name,
             value_type=self.MessageContents,
