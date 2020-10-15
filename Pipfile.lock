@@ -363,11 +363,11 @@
         },
         "thoth-common": {
             "hashes": [
-                "sha256:1c4e439b4c54630ec9b14fff91a8f74d1d97cce8d023276d1baa1b6417fc63dd",
-                "sha256:7b7ac7c34a1b67c394d5082b94d44ea0fc25a6405e058c5968c1ad2f2b0f5a0d"
+                "sha256:5bfaa82427d7ed0657517e1209583284d85e53c960f08ad61e98fa3295538427",
+                "sha256:b6af7d51257bd61586b6cd8bc5323e8b9b5ace4ab1d35ccf1456d4e8474aa835"
             ],
             "index": "pypi",
-            "version": "==0.20.0"
+            "version": "==0.20.1"
         },
         "tzlocal": {
             "hashes": [
@@ -466,8 +466,8 @@
         },
         "isort": {
             "hashes": [
-                "sha256:36f0c6659b9000597e92618d05b72d4181104cf59472b1c6a039e3783f930c95",
-                "sha256:ba040c24d20aa302f78f4747df549573ae1eaf8e1084269199154da9c483f07f"
+                "sha256:2c1d044a96c74367ab12188593d134c596747d97aec43b9cdb12eea83b6889d2",
+                "sha256:3820dd92c3214290cda6351f2ae2cedd5170759bc434af600eaad4f7a82a6ade"
             ],
             "markers": "python_version >= '3.6' and python_version < '4.0'",
             "version": "==5.5.4"

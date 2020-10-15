@@ -54,7 +54,6 @@ def message_factory(
         """Class used for any events on Kafka topic."""
 
         base_name = b_name
-        # we cannot have a message version for message factory so it will just default to v{message_base}.0
 
         @attr.s
         class MessageContents(BaseMessageContents):

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # thoth-messaging
-# Copyright(C) 2020 Kevin Postlethwait
+# Copyright(C) 2020 Sai Sankar Gochhayat
 #
 # This program is free software: you can redistribute it and / or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,29 +16,34 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-"""This is Thoth Messaging module for MissingVersionMessage."""
+"""This is Thoth Messaging module for KebechetRunUrlTriggerMessage."""
 
 import attr
+import logging
+from typing import Optional
 
 from .message_base import MessageBase, BaseMessageContents
 
+_LOGGER = logging.getLogger(__name__)
 
-class MissingVersionMessage(MessageBase):
-    """Class used for Package Release events on Kafka topic."""
 
-    base_name = "thoth.package-update.missing-package-version"
+class KebechetRunUrlTriggerMessage(MessageBase):
+    """Class used for Kebechet Run Url events on Kafka topic."""
+
+    base_name = "thoth.kebechet-run-url-trigger"
 
     @attr.s
     class MessageContents(BaseMessageContents):
-        """Class used to represent a contents of a missing-package version message Kafka topic."""
+        """Class used to represent contents of a message Kafka topic."""
 
-        index_url = attr.ib(type=str)
-        package_name = attr.ib(type=str)
-        package_version = attr.ib(type=str)
+        url = attr.ib(type=Optional[str], default=None)
+        service_name = attr.ib(type=Optional[str], default=None)
+        installation_id = attr.ib(type=Optional[str], default=None)
+        job_id = attr.ib(type=Optional[str], default=None)
         version = attr.ib(type=str, default="v1", init=False)
 
     def __init__(self):
-        """Initialize missing version topic."""
-        super(MissingVersionMessage, self).__init__(
+        """Initialize kebechet-run-url topic."""
+        super(KebechetRunUrlTriggerMessage, self).__init__(
             base_name=self.base_name, value_type=self.MessageContents,
         )

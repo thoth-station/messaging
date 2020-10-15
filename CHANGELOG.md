@@ -304,3 +304,14 @@ all the things that you see...
 * Add adviser version parameter (#290)
 ### Automatic Updates
 * :pushpin: Automatic update of dependency pytest from 6.1.0 to 6.1.1 (#292)
+
+## Release 0.7.12 (2020-10-12T06:36:43)
+### Features
+* add option for SASL auth (#295)
+### Automatic Updates
+* :pushpin: Automatic update of dependency thoth-common from 0.20.0 to 0.20.1 (#297)
+
+## Release 0.7.13 (2020-10-14T16:33:32)
+### Features
+* Added Kebechet Run Url Message (#303)
+* add version to message contents (#288)

@@ -37,12 +37,14 @@ from .solved_package import SolvedPackageMessage
 from .unresolved_package import UnresolvedPackageMessage
 from .unrevsolved_package import UnrevsolvedPackageMessage
 from .update_provides_src_distro import UpdateProvidesSourceDistroMessage
+from .kebechet_run_url import KebechetRunUrlTriggerMessage
 
 ALL_MESSAGES = [
     AdviseJustificationMessage,
     AdviserReRunMessage,
     AdviserTriggerMessage,
     HashMismatchMessage,
+    KebechetRunUrlTriggerMessage,
     KebechetTriggerMessage,
     MissingVersionMessage,
     MissingPackageMessage,
@@ -61,4 +63,4 @@ __all__ = [msg_cls.__name__ for msg_cls in ALL_MESSAGES] + ["MessageBase", "mess
 
 
 __name__ = "thoth-messaging"
-__version__ = "0.7.11"
+__version__ = "0.7.13"

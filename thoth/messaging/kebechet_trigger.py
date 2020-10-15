@@ -18,6 +18,7 @@
 
 """This is Thoth Messaging module for KebechetTriggerMessage."""
 
+import attr
 import logging
 from typing import Any
 from typing import Dict
@@ -33,12 +34,13 @@ class KebechetTriggerMessage(MessageBase):
 
     base_name = "thoth.kebechet-trigger"
 
+    @attr.s
     class MessageContents(BaseMessageContents):
         """Class used to represent contents of a message Kafka topic."""
 
-        webhook_payload: Dict[str, Any]
-        job_id: Optional[str] = None
-        version: str = "v1"
+        webhook_payload = attr.ib(type=Dict[str, Any])
+        job_id = attr.ib(type=Optional[str], default=None)
+        version = attr.ib(type=str, default="v1")
 
     def __init__(self):
         """Initialize advise-justification topic."""

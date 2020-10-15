@@ -31,8 +31,8 @@ from confluent_kafka import Producer
 _LOGGER = logging.getLogger(__name__)
 
 
-def create_producer(config: Optional[Dict[str, Any]] = None):
-    """Create confluent kafka consumer."""
+def create_producer(config: Optional[Dict[str, Any]] = None) -> Producer:
+    """Create confluent kafka producer."""
     if config is not None:
         return Producer(config)
     return Producer(kafka_config_from_env())
@@ -40,7 +40,4 @@ def create_producer(config: Optional[Dict[str, Any]] = None):
 
 def publish_to_topic(producer: Producer, message_type: MessageBase, message_contents: BaseMessageContents):
     """Publish to topic using message contents class."""
-    try:
-        producer.produce(message_type.topic_name, value=dumps(asdict(message_contents)).encode("utf-8"))
-    except Exception as e:
-        print(e)
+    producer.produce(message_type.topic_name, value=dumps(asdict(message_contents)).encode("utf-8"))

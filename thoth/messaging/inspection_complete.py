@@ -18,6 +18,8 @@
 
 """This is Thoth Messaging module for InspectionCompleteMessage."""
 
+import attr
+
 from .message_base import MessageBase, BaseMessageContents
 
 
@@ -26,13 +28,14 @@ class InspectionCompletedMessage(MessageBase):
 
     base_name = "thoth.inspection-completed"
 
+    @attr.s
     class MessageContents(BaseMessageContents):
         """Class used to represent contents of a inspection-completed message Kafka topic."""
 
-        inspection_id: str
-        amun_api_url: str
-        deployment_name: str
-        version: str = "v1"
+        inspection_id = attr.ib(type=str)
+        amun_api_url = attr.ib(type=str)
+        deployment_name = attr.ib(type=str)
+        version = attr.ib(type=str, default="v1", init=False)
 
     def __init__(self):
         """Initialize package releases topic."""

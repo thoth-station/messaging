@@ -18,8 +18,13 @@
 
 """This is Thoth Messaging module for HashMismatchMessage."""
 
-from .message_base import MessageBase, BaseMessageContents
+import attr
+import logging
 from typing import List
+
+from .message_base import MessageBase, BaseMessageContents
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class HashMismatchMessage(MessageBase):
@@ -27,15 +32,16 @@ class HashMismatchMessage(MessageBase):
 
     base_name = "thoth.package-update.hash-mismatch"
 
+    @attr.s
     class MessageContents(BaseMessageContents):
         """Class used to represent a contents of a hash-mismatch message Kafka topic."""
 
-        index_url: str
-        package_name: str
-        package_version: str
-        missing_from_source: List[str]
-        missing_from_database: List[str]
-        version: str = "v1"
+        index_url = attr.ib(type=str)
+        package_name = attr.ib(type=str)
+        package_version = attr.ib(type=str)
+        missing_from_source = attr.ib(type=List[str])
+        missing_from_database = attr.ib(type=List[str])
+        version = attr.ib(type=str, default="v1")
 
     def __init__(self):
         """Initialize hash mismatch topic."""

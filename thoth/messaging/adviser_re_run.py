@@ -43,14 +43,14 @@ class AdviserReRunMessage(MessageBase):
         recommendation_type = attr.ib(type=str)
         runtime_environment = attr.ib(type=Optional[Dict[Any, Any]], default=None)
 
-        origin: Optional[str] = None
-        github_event_type: Optional[str] = None
-        github_check_run_id: Optional[int] = None
-        github_installation_id: Optional[int] = None
-        github_base_repo_url: Optional[str] = None
+        origin = attr.ib(type=Optional[str], default=None)
+        github_event_type = attr.ib(type=Optional[str], default=None)
+        github_check_run_id = attr.ib(type=Optional[int], default=None)
+        github_installation_id = attr.ib(type=Optional[int], default=None)
+        github_base_repo_url = attr.ib(type=Optional[str], default=None)
+        source_type = attr.ib(type=Optional[str], default=None)
 
-        source_type: Optional[str] = None
-        version: str = "v1"
+        version = attr.ib(type=str, default="v1", init=False)
 
     def __init__(self):
         """Initialize adviser-re-run topic."""
