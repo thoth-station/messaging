@@ -17,8 +17,8 @@
 
 """This is Thoth Messaging module for SIUnanalyzedPackageMessage."""
 
+import attr
 import logging
-from typing import Optional
 
 from .message_base import MessageBase, BaseMessageContents
 
@@ -28,33 +28,19 @@ _LOGGER = logging.getLogger(__name__)
 class SIUnanalyzedPackageMessage(MessageBase):
     """Class used by Producer events on Kafka topic on packages not analyzed by SI."""
 
-    topic_name = "thoth.investigator.si-unanalyzed-package"
+    base_name = "thoth.investigator.si-unanalyzed-package"
 
-    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+    @attr.s
+    class MessageContents(BaseMessageContents):
         """Class used to represent contents of a SI unanalyzed package message Kafka topic."""
 
-        package_name: str
-        package_version: str
-        index_url: str
-        version: str = "v1"
+        package_name = attr.ib(type=str)
+        package_version = attr.ib(type=str)
+        index_url = attr.ib(type=str)
+        version = attr.ib(type=str, default="v1", init=False)
 
-    def __init__(
-        self,
-        num_partitions: int = 1,
-        replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: Optional[str] = None,
-    ):
+    def __init__(self):
         """Initialize si-unanalyzed-package topic."""
         super(SIUnanalyzedPackageMessage, self).__init__(
-            topic_name=self.topic_name,
-            value_type=self.MessageContents,
-            num_partitions=num_partitions,
-            replication_factor=replication_factor,
-            client_id=client_id,
-            bootstrap_server=bootstrap_server,
-            topic_retention_time_second=topic_retention_time_second,
-            protocol=protocol,
+            base_name=self.base_name, value_type=self.MessageContents,
         )

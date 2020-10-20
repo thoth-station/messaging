@@ -18,6 +18,7 @@
 
 """This is Thoth Messaging module for KebechetRunUrlTriggerMessage."""
 
+import attr
 import logging
 from typing import Optional
 
@@ -29,34 +30,20 @@ _LOGGER = logging.getLogger(__name__)
 class KebechetRunUrlTriggerMessage(MessageBase):
     """Class used for Kebechet Run Url events on Kafka topic."""
 
-    topic_name = "thoth.kebechet-run-url-trigger"
+    base_name = "thoth.kebechet-run-url-trigger"
 
-    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+    @attr.s
+    class MessageContents(BaseMessageContents):
         """Class used to represent contents of a message Kafka topic."""
 
-        url: Optional[str] = None
-        service_name: Optional[str] = None
-        installation_id: Optional[str] = None
-        job_id: Optional[str] = None
-        version: str = "v1"
+        url = attr.ib(type=Optional[str], default=None)
+        service_name = attr.ib(type=Optional[str], default=None)
+        installation_id = attr.ib(type=Optional[str], default=None)
+        job_id = attr.ib(type=Optional[str], default=None)
+        version = attr.ib(type=str, default="v1", init=False)
 
-    def __init__(
-        self,
-        num_partitions: int = 1,
-        replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: Optional[str] = None,
-    ):
+    def __init__(self):
         """Initialize kebechet-run-url topic."""
         super(KebechetRunUrlTriggerMessage, self).__init__(
-            topic_name=self.topic_name,
-            value_type=self.MessageContents,
-            num_partitions=num_partitions,
-            replication_factor=replication_factor,
-            client_id=client_id,
-            bootstrap_server=bootstrap_server,
-            topic_retention_time_second=topic_retention_time_second,
-            protocol=protocol,
+            base_name=self.base_name, value_type=self.MessageContents,
         )

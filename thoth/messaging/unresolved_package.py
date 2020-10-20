@@ -19,7 +19,8 @@
 """This is Thoth Messaging module for UnresolvedPackageMessage."""
 
 import logging
-from typing import Optional, List
+import attr
+from typing import Optional
 
 from .message_base import MessageBase, BaseMessageContents
 
@@ -29,34 +30,20 @@ _LOGGER = logging.getLogger(__name__)
 class UnresolvedPackageMessage(MessageBase):
     """Class used by Investigator producer events on Kafka topic."""
 
-    topic_name = "thoth.investigator.unresolved-package"
+    base_name = "thoth.investigator.unresolved-package"
 
-    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+    @attr.s
+    class MessageContents(BaseMessageContents):
         """Class used to represent contents of a unresolved package message Kafka topic."""
 
-        package_name: str
-        package_version: Optional[str]
-        index_url: Optional[List[str]]
-        solver: Optional[str]
-        version: str = "v1"
+        package_name = attr.ib(type=str)
+        package_version = attr.ib(default=None, type=Optional[str])
+        index_url = attr.ib(default=None, type=Optional[str])
+        solver = attr.ib(default=None, type=Optional[str])
+        version = attr.ib(type=str, default=None, init=False)
 
-    def __init__(
-        self,
-        num_partitions: int = 1,
-        replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: Optional[str] = None,
-    ):
+    def __init__(self):
         """Initialize unresolved package topic."""
         super(UnresolvedPackageMessage, self).__init__(
-            topic_name=self.topic_name,
-            value_type=self.MessageContents,
-            num_partitions=num_partitions,
-            replication_factor=replication_factor,
-            client_id=client_id,
-            bootstrap_server=bootstrap_server,
-            topic_retention_time_second=topic_retention_time_second,
-            protocol=protocol,
+            base_name=self.base_name, value_type=self.MessageContents,
         )

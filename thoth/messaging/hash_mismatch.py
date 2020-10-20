@@ -18,42 +18,33 @@
 
 """This is Thoth Messaging module for HashMismatchMessage."""
 
+import attr
+import logging
+from typing import List
+
 from .message_base import MessageBase, BaseMessageContents
-from typing import List, Optional
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class HashMismatchMessage(MessageBase):
     """Class used for Package Release events on Kafka topic."""
 
-    topic_name = "thoth.package-update.hash-mismatch"
+    base_name = "thoth.package-update.hash-mismatch"
 
-    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+    @attr.s
+    class MessageContents(BaseMessageContents):
         """Class used to represent a contents of a hash-mismatch message Kafka topic."""
 
-        index_url: str
-        package_name: str
-        package_version: str
-        missing_from_source: List[str]
-        missing_from_database: List[str]
-        version: str = "v1"
+        index_url = attr.ib(type=str)
+        package_name = attr.ib(type=str)
+        package_version = attr.ib(type=str)
+        missing_from_source = attr.ib(type=List[str])
+        missing_from_database = attr.ib(type=List[str])
+        version = attr.ib(type=str, default="v1")
 
-    def __init__(
-        self,
-        num_partitions: int = 1,
-        replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: Optional[str] = None,
-    ):
+    def __init__(self):
         """Initialize hash mismatch topic."""
         super(HashMismatchMessage, self).__init__(
-            topic_name=self.topic_name,
-            value_type=self.MessageContents,
-            num_partitions=num_partitions,
-            replication_factor=replication_factor,
-            client_id=client_id,
-            bootstrap_server=bootstrap_server,
-            topic_retention_time_second=topic_retention_time_second,
-            protocol=protocol,
+            base_name=self.base_name, value_type=self.MessageContents,
         )

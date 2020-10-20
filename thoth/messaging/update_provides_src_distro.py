@@ -18,42 +18,31 @@
 
 """This is Thoth Messaging module for UpdateProvidesSourceDistroMessage."""
 
-from typing import Optional
+import attr
+import logging
 
 from .message_base import MessageBase, BaseMessageContents
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class UpdateProvidesSourceDistroMessage(MessageBase):
     """Class used for updating python package version provides_source_distro flag."""
 
-    topic_name = "thoth.update-provides-source-distro"
+    base_name = "thoth.update-provides-source-distro"
 
-    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+    @attr.s
+    class MessageContents(BaseMessageContents):
         """Class used to represent a contents of a update-provides-source-distro message."""
 
-        package_name: str
-        package_version: str
-        index_url: str
-        value: bool
-        version: str = "v1"
+        package_name = attr.ib(type=str)
+        package_version = attr.ib(type=str)
+        index_url = attr.ib(type=str)
+        value = attr.ib(type=bool)
+        version = attr.ib(type=str, default="v1", init=False)
 
-    def __init__(
-        self,
-        num_partitions: int = 1,
-        replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: Optional[str] = None,
-    ):
-        """Initialize update-provides-source-distro topic."""
+    def __init__(self):
+        """Initialize missing package topic."""
         super(UpdateProvidesSourceDistroMessage, self).__init__(
-            topic_name=self.topic_name,
-            value_type=self.MessageContents,
-            num_partitions=num_partitions,
-            replication_factor=replication_factor,
-            client_id=client_id,
-            bootstrap_server=bootstrap_server,
-            topic_retention_time_second=topic_retention_time_second,
-            protocol=protocol,
+            base_name=self.base_name, value_type=self.MessageContents,
         )

@@ -18,6 +18,7 @@
 
 """This is Thoth Messaging module for ProvenanceCheckerTriggerMessage."""
 
+import attr
 import logging
 from typing import Any
 from typing import Optional
@@ -32,35 +33,21 @@ _LOGGER = logging.getLogger(__name__)
 class ProvenanceCheckerTriggerMessage(MessageBase):
     """Class used for Provenance Checker events on Kafka topic."""
 
-    topic_name = "thoth.provenance-checker-trigger"
+    base_name = "thoth.provenance-checker-trigger"
 
-    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+    @attr.s
+    class MessageContents(BaseMessageContents):
         """Class used to represent contents of a message Kafka topic."""
 
-        application_stack: Dict[Any, Any]
-        debug: bool = False
-        origin: Optional[str] = None
-        whitelisted_sources: Optional[List[str]] = None
-        job_id: Optional[str] = None
-        version: str = "v1"
+        application_stack = attr.ib(type=Dict[Any, Any])
+        debug = attr.ib(type=bool, default=False)
+        origin = attr.ib(type=Optional[str], default=None)
+        whitelisted_sources = attr.ib(type=Optional[List[str]], default=None)
+        job_id = attr.ib(type=Optional[str], default=None)
+        version = attr.ib(type=str, default="v1", init=False)
 
-    def __init__(
-        self,
-        num_partitions: int = 1,
-        replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: Optional[str] = None,
-    ):
-        """Initialize provenance-checker-trigger topic."""
+    def __init__(self):
+        """Initialize advise-justification topic."""
         super(ProvenanceCheckerTriggerMessage, self).__init__(
-            topic_name=self.topic_name,
-            value_type=self.MessageContents,
-            num_partitions=num_partitions,
-            replication_factor=replication_factor,
-            client_id=client_id,
-            bootstrap_server=bootstrap_server,
-            topic_retention_time_second=topic_retention_time_second,
-            protocol=protocol,
+            base_name=self.base_name, value_type=self.MessageContents,
         )

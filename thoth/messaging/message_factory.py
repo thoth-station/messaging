@@ -18,11 +18,11 @@
 
 """This is Thoth Messaging module for message_factory."""
 
+import attr
 from typing import Tuple
 from typing import Dict  # noqa
 from typing import List
 from typing import Set  # noqa
-from typing import Optional
 from keyword import iskeyword
 
 from .message_base import MessageBase, BaseMessageContents
@@ -43,14 +43,7 @@ TYPE_SET = {
 
 
 def message_factory(
-    t_name: str,
-    message_contents: List[Tuple[str, str]],
-    num_partitions: int = 1,
-    replication_factor: int = 1,
-    client_id: str = "thoth-messaging",
-    bootstrap_server: str = "localhost:9092",
-    topic_retention_time_second: int = 60 * 60 * 24 * 45,
-    protocol: Optional[str] = None,
+    b_name: str, message_contents: List[Tuple[str, str]],
 ):
     """Create new message types dynamically."""
     for i in message_contents:
@@ -60,17 +53,14 @@ def message_factory(
     class NewMessage(MessageBase):
         """Class used for any events on Kafka topic."""
 
-        topic_name = t_name
-        # we cannot have a message version for message factory so it will just default to v{message_base}.0
+        base_name = b_name
 
-        class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+        @attr.s
+        class MessageContents(BaseMessageContents):
             """Class used to represent a contents of a faust message Kafka topic."""
 
             for item in message_contents:
-                # here we add type annotations such as `test: str` based on message_contents setting annotations
-                # outside the functions resulted in no content to faust messages.
-                # Whatever gets passed MUST be cleaned
-                exec(f"{item[0]}: {item[1]}")
+                exec(f"{item[0]} = attr.ib(type={item[1]})")
 
             def __init__(self, **kwargs):
                 # Go through attributes provided by message contents and if it is passed to __init__ set attribute to
@@ -83,14 +73,7 @@ def message_factory(
         def __init__(self):
             """Initialize arbitrary topic."""
             super(NewMessage, self).__init__(
-                topic_name=self.topic_name,
-                value_type=self.MessageContents,
-                num_partitions=num_partitions,
-                replication_factor=replication_factor,
-                client_id=client_id,
-                bootstrap_server=bootstrap_server,
-                topic_retention_time_second=topic_retention_time_second,
-                protocol=protocol,
+                base_name=self.base_name, value_type=self.MessageContents,
             )
 
     return NewMessage

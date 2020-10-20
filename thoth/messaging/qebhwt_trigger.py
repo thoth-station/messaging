@@ -18,6 +18,7 @@
 
 """This is Thoth Messaging module for QebHwtTriggerMessage."""
 
+import attr
 import logging
 from typing import Optional
 
@@ -29,39 +30,25 @@ _LOGGER = logging.getLogger(__name__)
 class QebHwtTriggerMessage(MessageBase):
     """Class used for QebHwt events on Kafka topic."""
 
-    topic_name = "thoth.qebhwt-trigger"
+    base_name = "thoth.qebhwt-trigger"
 
-    class MessageContents(BaseMessageContents, serializer="json"):  # type: ignore
+    @attr.s
+    class MessageContents(BaseMessageContents):
         """Class used to represent contents of a message Kafka topic."""
 
-        github_event_type: str
-        github_check_run_id: int
-        github_installation_id: int
-        github_base_repo_url: str
-        github_head_repo_url: str
-        origin: str
-        revision: str
-        host: str
-        job_id: Optional[str] = None
-        version: str = "v1"
+        github_event_type = attr.ib(type=str)
+        github_check_run_id = attr.ib(type=int)
+        github_installation_id = attr.ib(type=int)
+        github_base_repo_url = attr.ib(type=str)
+        github_head_repo_url = attr.ib(type=str)
+        origin = attr.ib(type=str)
+        revision = attr.ib(type=str)
+        host = attr.ib(type=str)
+        job_id = attr.ib(type=Optional[str], default=None)
+        version = attr.ib(type=str, default="v1", init=False)
 
-    def __init__(
-        self,
-        num_partitions: int = 1,
-        replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: Optional[str] = None,
-    ):
-        """Initialize qebhwt-trigger topic."""
+    def __init__(self):
+        """Initialize advise-justification topic."""
         super(QebHwtTriggerMessage, self).__init__(
-            topic_name=self.topic_name,
-            value_type=self.MessageContents,
-            num_partitions=num_partitions,
-            replication_factor=replication_factor,
-            client_id=client_id,
-            bootstrap_server=bootstrap_server,
-            topic_retention_time_second=topic_retention_time_second,
-            protocol=protocol,
+            base_name=self.base_name, value_type=self.MessageContents,
         )

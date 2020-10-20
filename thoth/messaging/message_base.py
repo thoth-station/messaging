@@ -21,98 +21,34 @@
 
 import os
 import logging
-import ssl
-import asyncio
-
-import faust
-from faust.types.models import ModelArg
+import attr
 from typing import Optional
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class BaseMessageContents(faust.Record, serializer="json"):  # type: ignore
+@attr.s
+class BaseMessageContents:
     """Default params for message contents."""
 
-    component_name: str  # what component sent the message?
-    service_version: str  # what version was that component?
+    component_name = attr.ib(type=str)  # what component sent the message?
+    service_version = attr.ib(type=str)  # what version was that component?
 
 
 class MessageBase:
     """Class used for Package Release events on Kafka topic."""
 
-    app = None  # type: Optional[faust.App]
-    _base_version = 1  # update on schema change
-
     def __init__(
-        self,
-        *,
-        topic_name: Optional[str] = None,
-        value_type: Optional[ModelArg] = None,
-        num_partitions: int = 1,
-        replication_factor: int = 1,
-        client_id: str = "thoth-messaging",
-        bootstrap_server: str = "localhost:9092",
-        topic_retention_time_second: int = 60 * 60 * 24 * 45,
-        protocol: Optional[str] = None,
-        message_version: int = 0,
+        self, *, base_name: Optional[str] = None, value_type: Optional[BaseMessageContents] = None,
     ):
         """Create general message."""
-        topic_prefix = os.getenv("THOTH_DEPLOYMENT_NAME", None)
-        self.topic_name = topic_name or "thoth.base-topic"
-        if topic_prefix is not None:
-            self.topic_name = f"{topic_prefix}.{self.topic_name}"
-        self.version = f"{self._base_version}.{message_version}"
+        self.base_name = base_name or "thoth.base-topic"
         self.value_type = value_type
-        self.num_partitions = num_partitions
-        self.replication_factor = replication_factor
-        self.client_id = os.getenv("KAFKA_CLIENT_ID") or client_id
-        self.bootstrap_server = os.getenv("KAFKA_BOOTSTRAP_SERVERS") or bootstrap_server
-        self.topic_retention_time_second = topic_retention_time_second
-        self.protocol = os.getenv("KAFKA_PROTOCOL") or protocol
 
-        if MessageBase.app is None:
-            self.start_app()
-
-        self.topic = MessageBase.app.topic(  # type: ignore
-            self.topic_name,
-            value_type=self.value_type,
-            retention=self.topic_retention_time_second,
-            partitions=self.num_partitions,
-            internal=True,
-        )
-
-    def start_app(self):
-        """Start Faust app."""
-        self.credentials = None
-        db_store = os.getenv("THOTH_MESSAGING_DB_LOCATION", None)
-        if self.protocol == "SSL":
-            self.cafile = os.getenv("KAFKA_CAFILE") or "ca.crt"
-            self.credentials = ssl.create_default_context(purpose=ssl.Purpose.SERVER_AUTH, cafile=self.cafile)
-        elif self.protocol == "SASL":
-            username = os.environ.get("KAFKA_BROKER_USERNAME")
-            password = os.environ.get("KAFKA_BROKER_PASSWORD")
-            self.credentials = faust.SASLCredentials(username=username, password=password)
-        if db_store is None:
-            app = faust.App(
-                self.client_id, broker=self.bootstrap_server, value_serializer="json", ssl_context=self.credentials
-            )
-        else:
-            app = faust.App(
-                self.client_id,
-                broker=self.bootstrap_server,
-                value_serializer="json",
-                broker_credentials=self.credentials,
-                store="rocksdb://",
-                datadir=db_store,
-            )
-        MessageBase.app = app
-
-    async def publish_to_topic(self, value):
-        """Publish to this messages topic."""
-        await self.topic.send(value=value)
-
-    def sync_publish_to_topic(self, value):
-        """Publish to topic synchronously."""
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(self.publish_to_topic(value=value))
+    @property
+    def topic_name(self):
+        """Generate topic name."""
+        prefix = os.getenv("THOTH_DEPLOYMENT_NAME", None)
+        if prefix is not None:
+            return f"{prefix}.{self.base_name}"
+        return self.base_name
