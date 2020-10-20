@@ -29,7 +29,7 @@ In order to start Zookeeper as well as the Kafka Servers simply run `$ podman-co
 choose the appropriate option based on the system which you are using.
 
 Once you have Kafka up and running you should be ready to begin coding your own messaging producers and consumers.  The
-interface between `Kafka` and `Python` is handled by a library called `Faust <https://faust.readthedocs.io/en/latest/>`__.
+interface between `Kafka` and `Python` is handled by a library called `Confluent Kafka <https://docs.confluent.io/current/clients/python.html>`__.
 Faust's documentation will be extremely helpful to you when you are developing your own applications. If you would like
 examples of producers and consumers from Team Thoth, look at the following two repositories,
 `investigator <https://github.com/thoth-station/investigator>`__ and `package-update <https://github.com/thoth-station/package-update-job>`__.
@@ -45,9 +45,13 @@ example:
 $ kafka-console-consumer --bootstrap-server localhost:9092 --topic test --from-beginning
 ```
 
-*Note*
-Data is not persistent. Once pods are deleted so is the data associated with them.
+You can test sending a message via the CLI using a file as - 
+
+example:
+```
+pipenv shell
+python cli.py --message-file messages_to_be_sent.json
+```
 
 *Note*
-Faust producers and consumers can't be run by calling `$ python producer.py`, instead they are Faust specific applications,
-in order to run them you need to call `faust -A <filename> <function> [options]`
+Data is not persistent. Once pods are deleted so is the data associated with them.
