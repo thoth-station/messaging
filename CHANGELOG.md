@@ -315,3 +315,9 @@ all the things that you see...
 ### Features
 * Added Kebechet Run Url Message (#303)
 * add version to message contents (#288)
+
+## Release 0.8.0 (2020-10-20T16:34:20)
+### Features
+* :pushpin: Automatic dependency re-locking (#310)
+* :pushpin: Automatic dependency re-locking (#308)
+* Confluent rework (#300)
