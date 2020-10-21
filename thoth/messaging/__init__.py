@@ -24,7 +24,9 @@ from .message_factory import message_factory
 from .advise_justification import AdviseJustificationMessage
 from .adviser_re_run import AdviserReRunMessage
 from .adviser_trigger import AdviserTriggerMessage
+from .cve_provided import CVEProvidedMessage
 from .hash_mismatch import HashMismatchMessage
+from .kebechet_run_url import KebechetRunUrlTriggerMessage
 from .kebechet_trigger import KebechetTriggerMessage
 from .missing_package import MissingPackageMessage
 from .missing_version import MissingVersionMessage
@@ -37,12 +39,12 @@ from .solved_package import SolvedPackageMessage
 from .unresolved_package import UnresolvedPackageMessage
 from .unrevsolved_package import UnrevsolvedPackageMessage
 from .update_provides_src_distro import UpdateProvidesSourceDistroMessage
-from .kebechet_run_url import KebechetRunUrlTriggerMessage
 
 ALL_MESSAGES = [
     AdviseJustificationMessage,
     AdviserReRunMessage,
     AdviserTriggerMessage,
+    CVEProvidedMessage,
     HashMismatchMessage,
     KebechetRunUrlTriggerMessage,
     KebechetTriggerMessage,
