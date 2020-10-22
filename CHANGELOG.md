@@ -321,3 +321,9 @@ all the things that you see...
 * :pushpin: Automatic dependency re-locking (#310)
 * :pushpin: Automatic dependency re-locking (#308)
 * Confluent rework (#300)
+
+## Release 0.8.1 (2020-10-22T14:50:37)
+### Features
+* add CVEProvidedMessage (#306)
+### Improvements
+* Updated requirements to use confluent instead of faust (#314)
