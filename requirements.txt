@@ -1,1 +1,2 @@
-faust
+confluent-kafka
+thoth-common

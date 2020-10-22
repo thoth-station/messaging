@@ -57,7 +57,7 @@ def message_factory(
 
         @attr.s
         class MessageContents(BaseMessageContents):
-            """Class used to represent a contents of a faust message Kafka topic."""
+            """Class used to represent a contents of a confluent message Kafka topic."""
 
             for item in message_contents:
                 exec(f"{item[0]} = attr.ib(type={item[1]})")
