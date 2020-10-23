@@ -30,6 +30,7 @@ confluent_config = {
     "receive.message.max.bytes": ("KAFKA_RECEIVE_MESSAGE_MAX_BYTES", int),
     "security.protocol": ("KAFKA_SECURITY_PROTOCOL", str),
     "ssl.certificate.location": ("KAFKA_SSL_CERTIFICATE_LOCATION", str),
+    "ssl.ca.location": ("KAFKA_SSL_CA_LOCATION", str),
     "ssl.endpoint.identification.algorithm": ("KAFKA_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM", str),
     "sasl.mechanism": ("KAFKA_SASL_MECHANISM", str),
     "sasl.username": ("KAFKA_SASL_USERNAME", str),

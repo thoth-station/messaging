@@ -41,3 +41,4 @@ def create_producer(config: Optional[Dict[str, Any]] = None) -> Producer:
 def publish_to_topic(producer: Producer, message_type: MessageBase, message_contents: BaseMessageContents):
     """Publish to topic using message contents class."""
     producer.produce(message_type.topic_name, value=dumps(asdict(message_contents)).encode("utf-8"))
+    _LOGGER.debug("Sending the following message to topic %s.\n%s", message_type.topic_name, asdict(message_contents))
