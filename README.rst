@@ -45,7 +45,7 @@ example:
 $ kafka-console-consumer --bootstrap-server localhost:9092 --topic test --from-beginning
 ```
 
-You can test sending a message via the CLI using a file as - 
+You can test sending a message via the CLI using a file as -
 
 example:
 ```
