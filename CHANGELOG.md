@@ -327,3 +327,7 @@ all the things that you see...
 * add CVEProvidedMessage (#306)
 ### Improvements
 * Updated requirements to use confluent instead of faust (#314)
+
+## Release 0.8.2 (2020-10-23T15:44:44)
+### Features
+* pass ca location for ssl alg (#317)
