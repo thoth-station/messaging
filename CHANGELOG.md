@@ -331,3 +331,9 @@ all the things that you see...
 ## Release 0.8.2 (2020-10-23T15:44:44)
 ### Features
 * pass ca location for ssl alg (#317)
+
+## Release 0.9.0 (2020-12-04T13:09:38)
+### Features
+* :ant: installed required click package (#323)
+* :arrow_up: Automatic update of dependencies by kebechet. (#322)
+* bump python version (#321)
