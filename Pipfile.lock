@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3f41315d84a3234f276fd3a47f30a094265768ef1d5270f28a3204393ccb2ba3"
+            "sha256": "e560c061f2303522c0d8f197b9d4d5d381f1fe08e5e0bd3a314e09a7ae6249f8"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -59,6 +59,14 @@
                 "sha256:fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691"
             ],
             "version": "==3.0.4"
+        },
+        "click": {
+            "hashes": [
+                "sha256:d2b5255c7c6349bc1bd1e59e08cd12acbbd63ce649f2588755783aa94dfb6b1a",
+                "sha256:dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc"
+            ],
+            "index": "pypi",
+            "version": "==7.1.2"
         },
         "confluent-kafka": {
             "hashes": [
@@ -374,11 +382,11 @@
         },
         "thoth-common": {
             "hashes": [
-                "sha256:87b211f6c0db17b28cbe69bf6576c05e222c2ee8ed17c1f3025a9263263b234d",
-                "sha256:e1cdd72f2538b691efc116928e5b5882b1ecde4089aad7dbd3fa83d454629a25"
+                "sha256:92600b1b93dc4c15b5270214b1883c93c2c4cb4974fbbb1f41694d91bb752102",
+                "sha256:b39ded11afcefee161dcd66a4e449558209ce3d811a5b0d76caf7ec7e8015ca7"
             ],
             "index": "pypi",
-            "version": "==0.20.5"
+            "version": "==0.20.6"
         },
         "tzlocal": {
             "hashes": [
@@ -457,7 +465,7 @@
                 "sha256:cedb2f9e1f990918ea061f28a0f0077a07702e3819602d3507e2ff98c8d20636",
                 "sha256:e8caf961e1b1a945db76f1b5fa9c91498d15f545ac0ababbe575cfab185d3bd8"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
             "version": "==5.3"
         },
         "iniconfig": {
@@ -472,7 +480,7 @@
                 "sha256:dcab1d98b469a12a1a624ead220584391648790275560e1a43e54c5dceae65e7",
                 "sha256:dcaeec1b5f0eca77faea2a35ab790b4f3680ff75590bfcb7145986905aab2f58"
             ],
-            "markers": "python_version >= '3.6' and python_version < '4'",
+            "markers": "python_version >= '3.6' and python_version < '4.0'",
             "version": "==5.6.4"
         },
         "lazy-object-proxy": {
