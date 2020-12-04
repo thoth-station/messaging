@@ -374,11 +374,11 @@
         },
         "thoth-common": {
             "hashes": [
-                "sha256:87b211f6c0db17b28cbe69bf6576c05e222c2ee8ed17c1f3025a9263263b234d",
-                "sha256:e1cdd72f2538b691efc116928e5b5882b1ecde4089aad7dbd3fa83d454629a25"
+                "sha256:92600b1b93dc4c15b5270214b1883c93c2c4cb4974fbbb1f41694d91bb752102",
+                "sha256:b39ded11afcefee161dcd66a4e449558209ce3d811a5b0d76caf7ec7e8015ca7"
             ],
             "index": "pypi",
-            "version": "==0.20.5"
+            "version": "==0.20.6"
         },
         "tzlocal": {
             "hashes": [
