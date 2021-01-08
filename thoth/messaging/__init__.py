@@ -24,6 +24,7 @@ from .message_factory import message_factory
 from .advise_justification import AdviseJustificationMessage
 from .adviser_re_run import AdviserReRunMessage
 from .adviser_trigger import AdviserTriggerMessage
+from .build_analysis_trigger import BuildAnalysisTriggerMessage
 from .cve_provided import CVEProvidedMessage
 from .hash_mismatch import HashMismatchMessage
 from .kebechet_run_url import KebechetRunUrlTriggerMessage
@@ -44,6 +45,7 @@ ALL_MESSAGES = [
     AdviseJustificationMessage,
     AdviserReRunMessage,
     AdviserTriggerMessage,
+    BuildAnalysisTriggerMessage,
     CVEProvidedMessage,
     HashMismatchMessage,
     KebechetRunUrlTriggerMessage,
