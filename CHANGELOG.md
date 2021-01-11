@@ -337,3 +337,270 @@ all the things that you see...
 * :ant: installed required click package (#323)
 * :arrow_up: Automatic update of dependencies by kebechet. (#322)
 * bump python version (#321)
+
+## Release 0.10.0 (2021-01-11T10:37:33)
+### Features
+* :arrow_up: Automatic update of dependencies by kebechet. (#327)
+* Add buildlog trigger message (#326)
+* Release of version 0.9.0 (#325)
+* :ant: installed required click package (#323)
+* :arrow_up: Automatic update of dependencies by kebechet. (#322)
+* bump python version (#321)
+* Release of version 0.8.2 (#320)
+* pass ca location for ssl alg (#317)
+* Release of version 0.8.1 (#316)
+* add CVEProvidedMessage (#306)
+* Release of version 0.8.0 (#313)
+* :pushpin: Automatic dependency re-locking (#310)
+* :pushpin: Automatic dependency re-locking (#308)
+* Confluent rework (#300)
+* Release of version 0.7.13 (#305)
+* Added Kebechet Run Url Message (#303)
+* add version to message contents (#288)
+* Release of version 0.7.12 (#299)
+* add option for SASL auth (#295)
+* Release of version 0.7.11 (#294)
+* Add adviser version parameter (#290)
+* Release of version 0.7.10 (#286)
+* Add missing import in init (#284)
+* Release of version 0.7.9 (#283)
+* change name of message (#281)
+* Release of version 0.7.8 (#280)
+* Change message (#278)
+* Release of version 0.7.7 (#277)
+* add new message to update flag (#271)
+* add message for completed inspections (#270)
+* add versions to all messages (#268)
+* Release of version 0.7.6 (#267)
+* move init_logging (#265)
+* Release of version 0.7.5 (#264)
+* Remove key_type (#262)
+* Release of version 0.7.4 (#261)
+* Release of version 0.7.3 (#257)
+* :rocket: enable messaging packages to be imported (#255)
+* Release of version 0.7.2 (#251)
+* rename to PackageReleasedMessage (#248)
+* Release of version 0.7.1 (#246)
+* add scheduling messages (#235)
+* Added un analyzed topic (#243)
+* Adjust links in README (#240)
+* Adjust docstrings (#237)
+* Release of version 0.7.0 (#233)
+* add default message contents for traceability (#224)
+* Provide service version (#228)
+* Release of version 0.6.7 (#223)
+* Release of version 0.6.6 (#219)
+* prepend deployment_name if it exists (#217)
+* allow for batch sending of messages (#213)
+* Release of version 0.6.5 (#212)
+* Add parameters to re run adviser (#208)
+* Add new message (#207)
+* Release of version 0.6.4 (#205)
+* Update .thoth.yaml (#202)
+* add dev documentation for thoth-messaging (#200)
+* :truck: allow ci to release the project to pypi (#198)
+* Release of version 0.6.3 (#197)
+* be strict about message contents (#191)
+* wait for topic to be declared before trying to publish (#190)
+* Included typing in message factory (#189)
+* :truck: include aicoe-ci configuration file (#188)
+* Release of version 0.6.2 (#187)
+* Deployment/add script (#185)
+* Release of version 0.6.1 (#184)
+* Add missing PR template (#182)
+* Adjust README (#180)
+* Code quality/add precommit (#175)
+* Add missing import (#181)
+* Add solved message (#178)
+* Add paramter to AdviseJustificaitonMessage (#179)
+* Release of version 0.6.0 (#177)
+* remove create topic, topic is created during __init__ (#174)
+* Release of version 0.5.0 (#173)
+* Add cli for sending a single message to a topic (#170)
+* revert back to v0.4.0
+* Release of version 0.6.0 (#169)
+* Release of version 0.5.0 (#168)
+* Release of version 0.4.0 (#166)
+* Modify class not be initialized during import (#160)
+* Adjust message specs (#162)
+* Release of version 0.3.7 (#159)
+* Add maintainer (#156)
+* Create OWNERS
+* Release of version 0.3.6
+* Adjust typing
+* Use solver
+* Release of version 0.3.5
+* Correct docstring
+* Remove coala-bears
+* Add unresolved package message
+* :pushpin: Automatic dependency re-locking
+* get kafka_client_id from env variable
+* Add env option for disabling SSL
+* add message factory to readme
+* Update info strings
+* coala styling
+* Allow users to using python std lib typing
+* Create simple message factory
+* Release of version 0.3.4
+* Remove index configuration from requirements.txt
+* Release of version 0.3.3
+* List is not needed for advise_justification
+* add advise_justification to init
+* coala styling, missing new line
+* Adjust requirements not to lock sub-dependencies
+* Remove prereleases
+* import typing
+* reorder __init__
+* import faust in messages
+* follow standard naming convention
+* Add messaging to messaging module
+* Release of version 0.3.2
+* updated github templates
+* relocked
+* Release of version 0.3.1
+* relocked
+* relocked
+* Update .thoth.yaml
+* Release of version 0.3.0
+* Happy new year!
+* Release of version 0.2.1
+* Update .zuul.yaml
+* :green_heart: started adding tests
+* :green_heart: added the tests/ directory
+* added a release pipeline job to push to pypi
+* :sparkles: added create_topic, publish_to_topic
+* added the required requirements files
+* note required
+* added an explicite serializer
+* this is the basic set of files, updated ...
+### Bug Fixes
+* :bug: fixes #161
+* oh, left over stuff we dont need was removed
+### Improvements
+* Updated requirements to use confluent instead of faust (#314)
+* pass directory to store rocksDB (#269)
+* Correct typo in import (#221)
+* Added unrevsolved class (#199)
+* extra set of parenthesis removed (#195)
+* :arrow_down: removed the files as they are no longer required
+* revert the release of v0.5.0 and v0.6.0 (#171)
+* Add missing import to use the class (#144)
+* Add advise message and some details in doc strings
+* Remove unnecessary imports
+* :green_heart: removed the pytest jobs from all pipelines
+* :green_heart: remove the writing of test coverage data (for now)
+### Non-functional
+* Adjust logic and improve logging (#258)
+### Other
+* remove coala-bears from requirements-test.txt (#193)
+* remove logging
+### Automatic Updates
+* :pushpin: Automatic update of dependency thoth-common from 0.20.0 to 0.20.1 (#298)
+* :pushpin: Automatic update of dependency thoth-common from 0.20.0 to 0.20.1 (#297)
+* :pushpin: Automatic update of dependency pytest from 6.1.0 to 6.1.1 (#293)
+* :pushpin: Automatic update of dependency pytest from 6.1.0 to 6.1.1 (#292)
+* :pushpin: Automatic update of dependency pytest from 6.0.2 to 6.1.0 (#276)
+* :pushpin: Automatic update of dependency pytest from 6.0.2 to 6.1.0 (#275)
+* :pushpin: Automatic update of dependency thoth-common from 0.19.0 to 0.20.0 (#274)
+* :pushpin: Automatic update of dependency thoth-common from 0.19.0 to 0.20.0 (#273)
+* :pushpin: Automatic update of dependency thoth-common from 0.18.3 to 0.19.0 (#254)
+* :pushpin: Automatic update of dependency thoth-common from 0.18.3 to 0.19.0 (#253)
+* :pushpin: Automatic update of dependency thoth-common from 0.18.3 to 0.19.0 (#252)
+* :pushpin: Automatic update of dependency pytest from 6.0.1 to 6.0.2 (#242)
+* :pushpin: Automatic update of dependency thoth-common from 0.18.1 to 0.18.3 (#241)
+* :pushpin: Automatic update of dependency thoth-common from 0.18.0 to 0.18.1 (#239)
+* :pushpin: Automatic update of dependency thoth-common from 0.17.2 to 0.18.0 (#238)
+* :pushpin: Automatic update of dependency thoth-common from 0.17.0 to 0.17.2 (#234)
+* :pushpin: Automatic update of dependency thoth-common from 0.16.1 to 0.17.0 (#227)
+* :pushpin: Automatic update of dependency thoth-common from 0.16.1 to 0.17.0 (#226)
+* :pushpin: Automatic update of dependency pylint from 2.5.3 to 2.6.0 (#210)
+* :pushpin: Automatic update of dependency pytest-cov from 2.10.0 to 2.10.1 (#206)
+* :pushpin: Automatic update of dependency pytest-cov from 2.10.0 to 2.10.1 (#204)
+* :pushpin: Automatic update of dependency pytest from 6.0.0 to 6.0.1 (#194)
+* :pushpin: Automatic update of dependency pytest from 5.4.3 to 6.0.0 (#192)
+* :pushpin: Automatic update of dependency pytest-timeout from 1.4.1 to 1.4.2 (#164)
+* :pushpin: Automatic update of dependency pylint from 2.5.2 to 2.5.3 (#154)
+* :pushpin: Automatic update of dependency pylint from 2.5.2 to 2.5.3 (#152)
+* :pushpin: Automatic update of dependency pytest-cov from 2.9.0 to 2.10.0 (#151)
+* :pushpin: Automatic update of dependency pytest-cov from 2.9.0 to 2.10.0 (#150)
+* :pushpin: Automatic update of dependency pytest-timeout from 1.3.4 to 1.4.1 (#149)
+* :pushpin: Automatic update of dependency pytest-timeout from 1.3.4 to 1.4.1 (#148)
+* :pushpin: Automatic update of dependency thoth-common from 0.13.8 to 0.14.1 (#147)
+* :pushpin: Automatic update of dependency thoth-common from 0.13.8 to 0.14.1 (#146)
+* :pushpin: Automatic update of dependency pytest from 5.4.2 to 5.4.3
+* :pushpin: Automatic update of dependency thoth-common from 0.13.7 to 0.13.8
+* :pushpin: Automatic update of dependency thoth-common from 0.13.6 to 0.13.7
+* :pushpin: Automatic update of dependency pytest-cov from 2.8.1 to 2.9.0
+* :pushpin: Automatic update of dependency thoth-common from 0.13.5 to 0.13.6
+* :pushpin: Automatic update of dependency thoth-common from 0.13.4 to 0.13.5
+* :pushpin: Automatic update of dependency thoth-common from 0.13.3 to 0.13.4
+* :pushpin: Automatic update of dependency pytest from 5.4.1 to 5.4.2
+* :pushpin: Automatic update of dependency thoth-common from 0.13.1 to 0.13.2
+* :pushpin: Automatic update of dependency thoth-common from 0.13.0 to 0.13.1
+* :pushpin: Automatic update of dependency thoth-common from 0.12.10 to 0.13.0
+* :pushpin: Automatic update of dependency thoth-common from 0.12.9 to 0.12.10
+* :pushpin: Automatic update of dependency thoth-common from 0.12.8 to 0.12.9
+* :pushpin: Automatic update of dependency thoth-common from 0.12.7 to 0.12.8
+* :pushpin: Automatic update of dependency thoth-common from 0.12.6 to 0.12.7
+* :pushpin: Automatic update of dependency thoth-common from 0.12.5 to 0.12.6
+* :pushpin: Automatic update of dependency thoth-common from 0.12.4 to 0.12.5
+* :pushpin: Automatic update of dependency thoth-common from 0.12.3 to 0.12.4
+* :pushpin: Automatic update of dependency thoth-common from 0.12.2 to 0.12.3
+* :pushpin: Automatic update of dependency thoth-common from 0.12.1 to 0.12.2
+* :pushpin: Automatic update of dependency thoth-common from 0.12.0 to 0.12.1
+* :pushpin: Automatic update of dependency thoth-common from 0.10.12 to 0.12.0
+* :pushpin: Automatic update of dependency thoth-common from 0.10.11 to 0.10.12
+* :pushpin: Automatic update of dependency pytest from 5.4.0 to 5.4.1
+* :pushpin: Automatic update of dependency pytest from 5.3.5 to 5.4.0
+* :pushpin: Automatic update of dependency thoth-common from 0.10.9 to 0.10.11
+* :pushpin: Automatic update of dependency thoth-common from 0.10.9 to 0.10.11
+* :pushpin: Automatic update of dependency thoth-common from 0.10.8 to 0.10.9
+* :pushpin: Automatic update of dependency faust from 1.10.3 to 1.10.4
+* :pushpin: Automatic update of dependency thoth-common from 0.10.7 to 0.10.8
+* :pushpin: Automatic update of dependency faust from 1.10.2 to 1.10.3
+* :pushpin: Automatic update of dependency thoth-common from 0.10.6 to 0.10.7
+* :pushpin: Automatic update of dependency thoth-common from 0.10.5 to 0.10.6
+* :pushpin: Automatic update of dependency faust from 1.10.1 to 1.10.2
+* :pushpin: Automatic update of dependency thoth-common from 0.10.4 to 0.10.5
+* :pushpin: Automatic update of dependency thoth-common from 0.10.3 to 0.10.4
+* :pushpin: Automatic update of dependency thoth-common from 0.10.2 to 0.10.3
+* :pushpin: Automatic update of dependency thoth-common from 0.10.1 to 0.10.2
+* :pushpin: Automatic update of dependency thoth-common from 0.10.0 to 0.10.1
+* :pushpin: Automatic update of dependency pytest from 5.3.4 to 5.3.5
+* :pushpin: Automatic update of dependency thoth-common from 0.9.31 to 0.10.0
+* :pushpin: Automatic update of dependency thoth-common from 0.9.30 to 0.9.31
+* :pushpin: Automatic update of dependency thoth-common from 0.9.29 to 0.9.30
+* :pushpin: Automatic update of dependency faust from 1.10.0 to 1.10.1
+* :pushpin: Automatic update of dependency pytest from 5.3.3 to 5.3.4
+* :pushpin: Automatic update of dependency thoth-common from 0.9.28 to 0.9.29
+* :pushpin: Automatic update of dependency pytest from 5.3.2 to 5.3.3
+* :pushpin: Automatic update of dependency thoth-common from 0.9.27 to 0.9.28
+* :pushpin: Automatic update of dependency thoth-common from 0.9.26 to 0.9.27
+* :pushpin: Automatic update of dependency thoth-common from 0.9.25 to 0.9.26
+* :pushpin: Automatic update of dependency faust from 1.9.0 to 1.10.0
+* :pushpin: Automatic update of dependency thoth-common from 0.9.24 to 0.9.25
+* :pushpin: Automatic update of dependency thoth-common from 0.9.23 to 0.9.24
+* :pushpin: Automatic update of dependency thoth-common from 0.9.22 to 0.9.23
+* :pushpin: Automatic update of dependency pytest-timeout from 1.3.3 to 1.3.4
+* :pushpin: Automatic update of dependency pytest from 5.3.1 to 5.3.2
+* :pushpin: Automatic update of dependency thoth-common from 0.9.21 to 0.9.22
+* :pushpin: Automatic update of dependency thoth-common from 0.9.20 to 0.9.21
+* :pushpin: Automatic update of dependency thoth-common from 0.9.19 to 0.9.20
+* :pushpin: Automatic update of dependency thoth-common from 0.9.18 to 0.9.19
+* :pushpin: Automatic update of dependency thoth-common from 0.9.17 to 0.9.18
+* :pushpin: Automatic update of dependency thoth-common from 0.9.16 to 0.9.17
+* :pushpin: Automatic update of dependency pytest from 5.3.0 to 5.3.1
+* :pushpin: Automatic update of dependency pytest from 5.2.4 to 5.3.0
+* :pushpin: Automatic update of dependency pytest from 5.2.3 to 5.2.4
+* :pushpin: Automatic update of dependency pytest from 5.2.2 to 5.2.3
+* :pushpin: Automatic update of dependency thoth-common from 0.9.15 to 0.9.16
+* :pushpin: Automatic update of dependency thoth-common from 0.9.14 to 0.9.15
+* :pushpin: Automatic update of dependency faust from 1.8.1 to 1.9.0
+* :pushpin: Automatic update of dependency black from 19.3b0 to 19.10b0
+* :pushpin: Automatic update of dependency pytest from 5.2.1 to 5.2.2
+* :pushpin: Automatic update of dependency faust from 1.8.0 to 1.8.1
+* :pushpin: Automatic update of dependency thoth-common from 0.9.12 to 0.9.14
+* :pushpin: Automatic update of dependency pytest-cov from 2.7.1 to 2.8.1
+* :pushpin: Automatic update of dependency pytest from 5.1.3 to 5.2.1
+* :pushpin: Automatic update of dependency faust from 1.7.4 to 1.8.0
+* :pushpin: Automatic update of dependency thoth-common from 0.9.10 to 0.9.12
