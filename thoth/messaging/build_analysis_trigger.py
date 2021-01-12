@@ -38,15 +38,21 @@ class BuildAnalysisTriggerMessage(MessageBase):
         """Class used to represent contents of a message Kafka topic."""
 
         base_image = attr.ib(type=Optional[str], default=None)
+        base_image_analysis_id = attr.ib(type=Optional[str], default=None)
         buildlog_document_id = attr.ib(type=Optional[str], default=None)
+        buildlog_parser_id = attr.ib(type=Optional[str], default=None)
         environment_type = attr.ib(type=Optional[str], default=None)
-        force = attr.ib(type=bool, default=False)
+        debug = attr.ib(type=bool, default=False)
         job_id = attr.ib(type=Optional[str], default=None)
         origin = attr.ib(type=Optional[str], default=None)
         output_image = attr.ib(type=Optional[str], default=None)
-        registry_password = attr.ib(type=Optional[str], default=None)
-        registry_user = attr.ib(type=Optional[str], default=None)
-        registry_verify_tls = attr.ib(type=bool, default=True)
+        output_image_analysis_id = attr.ib(type=Optional[str], default=None)
+        base_registry_password = attr.ib(type=Optional[str], default=None)
+        base_registry_user = attr.ib(type=Optional[str], default=None)
+        base_registry_verify_tls = attr.ib(type=bool, default=True)
+        output_registry_password = attr.ib(type=Optional[str], default=None)
+        output_registry_user = attr.ib(type=Optional[str], default=None)
+        output_registry_verify_tls = attr.ib(type=bool, default=True)
         version = attr.ib(type=str, default="v1", init=False)
 
     def __init__(self,):
