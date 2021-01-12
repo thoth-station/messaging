@@ -42,7 +42,6 @@ class BuildAnalysisTriggerMessage(MessageBase):
         buildlog_document_id = attr.ib(type=Optional[str], default=None)
         buildlog_parser_id = attr.ib(type=Optional[str], default=None)
         environment_type = attr.ib(type=Optional[str], default=None)
-        force = attr.ib(type=bool, default=False)
         debug = attr.ib(type=bool, default=False)
         job_id = attr.ib(type=Optional[str], default=None)
         origin = attr.ib(type=Optional[str], default=None)
