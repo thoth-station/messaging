@@ -604,3 +604,8 @@ all the things that you see...
 * :pushpin: Automatic update of dependency pytest from 5.1.3 to 5.2.1
 * :pushpin: Automatic update of dependency faust from 1.7.4 to 1.8.0
 * :pushpin: Automatic update of dependency thoth-common from 0.9.10 to 0.9.12
+
+## Release 0.10.1 (2021-01-12T13:20:36)
+### Features
+* :arrow_up: Automatic update of dependencies by kebechet. (#332)
+* Extend build analysis message (#330)
