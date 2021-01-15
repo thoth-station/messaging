@@ -22,6 +22,8 @@
 import os
 import logging
 import attr
+from typing import Any
+from typing import Dict
 from typing import Optional
 
 _LOGGER = logging.getLogger(__name__)
@@ -33,6 +35,10 @@ class BaseMessageContents:
 
     component_name = attr.ib(type=str)  # what component sent the message?
     service_version = attr.ib(type=str)  # what version was that component?
+
+    def dumps(self) -> Dict[str, Any]:
+        """Serialize the message content."""
+        return attr.asdict(self)
 
 
 class MessageBase:
