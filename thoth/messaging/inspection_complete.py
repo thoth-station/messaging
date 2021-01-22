@@ -33,8 +33,7 @@ class InspectionCompletedMessage(MessageBase):
         """Class used to represent contents of a inspection-completed message Kafka topic."""
 
         inspection_id = attr.ib(type=str)
-        amun_api_url = attr.ib(type=str)
-        deployment_name = attr.ib(type=str)
+        force_sync = attr.ib(type=bool)
         version = attr.ib(type=str, default="v1", init=False)
 
     def __init__(self):
