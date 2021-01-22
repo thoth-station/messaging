@@ -609,3 +609,15 @@ all the things that you see...
 ### Features
 * :arrow_up: Automatic update of dependencies by kebechet. (#332)
 * Extend build analysis message (#330)
+
+## Release 0.10.2 (2021-01-22T17:20:17)
+### Features
+* :arrow_up: Automatic update of dependencies by kebechet. (#342)
+* :arrow_up: Automatic update of dependencies by kebechet. (#341)
+* inspection_complete missing from __init__.py (#339)
+* :arrow_up: Automatic update of dependencies by kebechet. (#338)
+* Delete CODEOWNERS
+* :arrow_up: Automatic update of dependencies by kebechet. (#337)
+* :sparkles: aded new checkbox wrt Message versioning
+### Improvements
+* removed bissenbay, thanks for your contributions!
