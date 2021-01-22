@@ -27,6 +27,7 @@ from .adviser_trigger import AdviserTriggerMessage
 from .build_analysis_trigger import BuildAnalysisTriggerMessage
 from .cve_provided import CVEProvidedMessage
 from .hash_mismatch import HashMismatchMessage
+from .inspection_complete import InspectionCompletedMessage
 from .kebechet_run_url import KebechetRunUrlTriggerMessage
 from .kebechet_trigger import KebechetTriggerMessage
 from .missing_package import MissingPackageMessage
@@ -48,6 +49,7 @@ ALL_MESSAGES = [
     BuildAnalysisTriggerMessage,
     CVEProvidedMessage,
     HashMismatchMessage,
+    InspectionCompletedMessage,
     KebechetRunUrlTriggerMessage,
     KebechetTriggerMessage,
     MissingVersionMessage,
