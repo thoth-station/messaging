@@ -7,7 +7,7 @@
 - [ ] Yes
 - [ ] No
 
-## Has a Message Class been changed? Version incremented? 
+## Has a Message Class been changed? Version incremented?
 
 - [ ] Yes
 - [ ] No
