@@ -21,29 +21,34 @@
 
 import os
 import logging
-import attr
 from typing import Optional
+
+from jsonschema import validate
 
 _LOGGER = logging.getLogger(__name__)
 
 
-@attr.s
-class BaseMessageContents:
-    """Default params for message contents."""
+base_definitions = {
+    "base_message": {
+        "type": "object",
+        "properties": {"component_name": {"type": "string"}, "service_version": {"type": "string"},},
+        "required": ["component_name", "service_version"],
+    }
+}
 
-    component_name = attr.ib(type=str)  # what component sent the message?
-    service_version = attr.ib(type=str)  # what version was that component?
+
+# TODO: reimplement prefixing topic name with THOTH_DEPLOYMENT
+# TODO: message info such as version and topic name should be filled in after validation
 
 
 class MessageBase:
     """Class used for Package Release events on Kafka topic."""
 
-    def __init__(
-        self, *, base_name: Optional[str] = None, value_type: Optional[BaseMessageContents] = None,
-    ):
+    def __init__(self, *, jsonschema: dict, base_name: Optional[str] = None, version: str = "v0"):
         """Create general message."""
         self.base_name = base_name or "thoth.base-topic"
-        self.value_type = value_type
+        self.version = version
+        self.jsonschema = jsonschema
 
     @property
     def topic_name(self):
@@ -52,3 +57,9 @@ class MessageBase:
         if prefix is not None:
             return f"{prefix}.{self.base_name}"
         return self.base_name
+
+    def _validate_and_append_version(self, message_contents: dict) -> dict:
+        validate(message_contents, self.jsonschema)
+        to_ret = message_contents
+        to_ret["version"] = self.version
+        return to_ret

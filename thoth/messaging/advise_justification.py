@@ -19,30 +19,29 @@
 """This is Thoth Messaging module for AdviseJustificationMessage."""
 
 import logging
-import attr
 
-from .message_base import MessageBase, BaseMessageContents
+from .base import base_definitions, MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
+definitions = base_definitions
 
-class AdviseJustificationMessage(MessageBase):
-    """Class used for Advise justification events on Kafka topic."""
+definitions["advise_justification"] = {
+    "type": "object",
+    "properties": {
+        "message": {"type": "string"},
+        "justification_type": {"type": "string"},
+        "count": {"type": "integer", "minimum": 0},
+        "adviser_version": {"type": "string"},
+    },
+    "required": ["message", "justification", "count", "adviser_version"],
+}
 
-    base_name = "thoth.advise-reporter.advise-justification"
+jsonschema = {
+    "allOf": {{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/advise_justification"},},
+    "definitions": definitions,
+}
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of advise justification message Kafka topic."""
-
-        message = attr.ib(type=str)
-        justification_type = attr.ib(type=str)
-        count = attr.ib(type=int)
-        adviser_version = attr.ib(type=str)
-        version = attr.ib(type=str, default="v1", init=False)
-
-    def __init__(self,):
-        """Initialize advise-justification topic."""
-        super(AdviseJustificationMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+advise_justification_message = MessageBase(
+    jsonschema=jsonschema, base_name="thoth.advise-reporter.advise-justification", version="v1"
+)

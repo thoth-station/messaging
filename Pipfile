@@ -7,6 +7,7 @@ name = "pypi"
 thoth-common = "*"
 confluent-kafka = "*"
 click = "*"
+jsonschema = "*"
 
 [dev-packages]
 pytest = "*"

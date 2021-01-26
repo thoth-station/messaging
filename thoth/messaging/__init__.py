@@ -21,7 +21,7 @@ from .message_base import MessageBase
 from .message_base import BaseMessageContents
 from .message_factory import message_factory
 
-from .advise_justification import AdviseJustificationMessage
+from .advise_justification import advise_justification_message
 from .adviser_re_run import AdviserReRunMessage
 from .adviser_trigger import AdviserTriggerMessage
 from .build_analysis_trigger import BuildAnalysisTriggerMessage
@@ -43,7 +43,6 @@ from .unrevsolved_package import UnrevsolvedPackageMessage
 from .update_provides_src_distro import UpdateProvidesSourceDistroMessage
 
 ALL_MESSAGES = [
-    AdviseJustificationMessage,
     AdviserReRunMessage,
     AdviserTriggerMessage,
     BuildAnalysisTriggerMessage,
@@ -65,7 +64,12 @@ ALL_MESSAGES = [
     UpdateProvidesSourceDistroMessage,
 ]
 
-__all__ = [msg_cls.__name__ for msg_cls in ALL_MESSAGES] + ["MessageBase", "message_factory", "BaseMessageContents"]
+__all__ = [msg_cls.__name__ for msg_cls in ALL_MESSAGES] + [
+    "MessageBase",
+    "message_factory",
+    "BaseMessageContents",
+    "advise_justification_message",
+]
 
 
 __name__ = "thoth-messaging"
