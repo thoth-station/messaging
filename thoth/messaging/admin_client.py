@@ -68,3 +68,18 @@ def create_topic(admin: AdminClient, message: MessageBase, partitions: int = 1, 
             )
         ]
     )
+
+
+def check_connection(timeout: int = 10, config: Optional[Dict[str, str]] = None):
+    """Check connection to Kafka with either provided config or config gathered from env."""
+    if config:
+        a = AdminClient(config)
+    else:
+        a = AdminClient(kafka_config_from_env())
+
+    try:
+        a.list_topics(timeout=timeout)
+        return True
+    except Exception as e:
+        _LOGGER.exception(e)
+        return False
