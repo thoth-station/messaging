@@ -19,44 +19,43 @@
 """This is Thoth Messaging module for BuildAnalysisTriggerMessage."""
 
 import logging
-import attr
 
-from typing import Optional
-
-from .message_base import MessageBase, BaseMessageContents
+from .base import BASE_DEFINITIONS, MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class BuildAnalysisTriggerMessage(MessageBase):
-    """Class used for build analysis events on Kafka topic."""
+definitions = BASE_DEFINITIONS
 
-    base_name = "thoth.build-analysis-trigger"
+definitions["build_analysis_trigger"] = {
+    "type": "object",
+    "properties": {
+        "base_registry_verify_tls": {"type": "boolean"},
+        "debug": {"type": "boolean"},
+        "output_registry_verify_tls": {"type": "boolean"},
+        # Required ↑↑↑ | ↓↓↓ Optional
+        "base_image": {"type": "string"},
+        "base_image_analysis_id": {"type": "string"},
+        "base_registry_password": {"type": "string"},
+        "base_registry_user": {"type": "string"},
+        "buildlog_document_id": {"type": "string"},
+        "buildlog_parser_id": {"type": "string"},
+        "environment_type": {"type": "string"},
+        "job_id": {"type": "string"},
+        "origin": {"type": "string"},
+        "output_image": {"type": "string"},
+        "output_image_analysis_id": {"type": "string"},
+        "output_registry_password": {"type": "string"},
+        "output_registry_user": {"type": "string"},
+    },
+    "required": ["base_registry_verify_tls", "debug", "output_registry_verify_tls"],
+}
 
-    @attr.s
-    class MessageContents(BaseMessageContents):  # type: ignore
-        """Class used to represent contents of a message Kafka topic."""
+jsonschema = {
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/build_analysis_trigger"},],
+    "definitions": definitions,
+}
 
-        base_image = attr.ib(type=Optional[str], default=None)
-        base_image_analysis_id = attr.ib(type=Optional[str], default=None)
-        buildlog_document_id = attr.ib(type=Optional[str], default=None)
-        buildlog_parser_id = attr.ib(type=Optional[str], default=None)
-        environment_type = attr.ib(type=Optional[str], default=None)
-        debug = attr.ib(type=bool, default=False)
-        job_id = attr.ib(type=Optional[str], default=None)
-        origin = attr.ib(type=Optional[str], default=None)
-        output_image = attr.ib(type=Optional[str], default=None)
-        output_image_analysis_id = attr.ib(type=Optional[str], default=None)
-        base_registry_password = attr.ib(type=Optional[str], default=None)
-        base_registry_user = attr.ib(type=Optional[str], default=None)
-        base_registry_verify_tls = attr.ib(type=bool, default=True)
-        output_registry_password = attr.ib(type=Optional[str], default=None)
-        output_registry_user = attr.ib(type=Optional[str], default=None)
-        output_registry_verify_tls = attr.ib(type=bool, default=True)
-        version = attr.ib(type=str, default="v1", init=False)
-
-    def __init__(self,):
-        """Initialize build analysis topic."""
-        super(BuildAnalysisTriggerMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+build_analysis_trigger_message = MessageBase(
+    jsonschema=jsonschema, base_name="thoth.build-analysis-trigger", version="v1"
+)

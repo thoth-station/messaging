@@ -18,27 +18,23 @@
 
 """This is Thoth Messaging module for CVEProvidedMessage."""
 
-import attr
+from .base import BASE_DEFINITIONS, MessageBase
 
-from .message_base import MessageBase, BaseMessageContents
+definitions = BASE_DEFINITIONS
 
+definitions["cve_provided"] = {
+    "type": "object",
+    "properties": {
+        "index_url": {"type": "string"},
+        "package_name": {"type": "string"},
+        "package_version": {"type": "string"},
+    },
+    "required": ["index_url", "package_name", "package_version",],
+}
 
-class CVEProvidedMessage(MessageBase):
-    """Class used for CVE Update events on Kafka topic."""
+jsonschema = {
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/cve_provided"},],
+    "definitions": definitions,
+}
 
-    base_name = "thoth.cve-update.cve-provided"
-
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a cve-provided message Kafka topic."""
-
-        package_name = attr.ib(type=str)
-        package_version = attr.ib(type=str)
-        index_url = attr.ib(type=str)
-        version = attr.ib(type=str, default="v1", init=False)
-
-    def __init__(self):
-        """Initialize cve-provided topic."""
-        super(CVEProvidedMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+cve_provided_message = MessageBase(jsonschema=jsonschema, base_name="thoth.cve-update.cve-provided", version="v1")

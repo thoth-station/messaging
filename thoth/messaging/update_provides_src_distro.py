@@ -18,31 +18,31 @@
 
 """This is Thoth Messaging module for UpdateProvidesSourceDistroMessage."""
 
-import attr
 import logging
 
-from .message_base import MessageBase, BaseMessageContents
+from .base import BASE_DEFINITIONS, MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
+definitions = BASE_DEFINITIONS
 
-class UpdateProvidesSourceDistroMessage(MessageBase):
-    """Class used for updating python package version provides_source_distro flag."""
+definitions["update_provides_src_distro"] = {
+    "type": "object",
+    "properties": {
+        "index_url": {"type": "string"},
+        "package_name": {"type": "string"},
+        "package_version": {"type": "string"},
+        "value": {"type": "boolean"},
+        # Required ↑↑↑ | ↓↓↓ Optional
+    },
+    "required": ["index_url", "package_name", "package_version", "value"],
+}
 
-    base_name = "thoth.update-provides-source-distro"
+jsonschema = {
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/update_provides_src_distro"},],
+    "definitions": definitions,
+}
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent a contents of a update-provides-source-distro message."""
-
-        package_name = attr.ib(type=str)
-        package_version = attr.ib(type=str)
-        index_url = attr.ib(type=str)
-        value = attr.ib(type=bool)
-        version = attr.ib(type=str, default="v1", init=False)
-
-    def __init__(self):
-        """Initialize missing package topic."""
-        super(UpdateProvidesSourceDistroMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+update_provides_src_distro_message = MessageBase(
+    jsonschema=jsonschema, base_name="thoth.update-provides-source-distro", version="v1"
+)

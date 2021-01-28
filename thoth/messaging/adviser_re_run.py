@@ -19,41 +19,35 @@
 """This is Thoth Messaging module for AdviserReRunMessage."""
 
 import logging
-import attr
 
-from typing import Optional, Dict, Any
-
-from .message_base import MessageBase, BaseMessageContents
+from .base import BASE_DEFINITIONS, MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class AdviserReRunMessage(MessageBase):
-    """Class used for Adviser re run events on Kafka topic."""
+definitions = BASE_DEFINITIONS
 
-    base_name = "thoth.investigator.adviser-re-run"
+definitions["adviser_re_run"] = {
+    "type": "object",
+    "properties": {
+        "re_run_adviser_id": {"type": "string"},
+        "application_stack": {"type": "object"},
+        "recommendation_type": {"type": "string"},
+        # ↑↑↑ Required | Optional ↓↓↓
+        "runtime_environment": {"type": "object"},
+        "origin": {"type": "string"},
+        "github_event_type": {"type": "string"},
+        "github_check_run_id": {"type": "string"},
+        "github_installation_id": {"type": "integer", "minimum": 0},
+        "github_base_repo_url": {"type": "string"},
+        "source_type": {"type": "string"},
+    },
+    "required": ["re_run_adviser_id", "application_stack", "recommendation_type",],
+}
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of adviser re run message Kafka topic."""
+jsonschema = {
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/adviser_re_run"},],
+    "definitions": definitions,
+}
 
-        re_run_adviser_id = attr.ib(type=str)
-
-        application_stack = attr.ib(type=Dict[Any, Any])
-        recommendation_type = attr.ib(type=str)
-        runtime_environment = attr.ib(type=Optional[Dict[Any, Any]], default=None)
-
-        origin = attr.ib(type=Optional[str], default=None)
-        github_event_type = attr.ib(type=Optional[str], default=None)
-        github_check_run_id = attr.ib(type=Optional[int], default=None)
-        github_installation_id = attr.ib(type=Optional[int], default=None)
-        github_base_repo_url = attr.ib(type=Optional[str], default=None)
-        source_type = attr.ib(type=Optional[str], default=None)
-
-        version = attr.ib(type=str, default="v1", init=False)
-
-    def __init__(self):
-        """Initialize adviser-re-run topic."""
-        super(AdviserReRunMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+adviser_re_run_message = MessageBase(jsonschema=jsonschema, base_name="thoth.investigator.adviser-re-run", version="v1")

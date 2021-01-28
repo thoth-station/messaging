@@ -38,7 +38,7 @@ def subscribe_to_all(consumer: Consumer):
     """Subscribe to all topics defined in messaging."""
     to_subscribe = []
     for i in ALL_MESSAGES:
-        to_subscribe.append(i().topic_name)
+        to_subscribe.append(i.topic_name)
 
     consumer.subscribe(to_subscribe)
 
@@ -46,4 +46,8 @@ def subscribe_to_all(consumer: Consumer):
 def subscribe_to_message(consumer: Consumer, message_type: MessageBase):
     """Subscribe to specific message by passing message class."""
     # NOTE: be sure to initialize message_type before passing
-    consumer.subscribe([message_type.topic_name])
+    to_subscribe = consumer.list_topics().topics
+    if message_type.topic_name not in to_subscribe:
+        to_subscribe.append(message_type.topic_name)
+    consumer.subscribe(to_subscribe)  # subscribe overrides all current subscriptions so to maintain previous
+    # subscriptions they need to be added to the function call

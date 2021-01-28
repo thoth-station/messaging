@@ -28,17 +28,13 @@ from jsonschema import validate
 _LOGGER = logging.getLogger(__name__)
 
 
-base_definitions = {
+BASE_DEFINITIONS = {
     "base_message": {
         "type": "object",
         "properties": {"component_name": {"type": "string"}, "service_version": {"type": "string"},},
         "required": ["component_name", "service_version"],
     }
 }
-
-
-# TODO: reimplement prefixing topic name with THOTH_DEPLOYMENT
-# TODO: message info such as version and topic name should be filled in after validation
 
 
 class MessageBase:

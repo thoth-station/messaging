@@ -18,37 +18,42 @@
 
 """This is Thoth Messaging module for QebHwtTriggerMessage."""
 
-import attr
 import logging
-from typing import Optional
 
-from .message_base import MessageBase, BaseMessageContents
+from .base import BASE_DEFINITIONS, MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
+definitions = BASE_DEFINITIONS
 
-class QebHwtTriggerMessage(MessageBase):
-    """Class used for QebHwt events on Kafka topic."""
+definitions["qebhwt_trigger"] = {
+    "type": "object",
+    "properties": {
+        "github_base_repo_url": {"type": "string"},
+        "github_check_run_id": {"type": "integer", "minimum": 0},
+        "github_event_type": {"type": "string"},
+        "github_head_repo_url": {"type": "string"},
+        "github_installation_id": {"type": "integer", "minimum": 0},
+        "host": {"type": "string"},
+        "origin": {"type": "string"},
+        "revision": {"type": "string"},
+        # Required ↑↑↑ | ↓↓↓ Optional
+        "job_id": {"type": "string"},
+    },
+    "required": [
+        "github_base_repo_url",
+        "github_check_run_id",
+        "github_event_type",
+        "github_head_repo_url",
+        "github_installation_id",
+        "host" "origin",
+        "revision",
+    ],
+}
 
-    base_name = "thoth.qebhwt-trigger"
+jsonschema = {
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/qebhwt_trigger"},],
+    "definitions": definitions,
+}
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a message Kafka topic."""
-
-        github_event_type = attr.ib(type=str)
-        github_check_run_id = attr.ib(type=int)
-        github_installation_id = attr.ib(type=int)
-        github_base_repo_url = attr.ib(type=str)
-        github_head_repo_url = attr.ib(type=str)
-        origin = attr.ib(type=str)
-        revision = attr.ib(type=str)
-        host = attr.ib(type=str)
-        job_id = attr.ib(type=Optional[str], default=None)
-        version = attr.ib(type=str, default="v1", init=False)
-
-    def __init__(self):
-        """Initialize advise-justification topic."""
-        super(QebHwtTriggerMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+qebhwt_trigger_message = MessageBase(jsonschema=jsonschema, base_name="thoth.qebhwt-trigger", version="v1")

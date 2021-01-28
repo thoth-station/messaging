@@ -18,59 +18,75 @@
 """This is Thoth Messaging module."""
 
 from .message_base import MessageBase
-from .message_base import BaseMessageContents
 from .message_factory import message_factory
 
 from .advise_justification import advise_justification_message
-from .adviser_re_run import AdviserReRunMessage
-from .adviser_trigger import AdviserTriggerMessage
-from .build_analysis_trigger import BuildAnalysisTriggerMessage
-from .cve_provided import CVEProvidedMessage
-from .hash_mismatch import HashMismatchMessage
-from .inspection_complete import InspectionCompletedMessage
-from .kebechet_run_url import KebechetRunUrlTriggerMessage
-from .kebechet_trigger import KebechetTriggerMessage
-from .missing_package import MissingPackageMessage
-from .missing_version import MissingVersionMessage
-from .package_extract_trigger import PackageExtractTriggerMessage
-from .package_releases import PackageReleasedMessage
-from .provenance_checker_trigger import ProvenanceCheckerTriggerMessage
-from .qebhwt_trigger import QebHwtTriggerMessage
-from .si_unanalyzed_package import SIUnanalyzedPackageMessage
-from .solved_package import SolvedPackageMessage
-from .unresolved_package import UnresolvedPackageMessage
-from .unrevsolved_package import UnrevsolvedPackageMessage
-from .update_provides_src_distro import UpdateProvidesSourceDistroMessage
+from .adviser_re_run import adviser_re_run_message
+from .adviser_trigger import adviser_trigger_message
+from .build_analysis_trigger import build_analysis_trigger_message
+from .cve_provided import cve_provided_message
+from .hash_mismatch import hash_mismatch_message
+from .inspection_complete import inspection_completed_message
+from .kebechet_run_url import kebechet_run_url_trigger_message
+from .kebechet_trigger import kebechet_trigger_message
+from .missing_package import missing_package_message
+from .missing_version import missing_version_message
+from .package_extract_trigger import package_extract_trigger_message
+from .package_releases import package_released_message
+from .provenance_checker_trigger import provenance_checker_trigger_message
+from .qebhwt_trigger import qebhwt_trigger_message
+from .si_unanalyzed_package import si_unanalyzed_package_message
+from .solved_package import solved_package_message
+from .unresolved_package import unresolved_package_message
+from .unrevsolved_package import unrevsolved_package_message
+from .update_provides_src_distro import update_provides_src_distro_message
 
 ALL_MESSAGES = [
-    AdviserReRunMessage,
-    AdviserTriggerMessage,
-    BuildAnalysisTriggerMessage,
-    CVEProvidedMessage,
-    HashMismatchMessage,
-    InspectionCompletedMessage,
-    KebechetRunUrlTriggerMessage,
-    KebechetTriggerMessage,
-    MissingVersionMessage,
-    MissingPackageMessage,
-    PackageExtractTriggerMessage,
-    PackageReleasedMessage,
-    ProvenanceCheckerTriggerMessage,
-    QebHwtTriggerMessage,
-    SIUnanalyzedPackageMessage,
-    SolvedPackageMessage,
-    UnresolvedPackageMessage,
-    UnrevsolvedPackageMessage,
-    UpdateProvidesSourceDistroMessage,
+    advise_justification_message,
+    adviser_re_run_message,
+    adviser_trigger_message,
+    build_analysis_trigger_message,
+    cve_provided_message,
+    hash_mismatch_message,
+    inspection_completed_message,
+    kebechet_run_url_trigger_message,
+    kebechet_trigger_message,
+    missing_package_message,
+    missing_version_message,
+    package_extract_trigger_message,
+    package_released_message,
+    provenance_checker_trigger_message,
+    qebhwt_trigger_message,
+    si_unanalyzed_package_message,
+    solved_package_message,
+    unresolved_package_message,
+    unrevsolved_package_message,
+    update_provides_src_distro_message,
 ]
 
-__all__ = [msg_cls.__name__ for msg_cls in ALL_MESSAGES] + [
+
+__all__ = [
+    "advise_justification_message",
+    "adviser_re_run_message",
+    "adviser_trigger_message",
+    "build_analysis_trigger_message",
+    "cve_provided_message",
+    "hash_mismatch_message",
+    "inspection_completed_message",
+    "kebechet_run_url_trigger_message",
+    "kebechet_trigger_message",
+    "package_extract_trigger_message",
+    "package_released_message",
+    "provenance_checker_trigger_message",
+    "qebhwt_trigger_message",
+    "si_unanalyzed_package_message",
+    "solved_package_message",
+    "unresolved_package_message",
+    "unrevsolved_package_message",
+    "update_provides_src_distro_message",
     "MessageBase",
     "message_factory",
-    "BaseMessageContents",
-    "advise_justification_message",
 ]
-
 
 __name__ = "thoth-messaging"
 __version__ = "0.10.2"

@@ -18,36 +18,33 @@
 
 """This is Thoth Messaging module for ProvenanceCheckerTriggerMessage."""
 
-import attr
 import logging
-from typing import Any
-from typing import Optional
-from typing import Dict
-from typing import List
 
-from .message_base import MessageBase, BaseMessageContents
+from .base import BASE_DEFINITIONS, MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class ProvenanceCheckerTriggerMessage(MessageBase):
-    """Class used for Provenance Checker events on Kafka topic."""
+definitions = BASE_DEFINITIONS
 
-    base_name = "thoth.provenance-checker-trigger"
+definitions["provenance_checker_trigger"] = {
+    "type": "object",
+    "properties": {
+        "application_stack": {"type": "object"},
+        "debug": {"type": "boolean"},
+        # Required ↑↑↑ | ↓↓↓ Optional
+        "job_id": {"type": "string"},
+        "origin": {"type": "string"},
+        "whitelisted_sources": {"type": "array", "items": {"type": "string"}},
+    },
+    "required": ["application_stack", "debug"],
+}
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a message Kafka topic."""
+jsonschema = {
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/provenance_checker_trigger"},],
+    "definitions": definitions,
+}
 
-        application_stack = attr.ib(type=Dict[Any, Any])
-        debug = attr.ib(type=bool, default=False)
-        origin = attr.ib(type=Optional[str], default=None)
-        whitelisted_sources = attr.ib(type=Optional[List[str]], default=None)
-        job_id = attr.ib(type=Optional[str], default=None)
-        version = attr.ib(type=str, default="v1", init=False)
-
-    def __init__(self):
-        """Initialize advise-justification topic."""
-        super(ProvenanceCheckerTriggerMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+provenance_checker_trigger_message = MessageBase(
+    jsonschema=jsonschema, base_name="thoth.provenance-checker-trigger", version="v1"
+)

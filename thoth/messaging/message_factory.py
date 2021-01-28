@@ -16,6 +16,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
+# TODO: should be simple enough to define JSONschema
+
 """This is Thoth Messaging module for message_factory."""
 
 import attr

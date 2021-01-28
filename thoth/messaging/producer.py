@@ -37,9 +37,12 @@ def create_producer(config: Optional[Dict[str, Any]] = None) -> Producer:
     return Producer(kafka_config_from_env())
 
 
-def publish_to_topic(producer: Producer, message_type: MessageBase, message_contents: dict):
+def publish_to_topic(producer: Producer, message_type: MessageBase, message_contents: Dict[str, Any]):
     """Publish to topic using message contents class."""
-    producer.produce(message_type.topic_name, value=dumps(message_type._validate_and_append_version).encode("utf-8"))
+    producer.produce(
+        message_type.topic_name,
+        value=dumps(message_type._validate_and_append_version(message_contents)).encode("utf-8"),
+    )
     _LOGGER.debug(
         "Sending the following message to topic %s.\n%s",
         message_type.topic_name,

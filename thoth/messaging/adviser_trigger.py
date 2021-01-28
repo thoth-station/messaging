@@ -19,46 +19,41 @@
 """This is Thoth Messaging module for AdviseTriggerMessage."""
 
 import logging
-import attr
-from typing import Any
-from typing import Optional
-from typing import Dict
 
-from .message_base import MessageBase, BaseMessageContents
+from .base import BASE_DEFINITIONS, MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
+definitions = BASE_DEFINITIONS
 
-class AdviserTriggerMessage(MessageBase):
-    """Class used for Advise events on Kafka topic."""
+definitions["adviser_trigger"] = {
+    "type": "object",
+    "properties": {
+        "application_stack": {"type": "object"},
+        "recommendation_type": {"type": "string"},
+        "dev": {"type": "boolean"},
+        "debug": {"type": "boolean"},
+        # ↑↑↑ Required | Optional ↓↓↓
+        "count": {"type": "integer", "minimum": 0},
+        "limit": {"type": "integer", "minimum": 0},
+        "runtime_environment": {"type": "object"},
+        "library_usage": {"type": "object"},
+        "origin": {"type": "string"},
+        "job_id": {"type": "string"},
+        "limit_latest_versions": {"type": "integer", "minimum": 0},
+        "github_event_type": {"type": "string"},
+        "github_check_run_id": {"type": "string"},
+        "github_installation_id": {"type": "integer", "minimum": 0},
+        "github_base_repo_url": {"type": "string"},
+        "re_run_adviser_id": {"type": "string"},
+        "source_type": {"type": "string"},
+    },
+    "required": ["application_stack", "recommendation_type", "dev", "debug",],
+}
 
-    base_name = "thoth.adviser-trigger"
+jsonschema = {
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/adviser_trigger"},],
+    "definitions": definitions,
+}
 
-    @attr.s
-    class MessageContents(BaseMessageContents):  # type: ignore
-        """Class used to represent contents of a message Kafka topic."""
-
-        application_stack = attr.ib(type=Dict[Any, Any])
-        recommendation_type = attr.ib(type=str)
-        dev = attr.ib(type=bool, default=False)
-        debug = attr.ib(type=bool, default=False)
-        count = attr.ib(type=Optional[int], default=None)
-        limit = attr.ib(type=Optional[int], default=None)
-        runtime_environment = attr.ib(type=Optional[Dict[Any, Any]], default=None)
-        library_usage = attr.ib(type=Optional[Dict[Any, Any]], default=None)
-        origin = attr.ib(type=Optional[str], default=None)
-        job_id = attr.ib(type=Optional[str], default=None)
-        limit_latest_versions = attr.ib(type=Optional[int], default=None)
-        github_event_type = attr.ib(type=Optional[str], default=None)
-        github_check_run_id = attr.ib(type=Optional[int], default=None)
-        github_installation_id = attr.ib(type=Optional[int], default=None)
-        github_base_repo_url = attr.ib(type=Optional[str], default=None)
-        re_run_adviser_id = attr.ib(type=Optional[str], default=None)
-        source_type = attr.ib(type=Optional[str], default=None)
-        version = attr.ib(type=str, default="v1", init=False)
-
-    def __init__(self,):
-        """Initialize advise-justification topic."""
-        super(AdviserTriggerMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+adviser_trigger_message = MessageBase(jsonschema=jsonschema, base_name="thoth.adviser-trigger", version="v1")

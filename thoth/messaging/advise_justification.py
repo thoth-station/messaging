@@ -20,11 +20,11 @@
 
 import logging
 
-from .base import base_definitions, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
-definitions = base_definitions
+definitions = BASE_DEFINITIONS
 
 definitions["advise_justification"] = {
     "type": "object",
@@ -38,7 +38,7 @@ definitions["advise_justification"] = {
 }
 
 jsonschema = {
-    "allOf": {{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/advise_justification"},},
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/advise_justification"},],
     "definitions": definitions,
 }
 

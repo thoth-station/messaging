@@ -43,7 +43,7 @@ def create_all_topics(admin: AdminClient, partitions: int = 1, replication_facto
     # NOTE: topics are only created if they don't exist
     topics = admin.list_topics().topics
     for i in ALL_MESSAGES:
-        t_name = i().topic_name
+        t_name = i.topic_name
         if t_name in topics:
             continue
         admin.create_topics(

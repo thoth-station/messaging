@@ -17,29 +17,30 @@
 
 """This is Thoth Messaging module for UnrevsolvedPackageMessage."""
 
-import attr
 import logging
 
-from .message_base import MessageBase, BaseMessageContents
+from .base import BASE_DEFINITIONS, MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class UnrevsolvedPackageMessage(MessageBase):
-    """Class used by Producer events on Kafka topic on Reverse Solver events."""
+definitions = BASE_DEFINITIONS
 
-    base_name = "thoth.investigator.unrevsolved-package"
+definitions["unrevsolved_package"] = {
+    "type": "object",
+    "properties": {
+        "package_name": {"type": "string"},
+        "package_version": {"type": "string"},
+        # Required ↑↑↑ | ↓↓↓ Optional
+    },
+    "required": ["package_name", "package_version"],
+}
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a unrevsolved package message Kafka topic."""
+jsonschema = {
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/unrevsolved_package"},],
+    "definitions": definitions,
+}
 
-        package_name = attr.ib(type=str)
-        package_version = attr.ib(type=str)
-        version = attr.ib(type=str, default="v1", init=False)
-
-    def __init__(self):
-        """Initialize unrevsolved package topic."""
-        super(UnrevsolvedPackageMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+unrevsolved_package_message = MessageBase(
+    jsonschema=jsonschema, base_name="thoth.investigator.unrevsolved-package", version="v1"
+)

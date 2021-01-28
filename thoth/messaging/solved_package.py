@@ -18,31 +18,30 @@
 
 """This is Thoth Messaging module for SolvedPackageMessage."""
 
-import attr
 import logging
 
-from .message_base import MessageBase, BaseMessageContents
+from .base import BASE_DEFINITIONS, MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class SolvedPackageMessage(MessageBase):
-    """Class used for Solved Package events on Kafka topic."""
+definitions = BASE_DEFINITIONS
 
-    base_name = "thoth.solver.solved-package"
+definitions["solved_package"] = {
+    "type": "object",
+    "properties": {
+        "index_url": {"type": "string"},
+        "package_name": {"type": "string"},
+        "package_version": {"type": "string"},
+        "solver": {"type": "string"},
+        # Required ↑↑↑ | ↓↓↓ Optional
+    },
+    "required": ["index_url", "package_name", "package_version", "solver"],
+}
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a solved package message Kafka topic."""
+jsonschema = {
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/solved_package"},],
+    "definitions": definitions,
+}
 
-        package_name = attr.ib(type=str)
-        package_version = attr.ib(type=str)
-        index_url = attr.ib(type=str)
-        solver = attr.ib(type=str)
-        version = attr.ib(type=str, default="v1", init=False)
-
-    def __init__(self):
-        """Initialize solved package topic."""
-        super(SolvedPackageMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+solved_package_message = MessageBase(jsonschema=jsonschema, base_name="thoth.solver.solved-package", version="v1")

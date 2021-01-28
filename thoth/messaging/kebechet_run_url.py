@@ -18,32 +18,30 @@
 
 """This is Thoth Messaging module for KebechetRunUrlTriggerMessage."""
 
-import attr
 import logging
-from typing import Optional
 
-from .message_base import MessageBase, BaseMessageContents
+from .base import BASE_DEFINITIONS, MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
+definitions = BASE_DEFINITIONS
 
-class KebechetRunUrlTriggerMessage(MessageBase):
-    """Class used for Kebechet Run Url events on Kafka topic."""
+definitions["kebechet_run_url"] = {
+    "type": "object",
+    "properties": {
+        # Required ↑↑↑ | ↓↓↓ Optional
+        "installation_id": {"type": "string"},
+        "job_id": {"type": "string"},
+        "service_name": {"type": "string"},
+        "url": {"type": "string"},
+    },
+}
 
-    base_name = "thoth.kebechet-run-url-trigger"
+jsonschema = {
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/kebechet_run_url"},],
+    "definitions": definitions,
+}
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a message Kafka topic."""
-
-        url = attr.ib(type=Optional[str], default=None)
-        service_name = attr.ib(type=Optional[str], default=None)
-        installation_id = attr.ib(type=Optional[str], default=None)
-        job_id = attr.ib(type=Optional[str], default=None)
-        version = attr.ib(type=str, default="v1", init=False)
-
-    def __init__(self):
-        """Initialize kebechet-run-url topic."""
-        super(KebechetRunUrlTriggerMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+kebechet_run_url_trigger_message = MessageBase(
+    jsonschema=jsonschema, base_name="thoth.kebechet-run-url-trigger", version="v1"
+)

@@ -18,27 +18,27 @@
 
 """This is Thoth Messaging module for PackageReleasedMessage."""
 
-import attr
-
-from .message_base import MessageBase, BaseMessageContents
+from .base import BASE_DEFINITIONS, MessageBase
 
 
-class PackageReleasedMessage(MessageBase):
-    """Class used for Package Release events on Kafka topic."""
+definitions = BASE_DEFINITIONS
 
-    base_name = "thoth.package-release.package-released"
+definitions["package_release"] = {
+    "type": "object",
+    "properties": {
+        "index_url": {"type": "string"},
+        "package_name": {"type": "string"},
+        "package_version": {"type": "string"},
+        # Required ↑↑↑ | ↓↓↓ Optional
+    },
+    "required": ["index_url", "package_name", "package_version"],
+}
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a package-released message Kafka topic."""
+jsonschema = {
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/package_release"},],
+    "definitions": definitions,
+}
 
-        index_url = attr.ib(type=str)
-        package_name = attr.ib(type=str)
-        package_version = attr.ib(type=str)
-        version = attr.ib(type=str, default="v1", init=False)
-
-    def __init__(self):
-        """Initialize package releases topic."""
-        super(PackageReleasedMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+package_released_message = MessageBase(
+    jsonschema=jsonschema, base_name="thoth.package-release.package-released", version="v1"
+)

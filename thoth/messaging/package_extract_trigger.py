@@ -19,36 +19,35 @@
 """This is Thoth Messaging module for PackageExtractTriggerMessage."""
 
 import logging
-import attr
-from typing import Optional
 
-from .message_base import MessageBase, BaseMessageContents
+from .base import BASE_DEFINITIONS, MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
+definitions = BASE_DEFINITIONS
 
-class PackageExtractTriggerMessage(MessageBase):
-    """Class used for Package Extract events on Kafka topic."""
+definitions["package_extract_trigger"] = {
+    "type": "object",
+    "properties": {
+        "debug": {"type": "boolean"},
+        "environment_type": {"type": "string"},
+        "image": {"type": "string"},
+        "is_external": {"type": "boolean"},
+        "verify_tls": {"type": "boolean"},
+        # Required ↑↑↑ | ↓↓↓ Optional
+        "job_id": {"type": "string"},
+        "origin": {"type": "string"},
+        "registry_user": {"type": "string"},
+        "registry_password": {"type": "string"},
+    },
+    "required": ["debug", "environment_type", "image", "is_external", "verify_tls",],
+}
 
-    base_name = "thoth.package-extract-trigger"
+jsonschema = {
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/package_extract_trigger"},],
+    "definitions": definitions,
+}
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a message Kafka topic."""
-
-        image = attr.ib(type=str)
-        environment_type = attr.ib(type=str)
-        is_external = attr.ib(type=bool, default=True)
-        verify_tls = attr.ib(type=bool, default=True)
-        debug = attr.ib(type=bool, default=False)
-        job_id = attr.ib(type=Optional[str], default=None)
-        origin = attr.ib(type=Optional[str], default=None)
-        registry_user = attr.ib(type=Optional[str], default=None)
-        registry_password = attr.ib(type=Optional[str], default=None)
-        version = attr.ib(type=str, default="v1", init=False)
-
-    def __init__(self):
-        """Initialize advise-justification topic."""
-        super(PackageExtractTriggerMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+package_extract_trigger_message = MessageBase(
+    jsonschema=jsonschema, base_name="thoth.package-extract-trigger", version="v1"
+)

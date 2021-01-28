@@ -18,32 +18,27 @@
 
 """This is Thoth Messaging module for KebechetTriggerMessage."""
 
-import attr
 import logging
-from typing import Any
-from typing import Dict
-from typing import Optional
 
-from .message_base import MessageBase, BaseMessageContents
+from .base import BASE_DEFINITIONS, MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
+definitions = BASE_DEFINITIONS
 
-class KebechetTriggerMessage(MessageBase):
-    """Class used for Kebechet events on Kafka topic."""
+definitions["kebechet_trigger"] = {
+    "type": "object",
+    "properties": {
+        "webhook_payload": {"type": "object"},
+        # Required ↑↑↑ | ↓↓↓ Optional
+        "job_id": {"type": "string"},
+    },
+    "required": ["webhook_payload"],
+}
 
-    base_name = "thoth.kebechet-trigger"
+jsonschema = {
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/kebechet_trigger"},],
+    "definitions": definitions,
+}
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a message Kafka topic."""
-
-        webhook_payload = attr.ib(type=Dict[str, Any])
-        job_id = attr.ib(type=Optional[str], default=None)
-        version = attr.ib(type=str, default="v1")
-
-    def __init__(self):
-        """Initialize advise-justification topic."""
-        super(KebechetTriggerMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+kebechet_trigger_message = MessageBase(jsonschema=jsonschema, base_name="thoth.kebechet-trigger", version="v1")

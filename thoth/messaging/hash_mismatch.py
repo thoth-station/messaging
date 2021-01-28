@@ -18,33 +18,30 @@
 
 """This is Thoth Messaging module for HashMismatchMessage."""
 
-import attr
 import logging
-from typing import List
 
-from .message_base import MessageBase, BaseMessageContents
+from .base import BASE_DEFINITIONS, MessageBase
 
 _LOGGER = logging.getLogger(__name__)
 
+definitions = BASE_DEFINITIONS
 
-class HashMismatchMessage(MessageBase):
-    """Class used for Package Release events on Kafka topic."""
+definitions["hash_mismatch"] = {
+    "type": "object",
+    "properties": {
+        "index_url": {"type": "string"},
+        "missing_from_database": {"type": "array", "items": {"type": "string"}},
+        "missing_from_source": {"type": "array", "items": {"type": "string"}},
+        "package_name": {"type": "string"},
+        "package_version": {"type": "string"},
+        # Required ↑↑↑ | ↓↓↓ Optional
+    },
+    "required": ["index_url", "missing_from_source", "missing_from_database", "package_name", "package_version",],
+}
 
-    base_name = "thoth.package-update.hash-mismatch"
+jsonschema = {
+    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/hash_mismatch"},],
+    "definitions": definitions,
+}
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent a contents of a hash-mismatch message Kafka topic."""
-
-        index_url = attr.ib(type=str)
-        package_name = attr.ib(type=str)
-        package_version = attr.ib(type=str)
-        missing_from_source = attr.ib(type=List[str])
-        missing_from_database = attr.ib(type=List[str])
-        version = attr.ib(type=str, default="v1")
-
-    def __init__(self):
-        """Initialize hash mismatch topic."""
-        super(HashMismatchMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+hash_mismatch_message = MessageBase(jsonschema=jsonschema, base_name="thoth.package-update.hash-mismatch", version="v1")
