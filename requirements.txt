@@ -1,2 +1,4 @@
+click
 confluent-kafka
+jsonschema
 thoth-common

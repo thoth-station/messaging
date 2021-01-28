@@ -123,7 +123,7 @@ def messaging(
         for message in ALL_MESSAGES:
             if m_base_name == message.base_name:
                 _LOGGER.info(f"Found message in registered list: {m_base_name}")
-                topic = message()
+                topic = message
                 message_found = True
                 break
 
@@ -141,8 +141,7 @@ def messaging(
                 admin_client.create_topic(admin, topic, partitions=partitions, replication_factor=replication)
 
         message_dict = {i: m_contents[i]["value"] for i in m_contents}
-        message = topic.MessageContents(**message_dict)
-        producer.publish_to_topic(prod, topic, message)
+        producer.publish_to_topic(prod, topic, message_dict)
 
         _LOGGER.info(f"Sent message {topic.topic_name} with content: {message_dict}")
 
