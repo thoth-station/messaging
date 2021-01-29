@@ -26,16 +26,20 @@ _LOGGER = logging.getLogger(__name__)
 
 definitions = BASE_DEFINITIONS
 
+definitions["metadata"] = {"type": "object", "properties": {"justification": {"type": "integer", "minimum": 0},}}
+
 definitions["kebechet_run_url"] = {
     "type": "object",
     "properties": {
         # Required ↑↑↑ | ↓↓↓ Optional
         "installation_id": {"type": "string"},
         "job_id": {"type": "string"},
+        "metadata": {"$ref": "#definitions/metadata"},
         "service_name": {"type": "string"},
         "url": {"type": "string"},
     },
 }
+
 
 jsonschema = {
     "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/kebechet_run_url"},],
@@ -43,5 +47,5 @@ jsonschema = {
 }
 
 kebechet_run_url_trigger_message = MessageBase(
-    jsonschema=jsonschema, base_name="thoth.kebechet-run-url-trigger", version="v1"
+    jsonschema=jsonschema, base_name="thoth.kebechet-run-url-trigger", version="v2"
 )
