@@ -18,9 +18,10 @@
 
 """This is Thoth Messaging module for QebHwtTriggerMessage."""
 
+from typing import TypedDict
 import logging
 
-from .base import BASE_DEFINITIONS, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -52,8 +53,32 @@ definitions["qebhwt_trigger"] = {
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/qebhwt_trigger"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/qebhwt_trigger"},
+    ],
     "definitions": definitions,
 }
 
 qebhwt_trigger_message = MessageBase(jsonschema=jsonschema, base_name="thoth.qebhwt-trigger", version="v1")
+
+
+class _Required(TypedDict, total=True):
+    github_base_repo_url: str
+    github_check_run_id: int
+    github_event_type: str
+    github_head_repo_url: str
+    github_installation_id: int
+    host: str
+    origin: str
+    revision: str
+
+
+class _Optional(TypedDict, total=False):
+    job_id: str
+
+
+class QebHwtTriggerContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for QebHwtTrigger messages as specified in _Required and _Optional."""
+
+    pass

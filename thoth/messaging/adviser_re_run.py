@@ -19,8 +19,9 @@
 """This is Thoth Messaging module for AdviserReRunMessage."""
 
 import logging
+from typing import TypedDict
 
-from .base import BASE_DEFINITIONS, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -42,12 +43,41 @@ definitions["adviser_re_run"] = {
         "github_base_repo_url": {"type": "string"},
         "source_type": {"type": "string"},
     },
-    "required": ["re_run_adviser_id", "application_stack", "recommendation_type",],
+    "required": [
+        "re_run_adviser_id",
+        "application_stack",
+        "recommendation_type",
+    ],
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/adviser_re_run"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/adviser_re_run"},
+    ],
     "definitions": definitions,
 }
 
 adviser_re_run_message = MessageBase(jsonschema=jsonschema, base_name="thoth.investigator.adviser-re-run", version="v1")
+
+
+class _Required(TypedDict, total=True):
+    re_run_adviser_id: str
+    application_stack: dict
+    recommendation_type: str
+
+
+class _Optional(TypedDict, total=False):
+    runtime_environment: dict
+    origin: str
+    github_event_type: str
+    github_check_run_id: str
+    github_installation_id: int
+    github_base_repo_url: str
+    source_type: str
+
+
+class AdviserReRunContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for AdviserReRun messages as specified in _Required and _Optional."""
+
+    pass

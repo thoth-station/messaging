@@ -18,15 +18,21 @@
 
 """This is Thoth Messaging module for KebechetRunUrlTriggerMessage."""
 
+from typing import TypedDict
 import logging
 
-from .base import BASE_DEFINITIONS, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
 definitions = BASE_DEFINITIONS
 
-definitions["metadata"] = {"type": "object", "properties": {"justification": {"type": "integer", "minimum": 0},}}
+definitions["metadata"] = {
+    "type": "object",
+    "properties": {
+        "justification": {"type": "integer", "minimum": 0},
+    },
+}
 
 definitions["kebechet_run_url"] = {
     "type": "object",
@@ -42,10 +48,35 @@ definitions["kebechet_run_url"] = {
 
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/kebechet_run_url"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/kebechet_run_url"},
+    ],
     "definitions": definitions,
 }
 
 kebechet_run_url_trigger_message = MessageBase(
     jsonschema=jsonschema, base_name="thoth.kebechet-run-url-trigger", version="v2"
 )
+
+
+class _Metadata(TypedDict, total=False):
+    justification: int
+
+
+class _Required(TypedDict, total=True):
+    pass
+
+
+class _Optional(TypedDict, total=False):
+    installation_id: str
+    job_id: str
+    metadata: _Metadata
+    service_name: str
+    url: str
+
+
+class KebechetRunUrlTriggerContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for KebechetRunUrl messages as specified in _Required and _Optional."""
+
+    pass

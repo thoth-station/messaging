@@ -18,8 +18,9 @@
 
 """This is Thoth Messaging module for InspectionCompleteMessage."""
 
+from typing import TypedDict
 
-from .base import BASE_DEFINITIONS, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 definitions = BASE_DEFINITIONS
 
@@ -30,12 +31,33 @@ definitions["inspection_completed"] = {
         "inspection_id": {"type": "string"},
         # Required ↑↑↑ | ↓↓↓ Optional
     },
-    "required": ["force_sync", "inspection_id",],
+    "required": [
+        "force_sync",
+        "inspection_id",
+    ],
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/inspection_completed"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/inspection_completed"},
+    ],
     "definitions": definitions,
 }
 
-inspection_completed_message = MessageBase(jsonschema=jsonschema, base_name="thoth.inspection-completed", version="v1")
+inspection_complete_message = MessageBase(jsonschema=jsonschema, base_name="thoth.inspection-completed", version="v1")
+
+
+class _Required(TypedDict, total=True):
+    force_sync: bool
+    inspection_id: str
+
+
+class _Optional(TypedDict, total=False):
+    pass
+
+
+class InspectionCompleteContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for InspectionComplete messages as specified in _Required and _Optional."""
+
+    pass

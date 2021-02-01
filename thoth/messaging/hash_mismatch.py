@@ -19,8 +19,9 @@
 """This is Thoth Messaging module for HashMismatchMessage."""
 
 import logging
+from typing import TypedDict, List
 
-from .base import BASE_DEFINITIONS, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -36,12 +37,39 @@ definitions["hash_mismatch"] = {
         "package_version": {"type": "string"},
         # Required ↑↑↑ | ↓↓↓ Optional
     },
-    "required": ["index_url", "missing_from_source", "missing_from_database", "package_name", "package_version",],
+    "required": [
+        "index_url",
+        "missing_from_source",
+        "missing_from_database",
+        "package_name",
+        "package_version",
+    ],
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/hash_mismatch"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/hash_mismatch"},
+    ],
     "definitions": definitions,
 }
 
 hash_mismatch_message = MessageBase(jsonschema=jsonschema, base_name="thoth.package-update.hash-mismatch", version="v1")
+
+
+class _Required(TypedDict, total=True):
+    index_url: str
+    missing_from_database: List[str]
+    missing_from_source: List[str]
+    package_name: str
+    package_version: str
+
+
+class _Optional(TypedDict, total=False):
+    pass
+
+
+class HashMismatchContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for HashMismatch messages as specified in _Required and _Optional."""
+
+    pass

@@ -18,9 +18,10 @@
 
 """This is Thoth Messaging module for UnresolvedPackageMessage."""
 
+from typing import TypedDict
 import logging
 
-from .base import BASE_DEFINITIONS, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -40,10 +41,29 @@ definitions["unresolved_package"] = {
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/unresolved_package"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/unresolved_package"},
+    ],
     "definitions": definitions,
 }
 
 unresolved_package_message = MessageBase(
     jsonschema=jsonschema, base_name="thoth.investigator.unresolved-package", version="v1"
 )
+
+
+class _Required(TypedDict, total=True):
+    package_name: str
+
+
+class _Optional(TypedDict, total=False):
+    index_url: str
+    package_version: str
+    solver: str
+
+
+class UnresolvedPackageContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for UnresolvedPackage messages as specified in _Required and _Optional."""
+
+    pass

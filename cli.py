@@ -132,7 +132,10 @@ def messaging(
 
             kafka_topic_list = admin.list_topics().topics
             message_types = [(i, m_contents[i]["type"]) for i in m_contents]
-            topic = message_factory(b_name=m_base_name, message_contents=message_types,)()
+            topic = message_factory(
+                b_name=m_base_name,
+                message_contents=message_types,
+            )()
 
             if topic.topic_name not in kafka_topic_list:
                 if not create_if_not_exist:

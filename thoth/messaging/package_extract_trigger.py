@@ -18,9 +18,10 @@
 
 """This is Thoth Messaging module for PackageExtractTriggerMessage."""
 
+from typing import TypedDict
 import logging
 
-from .base import BASE_DEFINITIONS, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -40,14 +41,44 @@ definitions["package_extract_trigger"] = {
         "registry_user": {"type": "string"},
         "registry_password": {"type": "string"},
     },
-    "required": ["debug", "environment_type", "image", "is_external", "verify_tls",],
+    "required": [
+        "debug",
+        "environment_type",
+        "image",
+        "is_external",
+        "verify_tls",
+    ],
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/package_extract_trigger"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/package_extract_trigger"},
+    ],
     "definitions": definitions,
 }
 
 package_extract_trigger_message = MessageBase(
     jsonschema=jsonschema, base_name="thoth.package-extract-trigger", version="v1"
 )
+
+
+class _Required(TypedDict, total=True):
+    debug: bool
+    environment_type: str
+    image: str
+    is_external: bool
+    verify_tls: bool
+
+
+class _Optional(TypedDict, total=False):
+    job_id: str
+    origin: str
+    registry_user: str
+    registry_password: str
+
+
+class PackageExtractTriggerContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for PackageExtractTrigger messages as specified in _Required and _Optional."""
+
+    pass

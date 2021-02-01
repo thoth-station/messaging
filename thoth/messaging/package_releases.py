@@ -18,7 +18,9 @@
 
 """This is Thoth Messaging module for PackageReleasedMessage."""
 
-from .base import BASE_DEFINITIONS, MessageBase
+from typing import TypedDict
+
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 
 definitions = BASE_DEFINITIONS
@@ -35,10 +37,29 @@ definitions["package_release"] = {
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/package_release"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/package_release"},
+    ],
     "definitions": definitions,
 }
 
 package_released_message = MessageBase(
     jsonschema=jsonschema, base_name="thoth.package-release.package-released", version="v1"
 )
+
+
+class _Required(TypedDict, total=True):
+    index_url: str
+    package_name: str
+    package_version: str
+
+
+class _Optional(TypedDict, total=False):
+    pass
+
+
+class PackageReleasedContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for PackageReleases messages as specified in _Required and _Optional."""
+
+    pass

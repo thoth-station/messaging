@@ -18,9 +18,10 @@
 
 """This is Thoth Messaging module for ProvenanceCheckerTriggerMessage."""
 
+from typing import TypedDict, List
 import logging
 
-from .base import BASE_DEFINITIONS, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -41,10 +42,30 @@ definitions["provenance_checker_trigger"] = {
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/provenance_checker_trigger"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/provenance_checker_trigger"},
+    ],
     "definitions": definitions,
 }
 
 provenance_checker_trigger_message = MessageBase(
     jsonschema=jsonschema, base_name="thoth.provenance-checker-trigger", version="v1"
 )
+
+
+class _Required(TypedDict, total=True):
+    application_stack: dict
+    debug: bool
+
+
+class _Optional(TypedDict, total=False):
+    job_id: str
+    origin: str
+    whitelisted_sources: List[str]
+
+
+class ProvenanceCheckerTriggerContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for ProvenanceCheckerTrigger messages as specified in _Required and _Optional."""
+
+    pass

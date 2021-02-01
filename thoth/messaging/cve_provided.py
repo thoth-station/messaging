@@ -18,7 +18,9 @@
 
 """This is Thoth Messaging module for CVEProvidedMessage."""
 
-from .base import BASE_DEFINITIONS, MessageBase
+from typing import TypedDict
+
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 definitions = BASE_DEFINITIONS
 
@@ -29,12 +31,35 @@ definitions["cve_provided"] = {
         "package_name": {"type": "string"},
         "package_version": {"type": "string"},
     },
-    "required": ["index_url", "package_name", "package_version",],
+    "required": [
+        "index_url",
+        "package_name",
+        "package_version",
+    ],
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/cve_provided"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/cve_provided"},
+    ],
     "definitions": definitions,
 }
 
 cve_provided_message = MessageBase(jsonschema=jsonschema, base_name="thoth.cve-update.cve-provided", version="v1")
+
+
+class _Required(TypedDict, total=True):
+    index_url: str
+    package_name: str
+    package_version: str
+
+
+class _Optional(TypedDict, total=False):
+    pass
+
+
+class CVEProvidedContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for CVEProvided messages as specified in _Required and _Optional."""
+
+    pass

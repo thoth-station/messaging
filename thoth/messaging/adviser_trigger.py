@@ -19,8 +19,9 @@
 """This is Thoth Messaging module for AdviseTriggerMessage."""
 
 import logging
+from typing import TypedDict
 
-from .base import BASE_DEFINITIONS, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -48,12 +49,49 @@ definitions["adviser_trigger"] = {
         "re_run_adviser_id": {"type": "string"},
         "source_type": {"type": "string"},
     },
-    "required": ["application_stack", "recommendation_type", "dev", "debug",],
+    "required": [
+        "application_stack",
+        "recommendation_type",
+        "dev",
+        "debug",
+    ],
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/adviser_trigger"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/adviser_trigger"},
+    ],
     "definitions": definitions,
 }
 
 adviser_trigger_message = MessageBase(jsonschema=jsonschema, base_name="thoth.adviser-trigger", version="v1")
+
+
+class _Required(TypedDict, total=True):
+    application_stack: dict
+    recommendation_type: str
+    dev: bool
+    debug: bool
+
+
+class _Optional(TypedDict, total=False):
+    count: int
+    limit: int
+    runtime_environment: dict
+    library_usage: dict
+    origin: str
+    job_id: str
+    limit_latest_versions: int
+    github_event_type: str
+    github_check_run_id: str
+    github_installation_id: int
+    github_base_repo_url: str
+    re_run_adviser_id: str
+    source_type: str
+
+
+class AdviserTriggerContents(BaseMessageContents, _Required, _Optional):
+    """Adviser trigger contents, as specified in _Required and _Optional."""
+
+    pass

@@ -19,8 +19,9 @@
 """This is Thoth Messaging module for AdviseJustificationMessage."""
 
 import logging
+from typing import TypedDict
 
-from .base import BASE_DEFINITIONS, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -38,10 +39,30 @@ definitions["advise_justification"] = {
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/advise_justification"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/advise_justification"},
+    ],
     "definitions": definitions,
 }
 
 advise_justification_message = MessageBase(
     jsonschema=jsonschema, base_name="thoth.advise-reporter.advise-justification", version="v1"
 )
+
+
+class _Required(TypedDict, total=True):
+    message: str
+    justification_type: str
+    count: int
+    adviser_version: str
+
+
+class _Optional(TypedDict, total=False):
+    pass
+
+
+class AdviseJustificationContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for AdviseJustification messages as specified in _Required and _Optional."""
+
+    pass

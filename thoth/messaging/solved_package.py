@@ -18,9 +18,10 @@
 
 """This is Thoth Messaging module for SolvedPackageMessage."""
 
+from typing import TypedDict
 import logging
 
-from .base import BASE_DEFINITIONS, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -40,8 +41,28 @@ definitions["solved_package"] = {
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/solved_package"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/solved_package"},
+    ],
     "definitions": definitions,
 }
 
 solved_package_message = MessageBase(jsonschema=jsonschema, base_name="thoth.solver.solved-package", version="v1")
+
+
+class _Required(TypedDict, total=True):
+    index_url: str
+    package_name: str
+    package_version: str
+    solver: str
+
+
+class _Optional(TypedDict, total=False):
+    pass
+
+
+class SolvedPackageContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for SolvedPackage messages as specified in _Required and _Optional."""
+
+    pass

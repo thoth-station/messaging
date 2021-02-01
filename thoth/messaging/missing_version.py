@@ -19,7 +19,9 @@
 """This is Thoth Messaging module for MissingVersionMessage."""
 
 
-from .base import BASE_DEFINITIONS, MessageBase
+from typing import TypedDict
+
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 
 definitions = BASE_DEFINITIONS
@@ -36,10 +38,29 @@ definitions["missing_version"] = {
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/missing_version"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/missing_version"},
+    ],
     "definitions": definitions,
 }
 
 missing_version_message = MessageBase(
     jsonschema=jsonschema, base_name="thoth.package-update.missing-package-version", version="v1"
 )
+
+
+class _Required(TypedDict, total=True):
+    index_url: str
+    package_name: str
+    package_version: str
+
+
+class _Optional(TypedDict, total=False):
+    pass
+
+
+class MissingVersionContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for MissingVersion messages as specified in _Required and _Optional."""
+
+    pass

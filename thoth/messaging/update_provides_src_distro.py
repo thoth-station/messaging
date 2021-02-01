@@ -18,9 +18,10 @@
 
 """This is Thoth Messaging module for UpdateProvidesSourceDistroMessage."""
 
+from typing import TypedDict
 import logging
 
-from .base import BASE_DEFINITIONS, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -39,10 +40,30 @@ definitions["update_provides_src_distro"] = {
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/update_provides_src_distro"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/update_provides_src_distro"},
+    ],
     "definitions": definitions,
 }
 
 update_provides_src_distro_message = MessageBase(
     jsonschema=jsonschema, base_name="thoth.update-provides-source-distro", version="v1"
 )
+
+
+class _Required(TypedDict, total=True):
+    index_url: str
+    package_name: str
+    package_version: str
+    value: bool
+
+
+class _Optional(TypedDict, total=False):
+    pass
+
+
+class UpdateProvidesSrcDistroContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for UpdateProvidesSrcDistroContents messages as specified in _Required and _Optional."""
+
+    pass

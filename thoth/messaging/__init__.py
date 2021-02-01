@@ -17,29 +17,29 @@
 
 """This is Thoth Messaging module."""
 
-from .message_base import MessageBase
+from .base import MessageBase, BaseMessageContents
 from .message_factory import message_factory
 
-from .advise_justification import advise_justification_message
-from .adviser_re_run import adviser_re_run_message
-from .adviser_trigger import adviser_trigger_message
-from .build_analysis_trigger import build_analysis_trigger_message
-from .cve_provided import cve_provided_message
-from .hash_mismatch import hash_mismatch_message
-from .inspection_complete import inspection_completed_message
-from .kebechet_run_url import kebechet_run_url_trigger_message
-from .kebechet_trigger import kebechet_trigger_message
-from .missing_package import missing_package_message
-from .missing_version import missing_version_message
-from .package_extract_trigger import package_extract_trigger_message
-from .package_releases import package_released_message
-from .provenance_checker_trigger import provenance_checker_trigger_message
-from .qebhwt_trigger import qebhwt_trigger_message
-from .si_unanalyzed_package import si_unanalyzed_package_message
-from .solved_package import solved_package_message
-from .unresolved_package import unresolved_package_message
-from .unrevsolved_package import unrevsolved_package_message
-from .update_provides_src_distro import update_provides_src_distro_message
+from .advise_justification import advise_justification_message, AdviseJustificationContents
+from .adviser_re_run import adviser_re_run_message, AdviserReRunContents
+from .adviser_trigger import adviser_trigger_message, AdviserTriggerContents
+from .build_analysis_trigger import build_analysis_trigger_message, BuildAnalysisTriggerContents
+from .cve_provided import cve_provided_message, CVEProvidedContents
+from .hash_mismatch import hash_mismatch_message, HashMismatchContents
+from .inspection_complete import inspection_complete_message, InspectionCompleteContents
+from .kebechet_run_url import kebechet_run_url_trigger_message, KebechetRunUrlTriggerContents
+from .kebechet_trigger import kebechet_trigger_message, KebechetTriggerContents
+from .missing_package import missing_package_message, MissingPackageContents
+from .missing_version import missing_version_message, MissingVersionContents
+from .package_extract_trigger import package_extract_trigger_message, PackageExtractTriggerContents
+from .package_releases import package_released_message, PackageReleasedContents
+from .provenance_checker_trigger import provenance_checker_trigger_message, ProvenanceCheckerTriggerContents
+from .qebhwt_trigger import qebhwt_trigger_message, QebHwtTriggerContents
+from .si_unanalyzed_package import si_unanalyzed_package_message, SIUnanalyzedPackageContents
+from .solved_package import solved_package_message, SolvedPackageContents
+from .unresolved_package import unresolved_package_message, UnresolvedPackageContents
+from .unrevsolved_package import unrevsolved_package_message, UnrevsolvedPackageContents
+from .update_provides_src_distro import update_provides_src_distro_message, UpdateProvidesSrcDistroContents
 
 ALL_MESSAGES = [
     advise_justification_message,
@@ -48,7 +48,7 @@ ALL_MESSAGES = [
     build_analysis_trigger_message,
     cve_provided_message,
     hash_mismatch_message,
-    inspection_completed_message,
+    inspection_complete_message,
     kebechet_run_url_trigger_message,
     kebechet_trigger_message,
     missing_package_message,
@@ -67,24 +67,47 @@ ALL_MESSAGES = [
 
 __all__ = [
     "advise_justification_message",
+    "AdviseJustificationContents",
     "adviser_re_run_message",
+    "AdviserReRunContents",
     "adviser_trigger_message",
+    "AdviserTriggerContents",
     "build_analysis_trigger_message",
+    "BuildAnalysisTriggerContents",
     "cve_provided_message",
+    "CVEProvidedContents",
     "hash_mismatch_message",
-    "inspection_completed_message",
+    "HashMismatchContents",
+    "inspection_complete_message",
+    "InspectionCompleteContents",
     "kebechet_run_url_trigger_message",
+    "KebechetRunUrlTriggerContents",
     "kebechet_trigger_message",
+    "KebechetTriggerContents",
+    "missing_package_message",
+    "MissingPackageContents",
+    "missing_version_message",
+    "MissingVersionContents",
     "package_extract_trigger_message",
+    "PackageExtractTriggerContents",
     "package_released_message",
+    "PackageReleasedContents",
     "provenance_checker_trigger_message",
+    "ProvenanceCheckerTriggerContents",
     "qebhwt_trigger_message",
+    "QebHwtTriggerContents",
     "si_unanalyzed_package_message",
+    "SIUnanalyzedPackageContents",
     "solved_package_message",
+    "SolvedPackageContents",
     "unresolved_package_message",
+    "UnresolvedPackageContents",
     "unrevsolved_package_message",
+    "UnrevsolvedPackageContents",
     "update_provides_src_distro_message",
+    "UpdateProvidesSrcDistroContents",
     "MessageBase",
+    "BaseMessageContents",
     "message_factory",
 ]
 

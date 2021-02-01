@@ -22,7 +22,8 @@ from .base import MessageBase, BASE_DEFINITIONS
 
 
 def message_factory(
-    b_name: str, jsonschema: dict,
+    b_name: str,
+    jsonschema: dict,
 ):
     """Create new message types."""
     if "definitions" not in jsonschema:

@@ -21,7 +21,7 @@
 
 import os
 import logging
-from typing import Optional
+from typing import Optional, TypedDict
 
 from jsonschema import validate
 
@@ -31,10 +31,28 @@ _LOGGER = logging.getLogger(__name__)
 BASE_DEFINITIONS = {
     "base_message": {
         "type": "object",
-        "properties": {"component_name": {"type": "string"}, "service_version": {"type": "string"},},
+        "properties": {
+            "component_name": {"type": "string"},
+            "service_version": {"type": "string"},
+        },
         "required": ["component_name", "service_version"],
     }
 }
+
+
+class _Required(TypedDict, total=True):
+    component_name: str
+    service_version: str
+
+
+class _Optional(TypedDict, total=False):
+    pass
+
+
+class BaseMessageContents(_Required, _Optional):
+    """Contents which are present in all messages, as defined in _Required and _Optional."""
+
+    pass
 
 
 class MessageBase:

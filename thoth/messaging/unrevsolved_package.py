@@ -17,9 +17,10 @@
 
 """This is Thoth Messaging module for UnrevsolvedPackageMessage."""
 
+from typing import TypedDict
 import logging
 
-from .base import BASE_DEFINITIONS, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -37,10 +38,28 @@ definitions["unrevsolved_package"] = {
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/unrevsolved_package"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/unrevsolved_package"},
+    ],
     "definitions": definitions,
 }
 
 unrevsolved_package_message = MessageBase(
     jsonschema=jsonschema, base_name="thoth.investigator.unrevsolved-package", version="v1"
 )
+
+
+class _Required(TypedDict, total=True):
+    package_name: str
+    package_version: str
+
+
+class _Optional(TypedDict, total=False):
+    pass
+
+
+class UnrevsolvedPackageContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for UnrevsolvedPackage messages as specified in _Required and _Optional."""
+
+    pass

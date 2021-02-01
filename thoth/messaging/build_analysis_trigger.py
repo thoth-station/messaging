@@ -19,8 +19,9 @@
 """This is Thoth Messaging module for BuildAnalysisTriggerMessage."""
 
 import logging
+from typing import TypedDict
 
-from .base import BASE_DEFINITIONS, MessageBase
+from .base import BASE_DEFINITIONS, MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -52,10 +53,41 @@ definitions["build_analysis_trigger"] = {
 }
 
 jsonschema = {
-    "allOf": [{"$ref": "#/definitions/base_message"}, {"$ref": "#/definitions/build_analysis_trigger"},],
+    "allOf": [
+        {"$ref": "#/definitions/base_message"},
+        {"$ref": "#/definitions/build_analysis_trigger"},
+    ],
     "definitions": definitions,
 }
 
 build_analysis_trigger_message = MessageBase(
     jsonschema=jsonschema, base_name="thoth.build-analysis-trigger", version="v1"
 )
+
+
+class _Required(TypedDict, total=True):
+    base_registry_verify_tls: bool
+    debug: bool
+    output_registry_verify_tls: bool
+
+
+class _Optional(TypedDict, total=False):
+    base_image: str
+    base_image_analysis_id: str
+    base_registry_password: str
+    base_registry_user: str
+    buildlog_document_id: str
+    buildlog_parser_id: str
+    environment_type: str
+    job_id: str
+    origin: str
+    output_image: str
+    output_image_analysis_id: str
+    output_registry_password: str
+    output_registry_user: str
+
+
+class BuildAnalysisTriggerContents(BaseMessageContents, _Required, _Optional):
+    """Message contents for BuildAnalysisTrigger messages as specified in _Required and _Optional."""
+
+    pass
