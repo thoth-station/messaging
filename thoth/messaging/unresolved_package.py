@@ -40,7 +40,7 @@ class UnresolvedPackageMessage(MessageBase):
         package_version = attr.ib(default=None, type=Optional[str])
         index_url = attr.ib(default=None, type=Optional[str])
         solver = attr.ib(default=None, type=Optional[str])
-        version = attr.ib(type=str, default=None, init=False)
+        version = attr.ib(type=str, default="v1", init=False)
 
     def __init__(self):
         """Initialize unresolved package topic."""
