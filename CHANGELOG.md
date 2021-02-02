@@ -621,3 +621,11 @@ all the things that you see...
 * :sparkles: aded new checkbox wrt Message versioning
 ### Improvements
 * removed bissenbay, thanks for your contributions!
+
+## Release 0.10.3 (2021-02-02T18:35:22)
+### Features
+* Add v1 to message (#351)
+* :arrow_up: Automatic update of dependencies by kebechet. (#349)
+* add function for connection health (#346)
+### Improvements
+* change message contents of inspection complete (#345)
