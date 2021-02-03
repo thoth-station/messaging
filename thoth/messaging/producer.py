@@ -18,12 +18,12 @@
 
 """Helper functions for using confluent kafka producer with thoth.messaging."""
 
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, Union
 from json import dumps
 import logging
 
 from .config import kafka_config_from_env
-from .base import MessageBase
+from .base import MessageBase, BaseMessageContents
 
 from confluent_kafka import Producer
 
@@ -37,7 +37,9 @@ def create_producer(config: Optional[Dict[str, Any]] = None) -> Producer:
     return Producer(kafka_config_from_env())
 
 
-def publish_to_topic(producer: Producer, message_type: MessageBase, message_contents: Dict[str, Any]):
+def publish_to_topic(
+    producer: Producer, message_type: MessageBase, message_contents: Union[Dict[str, Any], BaseMessageContents]
+):
     """Publish to topic using message contents class."""
     producer.produce(
         message_type.topic_name,

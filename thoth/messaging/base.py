@@ -21,7 +21,7 @@
 
 import os
 import logging
-from typing import Optional, TypedDict
+from typing import Optional, TypedDict, Dict, Any, Union
 
 from jsonschema import validate
 
@@ -72,8 +72,10 @@ class MessageBase:
             return f"{prefix}.{self.base_name}"
         return self.base_name
 
-    def _validate_and_append_version(self, message_contents: dict) -> dict:
+    def _validate_and_append_version(
+        self, message_contents: Union[Dict[str, Any], BaseMessageContents]
+    ) -> Dict[str, Any]:
         validate(message_contents, self.jsonschema)
-        to_ret = message_contents
+        to_ret: Dict[str, Any] = dict(message_contents)
         to_ret["version"] = self.version
         return to_ret

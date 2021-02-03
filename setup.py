@@ -81,4 +81,5 @@ setup(
     tests_require=get_test_requires(),
     cmdclass={"test": Test},
     command_options={"build_sphinx": {"version": ("setup.py", VERSION), "release": ("setup.py", VERSION)}},
+    package_data={"thoth.messaging": ["py.typed"]},
 )
