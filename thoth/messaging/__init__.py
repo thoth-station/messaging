@@ -112,4 +112,4 @@ __all__ = [
 ]
 
 __name__ = "thoth-messaging"
-__version__ = "0.10.2"
+__version__ = "0.10.3"
