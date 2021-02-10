@@ -49,9 +49,7 @@ jsonschema = {
     "definitions": definitions,
 }
 
-provenance_checker_trigger_message = MessageBase(
-    jsonschema=jsonschema, base_name="thoth.provenance-checker-trigger", version="v1"
-)
+message = MessageBase(jsonschema=jsonschema, base_name="thoth.provenance-checker-trigger", version="v1")
 
 
 class _Required(TypedDict, total=True):
@@ -65,7 +63,7 @@ class _Optional(TypedDict, total=False):
     whitelisted_sources: List[str]
 
 
-class ProvenanceCheckerTriggerContents(BaseMessageContents, _Required, _Optional):
+class MessageContents(BaseMessageContents, _Required, _Optional):
     """Message contents for ProvenanceCheckerTrigger messages as specified in _Required and _Optional."""
 
     pass

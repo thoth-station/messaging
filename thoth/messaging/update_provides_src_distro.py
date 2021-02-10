@@ -47,9 +47,7 @@ jsonschema = {
     "definitions": definitions,
 }
 
-update_provides_src_distro_message = MessageBase(
-    jsonschema=jsonschema, base_name="thoth.update-provides-source-distro", version="v1"
-)
+message = MessageBase(jsonschema=jsonschema, base_name="thoth.update-provides-source-distro", version="v1")
 
 
 class _Required(TypedDict, total=True):
@@ -63,7 +61,7 @@ class _Optional(TypedDict, total=False):
     pass
 
 
-class UpdateProvidesSrcDistroContents(BaseMessageContents, _Required, _Optional):
+class MessageContents(BaseMessageContents, _Required, _Optional):
     """Message contents for UpdateProvidesSrcDistroContents messages as specified in _Required and _Optional."""
 
     pass

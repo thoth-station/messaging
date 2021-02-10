@@ -48,7 +48,7 @@ jsonschema = {
     "definitions": definitions,
 }
 
-solved_package_message = MessageBase(jsonschema=jsonschema, base_name="thoth.solver.solved-package", version="v1")
+message = MessageBase(jsonschema=jsonschema, base_name="thoth.solver.solved-package", version="v1")
 
 
 class _Required(TypedDict, total=True):
@@ -62,7 +62,7 @@ class _Optional(TypedDict, total=False):
     pass
 
 
-class SolvedPackageContents(BaseMessageContents, _Required, _Optional):
+class MessageContents(BaseMessageContents, _Required, _Optional):
     """Message contents for SolvedPackage messages as specified in _Required and _Optional."""
 
     pass

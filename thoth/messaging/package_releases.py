@@ -44,9 +44,7 @@ jsonschema = {
     "definitions": definitions,
 }
 
-package_released_message = MessageBase(
-    jsonschema=jsonschema, base_name="thoth.package-release.package-released", version="v1"
-)
+message = MessageBase(jsonschema=jsonschema, base_name="thoth.package-release.package-released", version="v1")
 
 
 class _Required(TypedDict, total=True):
@@ -59,7 +57,7 @@ class _Optional(TypedDict, total=False):
     pass
 
 
-class PackageReleasedContents(BaseMessageContents, _Required, _Optional):
+class MessageContents(BaseMessageContents, _Required, _Optional):
     """Message contents for PackageReleases messages as specified in _Required and _Optional."""
 
     pass

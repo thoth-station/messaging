@@ -58,9 +58,7 @@ jsonschema = {
     "definitions": definitions,
 }
 
-package_extract_trigger_message = MessageBase(
-    jsonschema=jsonschema, base_name="thoth.package-extract-trigger", version="v1"
-)
+message = MessageBase(jsonschema=jsonschema, base_name="thoth.package-extract-trigger", version="v1")
 
 
 class _Required(TypedDict, total=True):
@@ -78,7 +76,7 @@ class _Optional(TypedDict, total=False):
     registry_password: str
 
 
-class PackageExtractTriggerContents(BaseMessageContents, _Required, _Optional):
+class MessageContents(BaseMessageContents, _Required, _Optional):
     """Message contents for PackageExtractTrigger messages as specified in _Required and _Optional."""
 
     pass

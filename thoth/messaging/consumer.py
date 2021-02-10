@@ -38,7 +38,7 @@ def subscribe_to_all(consumer: Consumer):
     """Subscribe to all topics defined in messaging."""
     to_subscribe = []
     for i in ALL_MESSAGES:
-        to_subscribe.append(i.topic_name)
+        to_subscribe.append(i.message.topic_name)
 
     consumer.subscribe(to_subscribe)
 

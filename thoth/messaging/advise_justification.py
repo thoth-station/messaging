@@ -46,9 +46,7 @@ jsonschema = {
     "definitions": definitions,
 }
 
-advise_justification_message = MessageBase(
-    jsonschema=jsonschema, base_name="thoth.advise-reporter.advise-justification", version="v1"
-)
+message = MessageBase(jsonschema=jsonschema, base_name="thoth.advise-reporter.advise-justification", version="v1")
 
 
 class _Required(TypedDict, total=True):
@@ -62,7 +60,7 @@ class _Optional(TypedDict, total=False):
     pass
 
 
-class AdviseJustificationContents(BaseMessageContents, _Required, _Optional):
+class MessageContents(BaseMessageContents, _Required, _Optional):
     """Message contents for AdviseJustification messages as specified in _Required and _Optional."""
 
     pass

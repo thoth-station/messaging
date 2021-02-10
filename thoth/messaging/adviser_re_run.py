@@ -58,7 +58,7 @@ jsonschema = {
     "definitions": definitions,
 }
 
-adviser_re_run_message = MessageBase(jsonschema=jsonschema, base_name="thoth.investigator.adviser-re-run", version="v1")
+message = MessageBase(jsonschema=jsonschema, base_name="thoth.investigator.adviser-re-run", version="v1")
 
 
 class _Required(TypedDict, total=True):
@@ -77,7 +77,7 @@ class _Optional(TypedDict, total=False):
     source_type: str
 
 
-class AdviserReRunContents(BaseMessageContents, _Required, _Optional):
+class MessageContents(BaseMessageContents, _Required, _Optional):
     """Message contents for AdviserReRun messages as specified in _Required and _Optional."""
 
     pass

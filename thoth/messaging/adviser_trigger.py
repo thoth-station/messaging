@@ -65,7 +65,7 @@ jsonschema = {
     "definitions": definitions,
 }
 
-adviser_trigger_message = MessageBase(jsonschema=jsonschema, base_name="thoth.adviser-trigger", version="v1")
+message = MessageBase(jsonschema=jsonschema, base_name="thoth.adviser-trigger", version="v1")
 
 
 class _Required(TypedDict, total=True):
@@ -91,7 +91,7 @@ class _Optional(TypedDict, total=False):
     source_type: str
 
 
-class AdviserTriggerContents(BaseMessageContents, _Required, _Optional):
+class MessageContents(BaseMessageContents, _Required, _Optional):
     """Adviser trigger contents, as specified in _Required and _Optional."""
 
     pass

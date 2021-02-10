@@ -45,7 +45,7 @@ jsonschema = {
     "definitions": definitions,
 }
 
-kebechet_trigger_message = MessageBase(jsonschema=jsonschema, base_name="thoth.kebechet-trigger", version="v1")
+message = MessageBase(jsonschema=jsonschema, base_name="thoth.kebechet-trigger", version="v1")
 
 
 class _Required(TypedDict, total=True):
@@ -56,7 +56,7 @@ class _Optional(TypedDict, total=False):
     job_id: str
 
 
-class KebechetTriggerContents(BaseMessageContents, _Required, _Optional):
+class MessageContents(BaseMessageContents, _Required, _Optional):
     """Message contents for KebechetTrigger messages as specified in _Required and _Optional."""
 
     pass

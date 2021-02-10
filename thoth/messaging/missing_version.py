@@ -45,9 +45,7 @@ jsonschema = {
     "definitions": definitions,
 }
 
-missing_version_message = MessageBase(
-    jsonschema=jsonschema, base_name="thoth.package-update.missing-package-version", version="v1"
-)
+message = MessageBase(jsonschema=jsonschema, base_name="thoth.package-update.missing-package-version", version="v1")
 
 
 class _Required(TypedDict, total=True):
@@ -60,7 +58,7 @@ class _Optional(TypedDict, total=False):
     pass
 
 
-class MissingVersionContents(BaseMessageContents, _Required, _Optional):
+class MessageContents(BaseMessageContents, _Required, _Optional):
     """Message contents for MissingVersion messages as specified in _Required and _Optional."""
 
     pass

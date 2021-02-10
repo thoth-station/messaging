@@ -60,9 +60,7 @@ jsonschema = {
     "definitions": definitions,
 }
 
-build_analysis_trigger_message = MessageBase(
-    jsonschema=jsonschema, base_name="thoth.build-analysis-trigger", version="v1"
-)
+message = MessageBase(jsonschema=jsonschema, base_name="thoth.build-analysis-trigger", version="v1")
 
 
 class _Required(TypedDict, total=True):
@@ -87,7 +85,7 @@ class _Optional(TypedDict, total=False):
     output_registry_user: str
 
 
-class BuildAnalysisTriggerContents(BaseMessageContents, _Required, _Optional):
+class MessageContents(BaseMessageContents, _Required, _Optional):
     """Message contents for BuildAnalysisTrigger messages as specified in _Required and _Optional."""
 
     pass

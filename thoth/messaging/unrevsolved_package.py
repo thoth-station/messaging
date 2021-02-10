@@ -45,9 +45,7 @@ jsonschema = {
     "definitions": definitions,
 }
 
-unrevsolved_package_message = MessageBase(
-    jsonschema=jsonschema, base_name="thoth.investigator.unrevsolved-package", version="v1"
-)
+message = MessageBase(jsonschema=jsonschema, base_name="thoth.investigator.unrevsolved-package", version="v1")
 
 
 class _Required(TypedDict, total=True):
@@ -59,7 +57,7 @@ class _Optional(TypedDict, total=False):
     pass
 
 
-class UnrevsolvedPackageContents(BaseMessageContents, _Required, _Optional):
+class MessageContents(BaseMessageContents, _Required, _Optional):
     """Message contents for UnrevsolvedPackage messages as specified in _Required and _Optional."""
 
     pass

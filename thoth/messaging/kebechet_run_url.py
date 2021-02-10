@@ -55,9 +55,7 @@ jsonschema = {
     "definitions": definitions,
 }
 
-kebechet_run_url_trigger_message = MessageBase(
-    jsonschema=jsonschema, base_name="thoth.kebechet-run-url-trigger", version="v2"
-)
+message = MessageBase(jsonschema=jsonschema, base_name="thoth.kebechet-run-url-trigger", version="v2")
 
 
 class _Metadata(TypedDict, total=False):
@@ -76,7 +74,7 @@ class _Optional(TypedDict, total=False):
     url: str
 
 
-class KebechetRunUrlTriggerContents(BaseMessageContents, _Required, _Optional):
+class MessageContents(BaseMessageContents, _Required, _Optional):
     """Message contents for KebechetRunUrl messages as specified in _Required and _Optional."""
 
     pass

@@ -45,7 +45,7 @@ jsonschema = {
     "definitions": definitions,
 }
 
-inspection_complete_message = MessageBase(jsonschema=jsonschema, base_name="thoth.inspection-completed", version="v1")
+message = MessageBase(jsonschema=jsonschema, base_name="thoth.inspection-completed", version="v1")
 
 
 class _Required(TypedDict, total=True):
@@ -57,7 +57,7 @@ class _Optional(TypedDict, total=False):
     pass
 
 
-class InspectionCompleteContents(BaseMessageContents, _Required, _Optional):
+class MessageContents(BaseMessageContents, _Required, _Optional):
     """Message contents for InspectionComplete messages as specified in _Required and _Optional."""
 
     pass
