@@ -32,6 +32,9 @@ class Metadata:
     """Metadata for kebechet-run-url message type."""
 
     message_justification = attr.ib(type=Optional[int], default=None)
+    package_name = attr.ib(type=Optional[str], default=None)
+    package_version = attr.ib(type=Optional[str], default=None)
+    package_index = attr.ib(type=Optional[str], default=None)
 
 
 class KebechetRunUrlTriggerMessage(MessageBase):
@@ -47,7 +50,7 @@ class KebechetRunUrlTriggerMessage(MessageBase):
         service_name = attr.ib(type=Optional[str], default=None)
         installation_id = attr.ib(type=Optional[str], default=None)
         job_id = attr.ib(type=Optional[str], default=None)
-        metadata = attr.ib(type=Metadata, default=Metadata())
+        metadata = attr.ib(type=Metadata, default=attr.Factory(Metadata))
         version = attr.ib(type=str, default="v2", init=False)
 
     def __init__(self):
