@@ -45,7 +45,8 @@ class PackageExtractTriggerMessage(MessageBase):
         origin = attr.ib(type=Optional[str], default=None)
         registry_user = attr.ib(type=Optional[str], default=None)
         registry_password = attr.ib(type=Optional[str], default=None)
-        version = attr.ib(type=str, default="v1", init=False)
+        graph_sync = attr.ib(type=bool, default=False)
+        version = attr.ib(type=str, default="v2", init=False)
 
     def __init__(self):
         """Initialize advise-justification topic."""
