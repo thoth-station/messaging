@@ -629,3 +629,15 @@ all the things that you see...
 * add function for connection health (#346)
 ### Improvements
 * change message contents of inspection complete (#345)
+
+## Release 0.11.0 (2021-02-25T18:49:01)
+### Features
+* Remove data fields from adviser message (#359)
+* :arrow_up: Automatic update of dependencies by Kebechet (#361)
+* add more metadata and use attr factory (#360)
+* :arrow_up: Automatic update of dependencies by Kebechet (#358)
+* add metadata to kebechet-run-url (#347)
+* :arrow_up: Automatic update of dependencies by Kebechet (#356)
+### Improvements
+* Add flag to optionally sync results of package-extract (#362)
+* update pre-commit to use py38 (#357)
