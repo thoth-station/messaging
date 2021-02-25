@@ -641,3 +641,7 @@ all the things that you see...
 ### Improvements
 * Add flag to optionally sync results of package-extract (#362)
 * update pre-commit to use py38 (#357)
+
+## Release 0.11.1 (2021-02-25T19:14:10)
+### Features
+* Add MANIFEST.in file
