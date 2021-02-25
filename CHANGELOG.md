@@ -645,3 +645,7 @@ all the things that you see...
 ## Release 0.11.1 (2021-02-25T19:14:10)
 ### Features
 * Add MANIFEST.in file
+
+## Release 0.11.2 (2021-02-25T19:31:56)
+### Features
+* Add requirements-test.txt to MANIFEST.in
