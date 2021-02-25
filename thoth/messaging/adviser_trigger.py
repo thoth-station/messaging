@@ -20,9 +20,7 @@
 
 import logging
 import attr
-from typing import Any
 from typing import Optional
-from typing import Dict
 
 from .message_base import MessageBase, BaseMessageContents
 
@@ -38,14 +36,11 @@ class AdviserTriggerMessage(MessageBase):
     class MessageContents(BaseMessageContents):  # type: ignore
         """Class used to represent contents of a message Kafka topic."""
 
-        application_stack = attr.ib(type=Dict[Any, Any])
         recommendation_type = attr.ib(type=str)
         dev = attr.ib(type=bool, default=False)
         debug = attr.ib(type=bool, default=False)
         count = attr.ib(type=Optional[int], default=None)
         limit = attr.ib(type=Optional[int], default=None)
-        runtime_environment = attr.ib(type=Optional[Dict[Any, Any]], default=None)
-        library_usage = attr.ib(type=Optional[Dict[Any, Any]], default=None)
         origin = attr.ib(type=Optional[str], default=None)
         job_id = attr.ib(type=Optional[str], default=None)
         limit_latest_versions = attr.ib(type=Optional[int], default=None)
@@ -55,7 +50,7 @@ class AdviserTriggerMessage(MessageBase):
         github_base_repo_url = attr.ib(type=Optional[str], default=None)
         re_run_adviser_id = attr.ib(type=Optional[str], default=None)
         source_type = attr.ib(type=Optional[str], default=None)
-        version = attr.ib(type=str, default="v1", init=False)
+        version = attr.ib(type=str, default="v2", init=False)
 
     def __init__(self,):
         """Initialize advise-justification topic."""

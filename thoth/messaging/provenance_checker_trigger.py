@@ -20,9 +20,7 @@
 
 import attr
 import logging
-from typing import Any
 from typing import Optional
-from typing import Dict
 from typing import List
 
 from .message_base import MessageBase, BaseMessageContents
@@ -39,12 +37,11 @@ class ProvenanceCheckerTriggerMessage(MessageBase):
     class MessageContents(BaseMessageContents):
         """Class used to represent contents of a message Kafka topic."""
 
-        application_stack = attr.ib(type=Dict[Any, Any])
         debug = attr.ib(type=bool, default=False)
         origin = attr.ib(type=Optional[str], default=None)
         whitelisted_sources = attr.ib(type=Optional[List[str]], default=None)
         job_id = attr.ib(type=Optional[str], default=None)
-        version = attr.ib(type=str, default="v1", init=False)
+        version = attr.ib(type=str, default="v2", init=False)
 
     def __init__(self):
         """Initialize advise-justification topic."""
