@@ -20,9 +20,7 @@
 
 import attr
 import logging
-from typing import Any
 from typing import Optional
-from typing import Dict
 from typing import List
 
 from .message_base import MessageBase, BaseMessageContents

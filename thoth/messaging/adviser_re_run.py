@@ -21,7 +21,7 @@
 import logging
 import attr
 
-from typing import Optional, Dict, Any
+from typing import Optional
 
 from .message_base import MessageBase, BaseMessageContents
 
