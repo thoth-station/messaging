@@ -18,7 +18,6 @@
 
 """This is Thoth Messaging module for ProvenanceCheckerTriggerMessage."""
 
-import attr
 import logging
 from typing import Optional
 from typing import List
@@ -28,23 +27,17 @@ from .message_base import MessageBase, BaseMessageContents
 _LOGGER = logging.getLogger(__name__)
 
 
-class ProvenanceCheckerTriggerMessage(MessageBase):
-    """Class used for Provenance Checker events on Kafka topic."""
+base_name = "thoth.provenance-checker-trigger"
 
-    base_name = "thoth.provenance-checker-trigger"
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a message Kafka topic."""
+class MessageContents(BaseMessageContents):
+    """Class used to represent contents of a message Kafka topic."""
 
-        debug = attr.ib(type=bool, default=False)
-        origin = attr.ib(type=Optional[str], default=None)
-        whitelisted_sources = attr.ib(type=Optional[List[str]], default=None)
-        job_id = attr.ib(type=Optional[str], default=None)
-        version = attr.ib(type=str, default="v2", init=False)
+    debug: bool = False
+    origin: Optional[str]
+    whitelisted_sources: Optional[List[str]]
+    job_id: Optional[str]
+    version: str = "v2"
 
-    def __init__(self):
-        """Initialize advise-justification topic."""
-        super(ProvenanceCheckerTriggerMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+
+provenance_checker_trigger_message = MessageBase(base_name=base_name, model=MessageContents)

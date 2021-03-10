@@ -18,43 +18,36 @@
 
 """This is Thoth Messaging module for KebechetRunUrlTriggerMessage."""
 
-import attr
 import logging
 from typing import Optional
+
+from pydantic import BaseModel, Field
 
 from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
+base_name = "thoth.kebechet-run-url-trigger"
 
-@attr.s
-class Metadata:
+
+class Metadata(BaseModel):
     """Metadata for kebechet-run-url message type."""
 
-    message_justification = attr.ib(type=Optional[int], default=None)
-    package_name = attr.ib(type=Optional[str], default=None)
-    package_version = attr.ib(type=Optional[str], default=None)
-    package_index = attr.ib(type=Optional[str], default=None)
+    message_justification: Optional[int]
+    package_name: Optional[str]
+    package_version: Optional[str]
+    package_index: Optional[str]
 
 
-class KebechetRunUrlTriggerMessage(MessageBase):
-    """Class used for Kebechet Run Url events on Kafka topic."""
+class MessageContents(BaseMessageContents):
+    """Class used to represent contents of a message Kafka topic."""
 
-    base_name = "thoth.kebechet-run-url-trigger"
+    url: Optional[str]
+    service_name: Optional[str]
+    installation_id: Optional[str]
+    job_id: Optional[str]
+    metadata: Metadata = Field(default_factory=Metadata)
+    version: str = "v2"
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a message Kafka topic."""
 
-        url = attr.ib(type=Optional[str], default=None)
-        service_name = attr.ib(type=Optional[str], default=None)
-        installation_id = attr.ib(type=Optional[str], default=None)
-        job_id = attr.ib(type=Optional[str], default=None)
-        metadata = attr.ib(type=Metadata, default=attr.Factory(Metadata))
-        version = attr.ib(type=str, default="v2", init=False)
-
-    def __init__(self):
-        """Initialize kebechet-run-url topic."""
-        super(KebechetRunUrlTriggerMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+kebechet_run_url_trigger_message = MessageBase(base_name=base_name, model=MessageContents)

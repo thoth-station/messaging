@@ -18,9 +18,7 @@
 
 """Helper functions for using confluent kafka producer with thoth.messaging."""
 
-from attr import asdict
-from typing import Optional, Dict, Any
-from json import dumps
+from typing import Optional, Dict, Any, Union
 import logging
 
 from .config import kafka_config_from_env
@@ -38,7 +36,35 @@ def create_producer(config: Optional[Dict[str, Any]] = None) -> Producer:
     return Producer(kafka_config_from_env())
 
 
-def publish_to_topic(producer: Producer, message_type: MessageBase, message_contents: BaseMessageContents):
-    """Publish to topic using message contents class."""
-    producer.produce(message_type.topic_name, value=dumps(asdict(message_contents)).encode("utf-8"))
-    _LOGGER.debug("Sending the following message to topic %s.\n%s", message_type.topic_name, asdict(message_contents))
+def publish_to_topic(
+    producer: Producer, message_type: MessageBase, message_contents: Union[BaseMessageContents, Dict[str, Any]],
+):
+    """
+    Publish to topic using message contents class.
+
+    Parameters
+    ----------
+    producer : Producer
+        Instance of confluent Kafka producer which handles sending the message to Kafka instance
+    message_type : MessageBase
+        Message type which determines the schema of the message as well as the topic name to produce to
+    message_contents : Union[BaseMessageContents, Dict[str, Any]]
+        Message to be sent. A dict is parsed on messaging side to `message_type.model`.
+
+    Returns
+    -------
+    None
+
+    Raises
+    ------
+    ValidationError
+        When pydantic detects ill formed message
+    """
+    if type(message_contents) == dict:
+        contents = message_type.model.parse_obj(message_contents)
+    elif issubclass(type(message_contents), BaseMessageContents):
+        message_type.model.validate(message_contents)
+        contents = message_contents  # type: ignore
+
+    producer.produce(message_type.topic_name, value=contents.json().encode("utf-8"))
+    _LOGGER.debug("Sending the following message to topic %s.\n%s", message_type.topic_name, contents.dict())

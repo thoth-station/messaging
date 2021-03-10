@@ -19,7 +19,6 @@
 """This is Thoth Messaging module for BuildAnalysisTriggerMessage."""
 
 import logging
-import attr
 
 from typing import Optional
 
@@ -27,36 +26,30 @@ from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
 
+base_name = "thoth.build-analysis-trigger"
 
-class BuildAnalysisTriggerMessage(MessageBase):
-    """Class used for build analysis events on Kafka topic."""
 
-    base_name = "thoth.build-analysis-trigger"
+class MessageContents(BaseMessageContents):
+    """Class used to represent contents of a message Kafka topic."""
 
-    @attr.s
-    class MessageContents(BaseMessageContents):  # type: ignore
-        """Class used to represent contents of a message Kafka topic."""
+    base_image: Optional[str]
+    base_image_analysis_id: Optional[str]
+    buildlog_document_id: Optional[str]
+    buildlog_parser_id: Optional[str]
+    environment_type: Optional[str]
+    debug: bool = False
+    job_id: Optional[str]
+    origin: Optional[str]
+    output_image: Optional[str]
+    output_image_analysis_id: Optional[str]
+    base_registry_password: Optional[str]
+    base_registry_user: Optional[str]
+    base_registry_verify_tls: bool = True
+    output_registry_password: Optional[str]
+    output_registry_user: Optional[str]
+    output_registry_verify_tls: bool = True
 
-        base_image = attr.ib(type=Optional[str], default=None)
-        base_image_analysis_id = attr.ib(type=Optional[str], default=None)
-        buildlog_document_id = attr.ib(type=Optional[str], default=None)
-        buildlog_parser_id = attr.ib(type=Optional[str], default=None)
-        environment_type = attr.ib(type=Optional[str], default=None)
-        debug = attr.ib(type=bool, default=False)
-        job_id = attr.ib(type=Optional[str], default=None)
-        origin = attr.ib(type=Optional[str], default=None)
-        output_image = attr.ib(type=Optional[str], default=None)
-        output_image_analysis_id = attr.ib(type=Optional[str], default=None)
-        base_registry_password = attr.ib(type=Optional[str], default=None)
-        base_registry_user = attr.ib(type=Optional[str], default=None)
-        base_registry_verify_tls = attr.ib(type=bool, default=True)
-        output_registry_password = attr.ib(type=Optional[str], default=None)
-        output_registry_user = attr.ib(type=Optional[str], default=None)
-        output_registry_verify_tls = attr.ib(type=bool, default=True)
-        version = attr.ib(type=str, default="v1", init=False)
+    version: str = "v1"
 
-    def __init__(self,):
-        """Initialize build analysis topic."""
-        super(BuildAnalysisTriggerMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+
+build_analysis_trigger_message = MessageBase(base_name=base_name, model=MessageContents)

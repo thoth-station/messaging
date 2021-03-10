@@ -19,7 +19,6 @@
 """This is Thoth Messaging module for UnresolvedPackageMessage."""
 
 import logging
-import attr
 from typing import Optional
 
 from .message_base import MessageBase, BaseMessageContents
@@ -27,23 +26,17 @@ from .message_base import MessageBase, BaseMessageContents
 _LOGGER = logging.getLogger(__name__)
 
 
-class UnresolvedPackageMessage(MessageBase):
-    """Class used by Investigator producer events on Kafka topic."""
+base_name = "thoth.investigator.unresolved-package"
 
-    base_name = "thoth.investigator.unresolved-package"
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a unresolved package message Kafka topic."""
+class MessageContents(BaseMessageContents):
+    """Class used to represent contents of a unresolved package message Kafka topic."""
 
-        package_name = attr.ib(type=str)
-        package_version = attr.ib(default=None, type=Optional[str])
-        index_url = attr.ib(default=None, type=Optional[str])
-        solver = attr.ib(default=None, type=Optional[str])
-        version = attr.ib(type=str, default="v1", init=False)
+    package_name: str
+    package_version: Optional[str]
+    index_url: Optional[str]
+    solver: Optional[str]
+    version: str = "v1"
 
-    def __init__(self):
-        """Initialize unresolved package topic."""
-        super(UnresolvedPackageMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+
+unresolved_package_message = MessageBase(base_name=base_name, model=MessageContents)

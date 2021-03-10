@@ -19,7 +19,6 @@
 """This is Thoth Messaging module for AdviseTriggerMessage."""
 
 import logging
-import attr
 from typing import Optional
 
 from .message_base import MessageBase, BaseMessageContents
@@ -27,33 +26,28 @@ from .message_base import MessageBase, BaseMessageContents
 _LOGGER = logging.getLogger(__name__)
 
 
-class AdviserTriggerMessage(MessageBase):
-    """Class used for Advise events on Kafka topic."""
+base_name = "thoth.adviser-trigger"
 
-    base_name = "thoth.adviser-trigger"
 
-    @attr.s
-    class MessageContents(BaseMessageContents):  # type: ignore
-        """Class used to represent contents of a message Kafka topic."""
+class MessageContents(BaseMessageContents):  # type: ignore
+    """Class used to represent contents of a message Kafka topic."""
 
-        recommendation_type = attr.ib(type=str)
-        dev = attr.ib(type=bool, default=False)
-        debug = attr.ib(type=bool, default=False)
-        count = attr.ib(type=Optional[int], default=None)
-        limit = attr.ib(type=Optional[int], default=None)
-        origin = attr.ib(type=Optional[str], default=None)
-        job_id = attr.ib(type=Optional[str], default=None)
-        limit_latest_versions = attr.ib(type=Optional[int], default=None)
-        github_event_type = attr.ib(type=Optional[str], default=None)
-        github_check_run_id = attr.ib(type=Optional[int], default=None)
-        github_installation_id = attr.ib(type=Optional[int], default=None)
-        github_base_repo_url = attr.ib(type=Optional[str], default=None)
-        re_run_adviser_id = attr.ib(type=Optional[str], default=None)
-        source_type = attr.ib(type=Optional[str], default=None)
-        version = attr.ib(type=str, default="v2", init=False)
+    recommendation_type: str
+    dev: bool = False
+    debug: bool = False
+    count: Optional[int]
+    limit: Optional[int]
+    origin: Optional[str]
+    job_id: Optional[str]
+    limit_latest_versions: Optional[int]
+    github_event_type: Optional[str]
+    github_check_run_id: Optional[int]
+    github_installation_id: Optional[int]
+    github_base_repo_url: Optional[str]
+    re_run_adviser_id: Optional[str]
+    source_type: Optional[str]
 
-    def __init__(self,):
-        """Initialize advise-justification topic."""
-        super(AdviserTriggerMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+    version: str = "v2"
+
+
+adviser_trigger_message = MessageBase(base_name=base_name, model=MessageContents)

@@ -18,7 +18,6 @@
 
 """This is Thoth Messaging module for SolvedPackageMessage."""
 
-import attr
 import logging
 
 from .message_base import MessageBase, BaseMessageContents
@@ -26,23 +25,17 @@ from .message_base import MessageBase, BaseMessageContents
 _LOGGER = logging.getLogger(__name__)
 
 
-class SolvedPackageMessage(MessageBase):
-    """Class used for Solved Package events on Kafka topic."""
+base_name = "thoth.solver.solved-package"
 
-    base_name = "thoth.solver.solved-package"
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a solved package message Kafka topic."""
+class MessageContents(BaseMessageContents):
+    """Class used to represent contents of a solved package message Kafka topic."""
 
-        package_name = attr.ib(type=str)
-        package_version = attr.ib(type=str)
-        index_url = attr.ib(type=str)
-        solver = attr.ib(type=str)
-        version = attr.ib(type=str, default="v1", init=False)
+    package_name: str
+    package_version: str
+    index_url: str
+    solver: str
+    version: str = "v1"
 
-    def __init__(self):
-        """Initialize solved package topic."""
-        super(SolvedPackageMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+
+solved_package_message = MessageBase(base_name=base_name, model=MessageContents)
