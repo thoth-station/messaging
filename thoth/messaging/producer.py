@@ -20,6 +20,7 @@
 
 from typing import Optional, Dict, Any, Union
 import logging
+import json
 
 from .config import kafka_config_from_env
 from .message_base import MessageBase, BaseMessageContents
@@ -37,7 +38,10 @@ def create_producer(config: Optional[Dict[str, Any]] = None) -> Producer:
 
 
 def publish_to_topic(
-    producer: Producer, message_type: MessageBase, message_contents: Union[BaseMessageContents, Dict[str, Any]],
+    producer: Producer,
+    message_type: MessageBase,
+    message_contents: Union[BaseMessageContents, Dict[str, Any]],
+    validate: bool = True,
 ):
     """
     Publish to topic using message contents class.
@@ -60,11 +64,17 @@ def publish_to_topic(
     ValidationError
         When pydantic detects ill formed message
     """
-    if type(message_contents) == dict:
-        contents = message_type.model.parse_obj(message_contents)
-    elif issubclass(type(message_contents), BaseMessageContents):
-        message_type.model.validate(message_contents)
-        contents = message_contents  # type: ignore
+    if validate is False:
+        if type(message_contents) == dict:
+            contents = json.dumps(message_contents)
+        else:
+            contents = message_contents.json()  # type: ignore
+    else:
+        if type(message_contents) == dict:
+            contents = message_type.model.parse_obj(message_contents).json()
+        else:
+            message_type.model.validate(message_contents)
+            contents = message_contents.json()  # type: ignore
 
-    producer.produce(message_type.topic_name, value=contents.json().encode("utf-8"))
-    _LOGGER.debug("Sending the following message to topic %s.\n%s", message_type.topic_name, contents.dict())
+    producer.produce(message_type.topic_name, value=contents.encode("utf-8"))
+    _LOGGER.debug("Sending the following message to topic %s.\n%s", message_type.topic_name, contents)

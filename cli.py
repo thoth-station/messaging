@@ -22,7 +22,7 @@ import json
 from typing import Optional
 import logging
 
-from thoth.messaging import ALL_MESSAGES
+from thoth.messaging import ALL_MESSAGES, BaseMessageContents
 from thoth.messaging import message_factory
 import thoth.messaging.admin_client as admin_client
 import thoth.messaging.producer as producer
@@ -113,26 +113,25 @@ def messaging(
     for m in all_messages:
         m_contents = m["message_contents"]
         if "component_name" not in m_contents:
-            m_contents["component_name"] = {"value": "messaging-cli", "type": "str"}
+            m_contents["component_name"] = "messaging-cli"
         if "service_version" not in m_contents:
-            m_contents["service_version"] = {"value": __version__, "type": "str"}
+            m_contents["service_version"] = __version__
         m_base_name = m["topic_name"]
 
+        validate: bool
         # get or create message type
-        message_found = False
         for message in ALL_MESSAGES:
             if m_base_name == message.base_name:
                 _LOGGER.info(f"Found message in registered list: {m_base_name}")
-                topic = message()
-                message_found = True
+                topic = message
+                validate = True
                 break
-
-        if not message_found:
+        else:
+            validate = False
             _LOGGER.info("Message not in the registered list checking topics on Kafka...")
 
             kafka_topic_list = admin.list_topics().topics
-            message_types = [(i, m_contents[i]["type"]) for i in m_contents]
-            topic = message_factory(b_name=m_base_name, message_contents=message_types,)()
+            topic = message_factory(b_name=m_base_name, message_model=BaseMessageContents)
 
             if topic.topic_name not in kafka_topic_list:
                 if not create_if_not_exist:
@@ -140,11 +139,9 @@ def messaging(
                 _LOGGER.info("Creating new topic.")
                 admin_client.create_topic(admin, topic, partitions=partitions, replication_factor=replication)
 
-        message_dict = {i: m_contents[i]["value"] for i in m_contents}
-        message = topic.MessageContents(**message_dict)
-        producer.publish_to_topic(prod, topic, message)
+        producer.publish_to_topic(prod, topic, m_contents, validate=validate)
 
-        _LOGGER.info(f"Sent message {topic.topic_name} with content: {message_dict}")
+        _LOGGER.info(f"Sent message {topic.topic_name} with content: {m_contents}")
 
 
 if __name__ == "__main__":
