@@ -1,2 +1,4 @@
 confluent-kafka
 thoth-common
+click
+pydantic
