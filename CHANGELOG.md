@@ -649,3 +649,11 @@ all the things that you see...
 ## Release 0.11.2 (2021-02-25T19:31:56)
 ### Features
 * Add requirements-test.txt to MANIFEST.in
+
+## Release 0.12.0 (2021-03-25T21:55:56)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet (#385)
+* add kebechet meta (#375)
+* add .prow.yaml (#383)
+* :arrow_up: Automatic update of dependencies by Kebechet (#374)
+* :arrow_up: Automatic update of dependencies by Kebechet
