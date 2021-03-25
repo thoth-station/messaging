@@ -20,8 +20,7 @@
 
 import attr
 import logging
-from typing import Optional
-from typing import List
+from typing import Optional, List, Dict, Any
 
 from .message_base import MessageBase, BaseMessageContents
 
@@ -41,7 +40,10 @@ class ProvenanceCheckerTriggerMessage(MessageBase):
         origin = attr.ib(type=Optional[str], default=None)
         whitelisted_sources = attr.ib(type=Optional[List[str]], default=None)
         job_id = attr.ib(type=Optional[str], default=None)
-        version = attr.ib(type=str, default="v2", init=False)
+        kebechet_metadata = attr.ib(type=Optional[Dict[str, Any]], default=None)
+        justification = attr.ib(type=Optional[List[Dict[str, Any]]], default=None)
+        stack_info = attr.ib(type=Optional[List[Dict[str, Any]]], default=None)
+        version = attr.ib(type=str, default="v3", init=False)
 
     def __init__(self):
         """Initialize advise-justification topic."""

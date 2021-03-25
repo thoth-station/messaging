@@ -20,7 +20,7 @@
 
 import logging
 import attr
-from typing import Optional
+from typing import Optional, Dict, List, Any
 
 from .message_base import MessageBase, BaseMessageContents
 
@@ -50,7 +50,10 @@ class AdviserTriggerMessage(MessageBase):
         github_base_repo_url = attr.ib(type=Optional[str], default=None)
         re_run_adviser_id = attr.ib(type=Optional[str], default=None)
         source_type = attr.ib(type=Optional[str], default=None)
-        version = attr.ib(type=str, default="v2", init=False)
+        kebechet_metadata = attr.ib(type=Optional[Dict[str, Any]], default=None)
+        justification = attr.ib(type=Optional[List[Dict[str, Any]]], default=None)
+        stack_info = attr.ib(type=Optional[List[Dict[str, Any]]], default=None)
+        version = attr.ib(type=str, default="v3", init=False)
 
     def __init__(self,):
         """Initialize advise-justification topic."""
