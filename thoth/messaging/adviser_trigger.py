@@ -19,7 +19,7 @@
 """This is Thoth Messaging module for AdviseTriggerMessage."""
 
 import logging
-from typing import Optional
+from typing import Optional, Dict, List, Any
 
 from .message_base import MessageBase, BaseMessageContents
 
@@ -46,8 +46,11 @@ class MessageContents(BaseMessageContents):  # type: ignore
     github_base_repo_url: Optional[str]
     re_run_adviser_id: Optional[str]
     source_type: Optional[str]
+    kebechet_metadata: Optional[Dict[str, Any]]
+    justification: Optional[List[Dict[str, Any]]]
+    stack_info = Optional[List[Dict[str, Any]]]
 
-    version: str = "v2"
+    version: str = "v3"
 
 
 adviser_trigger_message = MessageBase(base_name=base_name, model=MessageContents)

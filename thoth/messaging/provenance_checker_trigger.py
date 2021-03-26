@@ -19,8 +19,7 @@
 """This is Thoth Messaging module for ProvenanceCheckerTriggerMessage."""
 
 import logging
-from typing import Optional
-from typing import List
+from typing import Optional, List, Dict, Any
 
 from .message_base import MessageBase, BaseMessageContents
 
@@ -37,7 +36,11 @@ class MessageContents(BaseMessageContents):
     origin: Optional[str]
     whitelisted_sources: Optional[List[str]]
     job_id: Optional[str]
-    version: str = "v2"
+    kebechet_metadata = Optional[Dict[str, Any]]
+    justification = Optional[List[Dict[str, Any]]]
+    stack_info = Optional[List[Dict[str, Any]]]
+
+    version: str = "v3"
 
 
 provenance_checker_trigger_message = MessageBase(base_name=base_name, model=MessageContents)
