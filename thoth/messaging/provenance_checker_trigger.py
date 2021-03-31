@@ -33,6 +33,7 @@ class MessageContents(BaseMessageContents):
     """Class used to represent contents of a message Kafka topic."""
 
     debug: bool = False
+    authenticated: bool = False
     origin: Optional[str]
     whitelisted_sources: Optional[List[str]]
     job_id: Optional[str]
@@ -40,7 +41,7 @@ class MessageContents(BaseMessageContents):
     justification = Optional[List[Dict[str, Any]]]
     stack_info = Optional[List[Dict[str, Any]]]
 
-    version: str = "v3"
+    version: str = "v4"
 
     class Config:
         """Config for pydantic."""

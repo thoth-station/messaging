@@ -35,6 +35,7 @@ class MessageContents(BaseMessageContents):  # type: ignore
     recommendation_type: str
     dev: bool = False
     debug: bool = False
+    authenticated: bool = False
     count: Optional[int]
     limit: Optional[int]
     origin: Optional[str]
@@ -50,7 +51,7 @@ class MessageContents(BaseMessageContents):  # type: ignore
     justification: Optional[List[Dict[str, Any]]]
     stack_info = Optional[List[Dict[str, Any]]]
 
-    version: str = "v3"
+    version: str = "v4"
 
     class Config:
         """Config for pydantic."""
