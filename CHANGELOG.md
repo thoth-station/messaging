@@ -657,3 +657,11 @@ all the things that you see...
 * add .prow.yaml (#383)
 * :arrow_up: Automatic update of dependencies by Kebechet (#374)
 * :arrow_up: Automatic update of dependencies by Kebechet
+
+## Release 0.13.0 (2021-03-31T20:29:41)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet (#392)
+* Add authenticated parameter to the provenance-check-triggering message (#391)
+* Add authenticated parameter to the advise message (#390)
+* :arrow_up: Automatic update of dependencies by Kebechet (#389)
+* Include issue template for releasing missing module
