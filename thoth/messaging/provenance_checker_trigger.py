@@ -37,13 +37,14 @@ class ProvenanceCheckerTriggerMessage(MessageBase):
         """Class used to represent contents of a message Kafka topic."""
 
         debug = attr.ib(type=bool, default=False)
+        authenticated = attr.ib(type=bool, default=False)
         origin = attr.ib(type=Optional[str], default=None)
         whitelisted_sources = attr.ib(type=Optional[List[str]], default=None)
         job_id = attr.ib(type=Optional[str], default=None)
         kebechet_metadata = attr.ib(type=Optional[Dict[str, Any]], default=None)
         justification = attr.ib(type=Optional[List[Dict[str, Any]]], default=None)
         stack_info = attr.ib(type=Optional[List[Dict[str, Any]]], default=None)
-        version = attr.ib(type=str, default="v3", init=False)
+        version = attr.ib(type=str, default="v4", init=False)
 
     def __init__(self):
         """Initialize advise-justification topic."""
