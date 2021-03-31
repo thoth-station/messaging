@@ -52,5 +52,10 @@ class MessageContents(BaseMessageContents):  # type: ignore
 
     version: str = "v3"
 
+    class Config:
+        """Config for pydantic."""
+
+        arbitrary_types_allowed = True  # allows for typing.Any
+
 
 adviser_trigger_message = MessageBase(base_name=base_name, model=MessageContents)

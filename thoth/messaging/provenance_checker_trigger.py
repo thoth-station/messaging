@@ -42,5 +42,10 @@ class MessageContents(BaseMessageContents):
 
     version: str = "v3"
 
+    class Config:
+        """Config for pydantic."""
+
+        arbitrary_types_allowed = True  # allow for typing.Any
+
 
 provenance_checker_trigger_message = MessageBase(base_name=base_name, model=MessageContents)
