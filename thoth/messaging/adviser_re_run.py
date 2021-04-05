@@ -19,7 +19,6 @@
 """This is Thoth Messaging module for AdviserReRunMessage."""
 
 import logging
-import attr
 
 from typing import Optional
 
@@ -28,29 +27,23 @@ from .message_base import MessageBase, BaseMessageContents
 _LOGGER = logging.getLogger(__name__)
 
 
-class AdviserReRunMessage(MessageBase):
-    """Class used for Adviser re run events on Kafka topic."""
+base_name = "thoth.investigator.adviser-re-run"
 
-    base_name = "thoth.investigator.adviser-re-run"
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of adviser re run message Kafka topic."""
+class MessageContents(BaseMessageContents):
+    """Class used to represent contents of adviser re run message Kafka topic."""
 
-        re_run_adviser_id = attr.ib(type=str)
+    re_run_adviser_id: str
 
-        recommendation_type = attr.ib(type=str)
-        origin = attr.ib(type=Optional[str], default=None)
-        github_event_type = attr.ib(type=Optional[str], default=None)
-        github_check_run_id = attr.ib(type=Optional[int], default=None)
-        github_installation_id = attr.ib(type=Optional[int], default=None)
-        github_base_repo_url = attr.ib(type=Optional[str], default=None)
-        source_type = attr.ib(type=Optional[str], default=None)
+    recommendation_type: str
+    origin: Optional[str]
+    github_event_type: Optional[str]
+    github_check_run_id: Optional[int]
+    github_installation_id: Optional[int]
+    github_base_repo_url: Optional[str]
+    source_type: Optional[str]
 
-        version = attr.ib(type=str, default="v2", init=False)
+    version: str = "v2"
 
-    def __init__(self):
-        """Initialize adviser-re-run topic."""
-        super(AdviserReRunMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+
+adviser_rerun_message = MessageBase(base_name=base_name, model=MessageContents)

@@ -7,12 +7,14 @@ name = "pypi"
 thoth-common = "*"
 confluent-kafka = "*"
 click = "*"
+pydantic = "*"
 
 [dev-packages]
 pytest = "*"
 pytest-timeout = "*"
 pytest-cov = "*"
 pylint = "*"
+mypy = "*"
 
 [requires]
 python_version = "3.8"

@@ -5,18 +5,17 @@ This provides a library called `thoth-messaging
 <https://pypi.org/project/thoth-messaging>`_ used in project `Thoth
 <https://thoth-station.ninja>`_.  It is a basic module to encapsule all messaging (here it is Kafka via Faust) primitives.
 
-Message Factory
-###############
-For the purposes of `Thoth` we have a few of our custom messages defined within the messaging module.  However, we
-wanted to allow individuals to be able to use our module without having to add their own messages first.  For testing
-and development purposes you can use `message_factory(...)` which allows you to create arbitrary messages using
-`thoth-messaging` using the following syntax:
+Type Hinting With MyPy
+######################
+This module uses pydantic for type hinting and enforcing a regular schema in messaging.  If you are using mypy to check
+your code please add the following to your mypy configuration file:
 
-.. code-block:: python
+.. code-block:: toml
+  [mypy]
+  plugins = pydantic.mypy
 
-    message_factory(t_name=<str>, message_contents=<Tuple[str, str]>, [num_partitions=<int>], [replication_factor=<int>])
-
-bracketed arguments are optional.
+If you are creating an instance of a pydantic model in your own module you should directly use the `MessageContents`
+class within the associate message file. Using ``foo_bar_message.model`` will only type hint for `BaseMessageContents`.
 
 Development and Testing
 #######################

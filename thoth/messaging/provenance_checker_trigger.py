@@ -18,7 +18,6 @@
 
 """This is Thoth Messaging module for ProvenanceCheckerTriggerMessage."""
 
-import attr
 import logging
 from typing import Optional, List, Dict, Any
 
@@ -27,27 +26,27 @@ from .message_base import MessageBase, BaseMessageContents
 _LOGGER = logging.getLogger(__name__)
 
 
-class ProvenanceCheckerTriggerMessage(MessageBase):
-    """Class used for Provenance Checker events on Kafka topic."""
+base_name = "thoth.provenance-checker-trigger"
 
-    base_name = "thoth.provenance-checker-trigger"
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a message Kafka topic."""
+class MessageContents(BaseMessageContents):
+    """Class used to represent contents of a message Kafka topic."""
 
-        debug = attr.ib(type=bool, default=False)
-        authenticated = attr.ib(type=bool, default=False)
-        origin = attr.ib(type=Optional[str], default=None)
-        whitelisted_sources = attr.ib(type=Optional[List[str]], default=None)
-        job_id = attr.ib(type=Optional[str], default=None)
-        kebechet_metadata = attr.ib(type=Optional[Dict[str, Any]], default=None)
-        justification = attr.ib(type=Optional[List[Dict[str, Any]]], default=None)
-        stack_info = attr.ib(type=Optional[List[Dict[str, Any]]], default=None)
-        version = attr.ib(type=str, default="v4", init=False)
+    debug: bool = False
+    authenticated: bool = False
+    origin: Optional[str]
+    whitelisted_sources: Optional[List[str]]
+    job_id: Optional[str]
+    kebechet_metadata = Optional[Dict[str, Any]]
+    justification = Optional[List[Dict[str, Any]]]
+    stack_info = Optional[List[Dict[str, Any]]]
 
-    def __init__(self):
-        """Initialize advise-justification topic."""
-        super(ProvenanceCheckerTriggerMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+    version: str = "v4"
+
+    class Config:
+        """Config for pydantic."""
+
+        arbitrary_types_allowed = True  # allow for typing.Any
+
+
+provenance_checker_trigger_message = MessageBase(base_name=base_name, model=MessageContents)

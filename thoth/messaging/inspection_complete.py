@@ -18,26 +18,17 @@
 
 """This is Thoth Messaging module for InspectionCompleteMessage."""
 
-import attr
-
 from .message_base import MessageBase, BaseMessageContents
 
+base_name = "thoth.inspection-completed"
 
-class InspectionCompletedMessage(MessageBase):
-    """Class used to indicate when amun inspections complete."""
 
-    base_name = "thoth.inspection-completed"
+class MessageContents(BaseMessageContents):
+    """Class used to represent contents of a inspection-completed message Kafka topic."""
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a inspection-completed message Kafka topic."""
+    inspection_id: str
+    force_sync: bool = False
+    version: str = "v1"
 
-        inspection_id = attr.ib(type=str)
-        force_sync = attr.ib(type=bool)
-        version = attr.ib(type=str, default="v1", init=False)
 
-    def __init__(self):
-        """Initialize package releases topic."""
-        super(InspectionCompletedMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+inspection_completed_message = MessageBase(base_name=base_name, model=MessageContents)

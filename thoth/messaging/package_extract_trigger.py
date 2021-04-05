@@ -19,7 +19,6 @@
 """This is Thoth Messaging module for PackageExtractTriggerMessage."""
 
 import logging
-import attr
 from typing import Optional
 
 from .message_base import MessageBase, BaseMessageContents
@@ -27,29 +26,24 @@ from .message_base import MessageBase, BaseMessageContents
 _LOGGER = logging.getLogger(__name__)
 
 
-class PackageExtractTriggerMessage(MessageBase):
-    """Class used for Package Extract events on Kafka topic."""
+base_name = "thoth.package-extract-trigger"
 
-    base_name = "thoth.package-extract-trigger"
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a message Kafka topic."""
+class MessageContents(BaseMessageContents):
+    """Class used to represent contents of a message Kafka topic."""
 
-        image = attr.ib(type=str)
-        environment_type = attr.ib(type=str)
-        is_external = attr.ib(type=bool, default=True)
-        verify_tls = attr.ib(type=bool, default=True)
-        debug = attr.ib(type=bool, default=False)
-        job_id = attr.ib(type=Optional[str], default=None)
-        origin = attr.ib(type=Optional[str], default=None)
-        registry_user = attr.ib(type=Optional[str], default=None)
-        registry_password = attr.ib(type=Optional[str], default=None)
-        graph_sync = attr.ib(type=bool, default=False)
-        version = attr.ib(type=str, default="v2", init=False)
+    image: str
+    environment_type: str
+    is_external: bool = True
+    verify_tls: bool = True
+    debug: bool = False
+    job_id: Optional[str]
+    origin: Optional[str]
+    registry_user: Optional[str]
+    registry_password: Optional[str]
+    graph_sync: bool = False
 
-    def __init__(self):
-        """Initialize advise-justification topic."""
-        super(PackageExtractTriggerMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+    version: str = "v2"
+
+
+package_extract_trigger_message = MessageBase(base_name=base_name, model=MessageContents)

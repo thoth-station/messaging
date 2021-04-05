@@ -18,7 +18,6 @@
 
 """This is Thoth Messaging module for QebHwtTriggerMessage."""
 
-import attr
 import logging
 from typing import Optional
 
@@ -27,28 +26,22 @@ from .message_base import MessageBase, BaseMessageContents
 _LOGGER = logging.getLogger(__name__)
 
 
-class QebHwtTriggerMessage(MessageBase):
-    """Class used for QebHwt events on Kafka topic."""
+base_name = "thoth.qebhwt-trigger"
 
-    base_name = "thoth.qebhwt-trigger"
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a message Kafka topic."""
+class MessageContents(BaseMessageContents):
+    """Class used to represent contents of a message Kafka topic."""
 
-        github_event_type = attr.ib(type=str)
-        github_check_run_id = attr.ib(type=int)
-        github_installation_id = attr.ib(type=int)
-        github_base_repo_url = attr.ib(type=str)
-        github_head_repo_url = attr.ib(type=str)
-        origin = attr.ib(type=str)
-        revision = attr.ib(type=str)
-        host = attr.ib(type=str)
-        job_id = attr.ib(type=Optional[str], default=None)
-        version = attr.ib(type=str, default="v1", init=False)
+    github_event_type: str
+    github_check_run_id: int
+    github_installation_id: int
+    github_base_repo_url: str
+    github_head_repo_url: str
+    origin: str
+    revision: str
+    host: str
+    job_id: Optional[str]
+    version: str = "v1"
 
-    def __init__(self):
-        """Initialize advise-justification topic."""
-        super(QebHwtTriggerMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+
+qebhwt_trigger_message = MessageBase(base_name=base_name, model=MessageContents)

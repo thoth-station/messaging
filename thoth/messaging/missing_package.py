@@ -18,26 +18,19 @@
 
 """This is Thoth Messaging module for MissingPackageMessage."""
 
-import attr
-
 from .message_base import MessageBase, BaseMessageContents
 
 
-class MissingPackageMessage(MessageBase):
-    """Class used for Package Release events on Kafka topic."""
+base_name = "thoth.package-update.missing-package"
 
-    base_name = "thoth.package-update.missing-package"
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent a contents of a missing-package message Kafka topic."""
+class MessageContents(BaseMessageContents):
+    """Class used to represent a contents of a missing-package message Kafka topic."""
 
-        index_url = attr.ib(type=str)
-        package_name = attr.ib(type=str)
-        version = attr.ib(type=str, default="v1")
+    index_url: str
+    package_name: str
 
-    def __init__(self):
-        """Initialize missing package topic."""
-        super(MissingPackageMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+    version: str = "v1"
+
+
+missing_package_message = MessageBase(base_name=base_name, model=MessageContents)

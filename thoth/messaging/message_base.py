@@ -21,29 +21,30 @@
 
 import os
 import logging
-import attr
-from typing import Optional
+from typing import Optional, Type
+
+from pydantic import BaseModel
 
 _LOGGER = logging.getLogger(__name__)
 
 
-@attr.s
-class BaseMessageContents:
+class BaseMessageContents(BaseModel):
     """Default params for message contents."""
 
-    component_name = attr.ib(type=str)  # what component sent the message?
-    service_version = attr.ib(type=str)  # what version was that component?
+    component_name: str
+    service_version: str
+    version: str = "v0"
 
 
 class MessageBase:
     """Class used for Package Release events on Kafka topic."""
 
     def __init__(
-        self, *, base_name: Optional[str] = None, value_type: Optional[BaseMessageContents] = None,
+        self, *, base_name: Optional[str] = None, model: Optional[Type[BaseMessageContents]] = None,
     ):
         """Create general message."""
         self.base_name = base_name or "thoth.base-topic"
-        self.value_type = value_type
+        self.model = model or BaseMessageContents
 
     @property
     def topic_name(self):

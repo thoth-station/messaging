@@ -18,27 +18,19 @@
 
 """This is Thoth Messaging module for CVEProvidedMessage."""
 
-import attr
-
 from .message_base import MessageBase, BaseMessageContents
 
 
-class CVEProvidedMessage(MessageBase):
-    """Class used for CVE Update events on Kafka topic."""
+base_name = "thoth.cve-update.cve-provided"
 
-    base_name = "thoth.cve-update.cve-provided"
 
-    @attr.s
-    class MessageContents(BaseMessageContents):
-        """Class used to represent contents of a cve-provided message Kafka topic."""
+class MessageContents(BaseMessageContents):
+    """Class used to represent contents of a cve-provided message Kafka topic."""
 
-        package_name = attr.ib(type=str)
-        package_version = attr.ib(type=str)
-        index_url = attr.ib(type=str)
-        version = attr.ib(type=str, default="v1", init=False)
+    package_name: str
+    package_version: str
+    index_url: str
+    version: str = "v1"
 
-    def __init__(self):
-        """Initialize cve-provided topic."""
-        super(CVEProvidedMessage, self).__init__(
-            base_name=self.base_name, value_type=self.MessageContents,
-        )
+
+cve_provided_message = MessageBase(base_name=base_name, model=MessageContents)

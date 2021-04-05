@@ -76,6 +76,7 @@ setup(
     author_email="goern@redhat.com",
     license="GPLv3+",
     packages=["thoth.messaging"],
+    package_data={"thoth.messaging": ["py.typed"]},
     zip_safe=False,
     install_requires=get_install_requires(),
     tests_require=get_test_requires(),
