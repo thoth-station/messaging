@@ -14,7 +14,7 @@ presubmits:
           resources:
             requests:
               memory: "2Gi"
-              cpu: "2"
+              cpu: "200m"
   - name: thoth-mypy-py38
     decorate: true
     skip_report: false
@@ -30,4 +30,4 @@ presubmits:
           resources:
             requests:
               memory: "2Gi"
-              cpu: "2"
+              cpu: "200m"
