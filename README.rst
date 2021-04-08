@@ -21,7 +21,7 @@ Development and Testing
 #######################
 For development and testing it is very useful to have a local instance of Kafka running on your machine
 
-We provide a docker-compose file to get you up and running quickly with a basic Kafka server; this file is based on
+We provide a ``docker-compose`` file to get you up and running quickly with a basic Kafka server; this file is based on
 `Single Zookeeper/Multiple Kafka <https://github.com/simplesteph/kafka-stack-docker-compose#single-zookeeper--multiple-kafka>`__.
 
 In order to start Zookeeper as well as the Kafka Servers simply run `$ podman-compose up` or `$ docker-compose up`,
@@ -39,18 +39,20 @@ the same as given here, if not, run `$ podman ps` and choose the correct contain
 binaries in appropriate places so you can simply run `$ kafka-console-consumer`, `$ kafka-console-producer`, or any other
 kafka command that you may find useful.
 
-example:
-```
-$ kafka-console-consumer --bootstrap-server localhost:9092 --topic test --from-beginning
-```
+*example:*
+
+.. code-block:: console
+
+  kafka-console-consumer --bootstrap-server localhost:9092 --topic test --from-beginning
 
 You can test sending a message via the CLI using a file as -
 
-example:
-```
-pipenv shell
-python cli.py --message-file messages_to_be_sent.json
-```
+*example:*
+
+.. code-block:: console
+
+  pipenv shell
+  python cli.py --message-file messages_to_be_sent.json
 
 *Note*
 Data is not persistent. Once pods are deleted so is the data associated with them.
