@@ -38,5 +38,10 @@ class MessageContents(BaseMessageContents):
     job_id: Optional[str]
     version: str = "v1"
 
+    class Config:
+        """Config for pydantic."""
+
+        arbitrary_types_allowed = True  # allows for typing.Any
+
 
 kebechet_trigger_message = MessageBase(base_name=base_name, model=MessageContents)
