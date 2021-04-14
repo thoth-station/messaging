@@ -665,3 +665,12 @@ all the things that you see...
 * Add authenticated parameter to the advise message (#390)
 * :arrow_up: Automatic update of dependencies by Kebechet (#389)
 * Include issue template for releasing missing module
+
+## Release 0.14.0 (2021-04-14T14:51:22)
+### Features
+* missing config for typing.Any (#404)
+* :arrow_up: Automatic update of dependencies by Kebechet (#397)
+* Add bits needed for publishing docs on thoth-station.ninja (#398)
+* reduce the prow tasks resource requirements
+* F/pydantic messages (#373)
+* Add Kevin to maintainers (#395)
