@@ -22,7 +22,6 @@ from .message_base import BaseMessageContents
 from .message_factory import message_factory
 
 from .advise_justification import advise_justification_message
-from .adviser_re_run import adviser_rerun_message
 from .adviser_trigger import adviser_trigger_message
 from .build_analysis_trigger import build_analysis_trigger_message
 from .cve_provided import cve_provided_message
@@ -44,7 +43,6 @@ from .update_provides_src_distro import update_provides_source_distro_message
 
 ALL_MESSAGES = [
     advise_justification_message,
-    adviser_rerun_message,
     adviser_trigger_message,
     build_analysis_trigger_message,
     cve_provided_message,
@@ -67,7 +65,6 @@ ALL_MESSAGES = [
 
 __all__ = [
     "advise_justification_message",
-    "adviser_rerun_message",
     "adviser_trigger_message",
     "build_analysis_trigger_message",
     "cve_provided_message",
