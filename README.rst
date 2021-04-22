@@ -56,3 +56,12 @@ You can test sending a message via the CLI using a file as -
 
 *Note*
 Data is not persistent. Once pods are deleted so is the data associated with them.
+
+Pitfalls
+########
+
+Some schemas in this library are defined as `Dict[str, Any]`.  This usually does not accurately reflect the actual
+schema required. These schemas can be purposefully vague because they are defined elsewhere and importing them from
+the requisite libraries couples `thoth-messaging` version too closely to other components in the best case, and
+introduces circular dependencies in the worst case.  In short, `thoth-messaging` is naive and can only enforce schemas
+which it has defined.
