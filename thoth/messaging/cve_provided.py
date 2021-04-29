@@ -20,6 +20,7 @@
 
 from .message_base import MessageBase, BaseMessageContents
 
+from pydantic import StrictStr
 
 base_name = "thoth.cve-update.cve-provided"
 
@@ -27,10 +28,10 @@ base_name = "thoth.cve-update.cve-provided"
 class MessageContents(BaseMessageContents):
     """Class used to represent contents of a cve-provided message Kafka topic."""
 
-    package_name: str
-    package_version: str
-    index_url: str
-    version: str = "v1"
+    package_name: StrictStr
+    package_version: StrictStr
+    index_url: StrictStr
+    version: StrictStr = "v1"
 
 
 cve_provided_message = MessageBase(base_name=base_name, model=MessageContents)

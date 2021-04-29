@@ -21,6 +21,8 @@
 import logging
 from typing import List
 
+from pydantic import StrictStr
+
 from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
@@ -32,12 +34,12 @@ base_name = "thoth.package-update.hash-mismatch"
 class MessageContents(BaseMessageContents):
     """Class used to represent a contents of a hash-mismatch message Kafka topic."""
 
-    index_url: str
-    package_name: str
-    package_version: str
-    missing_from_source: List[str]
-    missing_from_database: List[str]
-    version: str = "v1"
+    index_url: StrictStr
+    package_name: StrictStr
+    package_version: StrictStr
+    missing_from_source: List[StrictStr]
+    missing_from_database: List[StrictStr]
+    version: StrictStr = "v1"
 
 
 hash_mismatch_message = MessageBase(base_name=base_name, model=MessageContents)

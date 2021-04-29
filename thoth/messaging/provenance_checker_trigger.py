@@ -21,6 +21,8 @@
 import logging
 from typing import Optional, List, Dict, Any
 
+from pydantic import StrictBool, StrictStr
+
 from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
@@ -32,16 +34,16 @@ base_name = "thoth.provenance-checker-trigger"
 class MessageContents(BaseMessageContents):
     """Class used to represent contents of a message Kafka topic."""
 
-    debug: bool = False
-    authenticated: bool = False
-    origin: Optional[str]
-    whitelisted_sources: Optional[List[str]]
-    job_id: Optional[str]
-    kebechet_metadata = Optional[Dict[str, Any]]
-    justification = Optional[List[Dict[str, Any]]]
-    stack_info = Optional[List[Dict[str, Any]]]
+    debug: StrictBool = False
+    authenticated: StrictBool = False
+    origin: Optional[StrictStr]
+    whitelisted_sources: Optional[List[StrictStr]]
+    job_id: Optional[StrictStr]
+    kebechet_metadata = Optional[Dict[StrictStr, Any]]
+    justification = Optional[List[Dict[StrictStr, Any]]]
+    stack_info = Optional[List[Dict[StrictStr, Any]]]
 
-    version: str = "v4"
+    version: StrictStr = "v4"
 
     class Config:
         """Config for pydantic."""

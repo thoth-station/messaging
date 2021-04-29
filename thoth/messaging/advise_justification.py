@@ -21,6 +21,7 @@
 import logging
 
 from .message_base import MessageBase, BaseMessageContents
+from pydantic import StrictStr, StrictInt
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -31,11 +32,11 @@ base_name = "thoth.advise-reporter.advise-justification"
 class MessageContents(BaseMessageContents):
     """Class used to represent contents of advise justification message Kafka topic."""
 
-    message: str
-    justification_type: str
-    count: int
-    adviser_version: str
-    version: str = "v1"
+    message: StrictStr
+    justification_type: StrictStr
+    count: StrictInt
+    adviser_version: StrictStr
+    version: StrictStr = "v1"
 
 
 advise_justification_message = MessageBase(base_name=base_name, model=MessageContents)

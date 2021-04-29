@@ -20,15 +20,17 @@
 
 from .message_base import MessageBase, BaseMessageContents
 
+from pydantic import StrictStr, StrictBool
+
 base_name = "thoth.inspection-completed"
 
 
 class MessageContents(BaseMessageContents):
     """Class used to represent contents of a inspection-completed message Kafka topic."""
 
-    inspection_id: str
-    force_sync: bool = False
-    version: str = "v1"
+    inspection_id: StrictStr
+    force_sync: StrictBool = False
+    version: StrictStr = "v1"
 
 
 inspection_completed_message = MessageBase(base_name=base_name, model=MessageContents)

@@ -21,6 +21,8 @@
 import logging
 from typing import Optional
 
+from pydantic import StrictStr, StrictInt
+
 from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
@@ -32,16 +34,16 @@ base_name = "thoth.qebhwt-trigger"
 class MessageContents(BaseMessageContents):
     """Class used to represent contents of a message Kafka topic."""
 
-    github_event_type: str
-    github_check_run_id: int
-    github_installation_id: int
-    github_base_repo_url: str
-    github_head_repo_url: str
-    origin: str
-    revision: str
-    host: str
-    job_id: Optional[str]
-    version: str = "v1"
+    github_event_type: StrictStr
+    github_check_run_id: StrictInt
+    github_installation_id: StrictInt
+    github_base_repo_url: StrictStr
+    github_head_repo_url: StrictStr
+    origin: StrictStr
+    revision: StrictStr
+    host: StrictStr
+    job_id: Optional[StrictStr]
+    version: StrictStr = "v1"
 
 
 qebhwt_trigger_message = MessageBase(base_name=base_name, model=MessageContents)

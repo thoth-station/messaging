@@ -20,6 +20,7 @@
 
 from .message_base import MessageBase, BaseMessageContents
 
+from pydantic import StrictStr
 
 base_name = "thoth.package-update.missing-package-version"
 
@@ -27,11 +28,11 @@ base_name = "thoth.package-update.missing-package-version"
 class MessageContents(BaseMessageContents):
     """Class used to represent a contents of a missing-package version message Kafka topic."""
 
-    index_url: str
-    package_name: str
-    package_version: str
+    index_url: StrictStr
+    package_name: StrictStr
+    package_version: StrictStr
 
-    version: str = "v1"
+    version: StrictStr = "v1"
 
 
 missing_version_message = MessageBase(base_name=base_name, model=MessageContents)

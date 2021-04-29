@@ -20,6 +20,7 @@
 
 from .message_base import MessageBase, BaseMessageContents
 
+from pydantic import StrictStr
 
 base_name = "thoth.package-release.package-released"
 
@@ -27,10 +28,10 @@ base_name = "thoth.package-release.package-released"
 class MessageContents(BaseMessageContents):
     """Class used to represent contents of a package-released message Kafka topic."""
 
-    index_url: str
-    package_name: str
-    package_version: str
-    version: str = "v1"
+    index_url: StrictStr
+    package_name: StrictStr
+    package_version: StrictStr
+    version: StrictStr = "v1"
 
 
 package_released_message = MessageBase(base_name=base_name, model=MessageContents)

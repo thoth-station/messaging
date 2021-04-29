@@ -22,6 +22,8 @@ import logging
 
 from typing import Optional
 
+from pydantic import StrictStr, StrictBool
+
 from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
@@ -32,24 +34,24 @@ base_name = "thoth.build-analysis-trigger"
 class MessageContents(BaseMessageContents):
     """Class used to represent contents of a message Kafka topic."""
 
-    base_image: Optional[str]
-    base_image_analysis_id: Optional[str]
-    buildlog_document_id: Optional[str]
-    buildlog_parser_id: Optional[str]
-    environment_type: Optional[str]
-    debug: bool = False
-    job_id: Optional[str]
-    origin: Optional[str]
-    output_image: Optional[str]
-    output_image_analysis_id: Optional[str]
-    base_registry_password: Optional[str]
-    base_registry_user: Optional[str]
-    base_registry_verify_tls: bool = True
-    output_registry_password: Optional[str]
-    output_registry_user: Optional[str]
-    output_registry_verify_tls: bool = True
+    base_image: Optional[StrictStr]
+    base_image_analysis_id: Optional[StrictStr]
+    buildlog_document_id: Optional[StrictStr]
+    buildlog_parser_id: Optional[StrictStr]
+    environment_type: Optional[StrictStr]
+    debug: StrictBool = False
+    job_id: Optional[StrictStr]
+    origin: Optional[StrictStr]
+    output_image: Optional[StrictStr]
+    output_image_analysis_id: Optional[StrictStr]
+    base_registry_password: Optional[StrictStr]
+    base_registry_user: Optional[StrictStr]
+    base_registry_verify_tls: StrictBool = True
+    output_registry_password: Optional[StrictStr]
+    output_registry_user: Optional[StrictStr]
+    output_registry_verify_tls: StrictBool = True
 
-    version: str = "v1"
+    version: StrictStr = "v1"
 
 
 build_analysis_trigger_message = MessageBase(base_name=base_name, model=MessageContents)
