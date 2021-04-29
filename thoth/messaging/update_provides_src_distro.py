@@ -20,6 +20,8 @@
 
 import logging
 
+from pydantic import StrictStr, StrictBool
+
 from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
@@ -31,11 +33,11 @@ base_name = "thoth.update-provides-source-distro"
 class MessageContents(BaseMessageContents):
     """Class used to represent a contents of a update-provides-source-distro message."""
 
-    package_name: str
-    package_version: str
-    index_url: str
-    value: bool
-    version: str = "v1"
+    package_name: StrictStr
+    package_version: StrictStr
+    index_url: StrictStr
+    value: StrictBool
+    version: StrictStr = "v1"
 
 
 update_provides_source_distro_message = MessageBase(base_name=base_name, model=MessageContents)

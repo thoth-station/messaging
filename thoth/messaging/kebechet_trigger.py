@@ -23,6 +23,8 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
+from pydantic import StrictStr
+
 from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
@@ -34,9 +36,9 @@ base_name = "thoth.kebechet-trigger"
 class MessageContents(BaseMessageContents):
     """Class used to represent contents of a message Kafka topic."""
 
-    webhook_payload: Dict[str, Any]
-    job_id: Optional[str]
-    version: str = "v1"
+    webhook_payload: Dict[StrictStr, Any]
+    job_id: Optional[StrictStr]
+    version: StrictStr = "v1"
 
     class Config:
         """Config for pydantic."""

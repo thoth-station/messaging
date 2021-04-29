@@ -21,6 +21,8 @@
 import logging
 from typing import Optional
 
+from pydantic import StrictStr
+
 from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
@@ -32,11 +34,11 @@ base_name = "thoth.investigator.unresolved-package"
 class MessageContents(BaseMessageContents):
     """Class used to represent contents of a unresolved package message Kafka topic."""
 
-    package_name: str
-    package_version: Optional[str]
-    index_url: Optional[str]
-    solver: Optional[str]
-    version: str = "v1"
+    package_name: StrictStr
+    package_version: Optional[StrictStr]
+    index_url: Optional[StrictStr]
+    solver: Optional[StrictStr]
+    version: StrictStr = "v1"
 
 
 unresolved_package_message = MessageBase(base_name=base_name, model=MessageContents)

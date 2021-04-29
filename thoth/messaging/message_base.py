@@ -23,7 +23,7 @@ import os
 import logging
 from typing import Optional, Type
 
-from pydantic import BaseModel
+from pydantic import BaseModel, StrictStr
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -31,9 +31,9 @@ _LOGGER = logging.getLogger(__name__)
 class BaseMessageContents(BaseModel):
     """Default params for message contents."""
 
-    component_name: str
-    service_version: str
-    version: str = "v0"
+    component_name: StrictStr
+    service_version: StrictStr
+    version: StrictStr = "v0"
 
 
 class MessageBase:

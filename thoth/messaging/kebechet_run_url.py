@@ -21,7 +21,7 @@
 import logging
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, StrictStr, StrictInt
 
 from .message_base import MessageBase, BaseMessageContents
 
@@ -33,21 +33,21 @@ base_name = "thoth.kebechet-run-url-trigger"
 class Metadata(BaseModel):
     """Metadata for kebechet-run-url message type."""
 
-    message_justification: Optional[int]
-    package_name: Optional[str]
-    package_version: Optional[str]
-    package_index: Optional[str]
+    message_justification: Optional[StrictInt]
+    package_name: Optional[StrictStr]
+    package_version: Optional[StrictStr]
+    package_index: Optional[StrictStr]
 
 
 class MessageContents(BaseMessageContents):
     """Class used to represent contents of a message Kafka topic."""
 
-    url: Optional[str]
-    service_name: Optional[str]
-    installation_id: Optional[str]
-    job_id: Optional[str]
+    url: Optional[StrictStr]
+    service_name: Optional[StrictStr]
+    installation_id: Optional[StrictStr]
+    job_id: Optional[StrictStr]
     metadata: Metadata = Field(default_factory=Metadata)
-    version: str = "v2"
+    version: StrictStr = "v2"
 
 
 kebechet_run_url_trigger_message = MessageBase(base_name=base_name, model=MessageContents)

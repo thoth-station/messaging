@@ -19,6 +19,8 @@
 
 import logging
 
+from pydantic import StrictStr
+
 from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
@@ -30,10 +32,10 @@ base_name = "thoth.investigator.si-unanalyzed-package"
 class MessageContents(BaseMessageContents):
     """Class used to represent contents of a SI unanalyzed package message Kafka topic."""
 
-    package_name: str
-    package_version: str
-    index_url: str
-    version: str = "v1"
+    package_name: StrictStr
+    package_version: StrictStr
+    index_url: StrictStr
+    version: StrictStr = "v1"
 
 
 si_unanalyzed_package_message = MessageBase(base_name=base_name, model=MessageContents)

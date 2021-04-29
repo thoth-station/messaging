@@ -21,6 +21,8 @@
 import logging
 from typing import Optional
 
+from pydantic import StrictStr, StrictBool
+
 from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
@@ -32,18 +34,18 @@ base_name = "thoth.package-extract-trigger"
 class MessageContents(BaseMessageContents):
     """Class used to represent contents of a message Kafka topic."""
 
-    image: str
-    environment_type: str
-    is_external: bool = True
-    verify_tls: bool = True
-    debug: bool = False
-    job_id: Optional[str]
-    origin: Optional[str]
-    registry_user: Optional[str]
-    registry_password: Optional[str]
-    graph_sync: bool = False
+    image: StrictStr
+    environment_type: StrictStr
+    is_external: StrictBool = True
+    verify_tls: StrictBool = True
+    debug: StrictBool = False
+    job_id: Optional[StrictStr]
+    origin: Optional[StrictStr]
+    registry_user: Optional[StrictStr]
+    registry_password: Optional[StrictStr]
+    graph_sync: StrictBool = False
 
-    version: str = "v2"
+    version: StrictStr = "v2"
 
 
 package_extract_trigger_message = MessageBase(base_name=base_name, model=MessageContents)

@@ -21,6 +21,8 @@
 import logging
 from typing import Optional, Dict, List, Any
 
+from pydantic import StrictStr, StrictInt, StrictBool
+
 from .message_base import MessageBase, BaseMessageContents
 
 _LOGGER = logging.getLogger(__name__)
@@ -32,26 +34,26 @@ base_name = "thoth.adviser-trigger"
 class MessageContents(BaseMessageContents):  # type: ignore
     """Class used to represent contents of a message Kafka topic."""
 
-    recommendation_type: str
-    dev: bool = False
-    debug: bool = False
-    authenticated: bool = False
-    count: Optional[int]
-    limit: Optional[int]
-    origin: Optional[str]
-    job_id: Optional[str]
-    limit_latest_versions: Optional[int]
-    github_event_type: Optional[str]
-    github_check_run_id: Optional[int]
-    github_installation_id: Optional[int]
-    github_base_repo_url: Optional[str]
-    re_run_adviser_id: Optional[str]
-    source_type: Optional[str]
-    kebechet_metadata: Optional[Dict[str, Any]]
-    justification: Optional[List[Dict[str, Any]]]
-    stack_info = Optional[List[Dict[str, Any]]]
+    recommendation_type: StrictStr
+    dev: StrictBool = False
+    debug: StrictBool = False
+    authenticated: StrictBool = False
+    count: Optional[StrictInt]
+    limit: Optional[StrictInt]
+    origin: Optional[StrictStr]
+    job_id: Optional[StrictStr]
+    limit_latest_versions: Optional[StrictInt]
+    github_event_type: Optional[StrictStr]
+    github_check_run_id: Optional[StrictInt]
+    github_installation_id: Optional[StrictInt]
+    github_base_repo_url: Optional[StrictStr]
+    re_run_adviser_id: Optional[StrictStr]
+    source_type: Optional[StrictStr]
+    kebechet_metadata: Optional[Dict[StrictStr, Any]]
+    justification: Optional[List[Dict[StrictStr, Any]]]
+    stack_info = Optional[List[Dict[StrictStr, Any]]]
 
-    version: str = "v4"
+    version: StrictStr = "v4"
 
     class Config:
         """Config for pydantic."""
