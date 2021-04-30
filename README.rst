@@ -11,6 +11,7 @@ This module uses pydantic for type hinting and enforcing a regular schema in mes
 your code please add the following to your mypy configuration file:
 
 .. code-block:: toml
+
   [mypy]
   plugins = pydantic.mypy
 
