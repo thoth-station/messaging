@@ -142,6 +142,7 @@ def messaging(
         producer.publish_to_topic(prod, topic, m_contents, validate=validate)
 
         _LOGGER.info(f"Sent message {topic.topic_name} with content: {m_contents}")
+    prod.flush()
 
 
 if __name__ == "__main__":
