@@ -674,3 +674,13 @@ all the things that you see...
 * reduce the prow tasks resource requirements
 * F/pydantic messages (#373)
 * Add Kevin to maintainers (#395)
+
+## Release 0.14.1 (2021-05-07T21:24:35)
+### Features
+* flush all pending messages (#413)
+* :arrow_up: Automatic update of dependencies by Kebechet (#412)
+* use Strict types provided by pydantic (#411)
+* add blurb about naive schemas (#410)
+* Remove adviser re run message (#409)
+### Bug Fixes
+* :books: Readme restructured text code-block fix (#408)
