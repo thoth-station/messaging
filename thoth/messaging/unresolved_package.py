@@ -19,7 +19,7 @@
 """This is Thoth Messaging module for UnresolvedPackageMessage."""
 
 import logging
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import StrictStr
 
@@ -36,7 +36,7 @@ class MessageContents(BaseMessageContents):
 
     package_name: StrictStr
     package_version: Optional[StrictStr]
-    index_url: Optional[StrictStr]
+    index_url: Optional[List[StrictStr]]
     solver: Optional[StrictStr]
     version: StrictStr = "v1"
 
