@@ -684,3 +684,17 @@ all the things that you see...
 * Remove adviser re run message (#409)
 ### Bug Fixes
 * :books: Readme restructured text code-block fix (#408)
+
+## Release 0.14.2 (2021-06-10T21:13:57)
+### Features
+* add config for ssl keystore and password
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet (#422)
+* :hatched_chick: update the prow resource limits (#421)
+* :arrow_up: Automatic update of dependencies by Kebechet (#420)
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet (#417)
+* :arrow_up: Automatic update of dependencies by Kebechet (#415)
+### Improvements
+* all message senders pass index url explicitly
