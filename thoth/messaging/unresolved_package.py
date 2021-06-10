@@ -35,8 +35,8 @@ class MessageContents(BaseMessageContents):
     """Class used to represent contents of a unresolved package message Kafka topic."""
 
     package_name: StrictStr
+    index_url: StrictStr
     package_version: Optional[StrictStr]
-    index_url: Optional[StrictStr]
     solver: Optional[StrictStr]
     version: StrictStr = "v1"
 
