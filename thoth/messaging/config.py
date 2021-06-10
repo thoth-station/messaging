@@ -32,6 +32,8 @@ confluent_config = {
     "ssl.certificate.location": ("KAFKA_SSL_CERTIFICATE_LOCATION", str),
     "ssl.ca.location": ("KAFKA_SSL_CA_LOCATION", str),
     "ssl.endpoint.identification.algorithm": ("KAFKA_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM", str),
+    "ssl.key.location": ("KAFKA_SSL_KEY_LOCATION", str),
+    "ssl.key.password": ("KAFKA_SSL_KEY_PASSWORD", str),
     "sasl.mechanism": ("KAFKA_SASL_MECHANISM", str),
     "sasl.username": ("KAFKA_SASL_USERNAME", str),
     "sasl.password": ("KAFKA_SASL_PASSWORD", str),
