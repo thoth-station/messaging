@@ -39,9 +39,9 @@ class MessageContents(BaseMessageContents):
     origin: Optional[StrictStr]
     whitelisted_sources: Optional[List[StrictStr]]
     job_id: Optional[StrictStr]
-    kebechet_metadata = Optional[Dict[StrictStr, Any]]
-    justification = Optional[List[Dict[StrictStr, Any]]]
-    stack_info = Optional[List[Dict[StrictStr, Any]]]
+    kebechet_metadata: Optional[Dict[StrictStr, Any]]
+    justification: Optional[List[Dict[StrictStr, Any]]]
+    stack_info: Optional[List[Dict[StrictStr, Any]]]
 
     version: StrictStr = "v4"
 

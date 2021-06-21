@@ -51,7 +51,7 @@ class MessageContents(BaseMessageContents):  # type: ignore
     source_type: Optional[StrictStr]
     kebechet_metadata: Optional[Dict[StrictStr, Any]]
     justification: Optional[List[Dict[StrictStr, Any]]]
-    stack_info = Optional[List[Dict[StrictStr, Any]]]
+    stack_info: Optional[List[Dict[StrictStr, Any]]]
 
     version: StrictStr = "v4"
 
