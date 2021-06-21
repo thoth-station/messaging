@@ -698,3 +698,10 @@ all the things that you see...
 * :arrow_up: Automatic update of dependencies by Kebechet (#415)
 ### Improvements
 * all message senders pass index url explicitly
+
+## Release 0.14.3 (2021-06-21T15:24:49)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :medal_sports: set badges for easy access to content
+### Bug Fixes
+* fix issue1445 on user-api
