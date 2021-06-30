@@ -34,7 +34,6 @@ from .missing_version import missing_version_message
 from .package_extract_trigger import package_extract_trigger_message
 from .package_releases import package_released_message
 from .provenance_checker_trigger import provenance_checker_trigger_message
-from .qebhwt_trigger import qebhwt_trigger_message
 from .si_unanalyzed_package import si_unanalyzed_package_message
 from .solved_package import solved_package_message
 from .unresolved_package import unresolved_package_message
@@ -55,7 +54,6 @@ ALL_MESSAGES = [
     package_extract_trigger_message,
     package_released_message,
     provenance_checker_trigger_message,
-    qebhwt_trigger_message,
     si_unanalyzed_package_message,
     solved_package_message,
     unresolved_package_message,
@@ -77,7 +75,6 @@ __all__ = [
     "package_extract_trigger_message",
     "package_released_message",
     "provenance_checker_trigger_message",
-    "qebhwt_trigger_message",
     "si_unanalyzed_package_message",
     "solved_package_message",
     "unresolved_package_message",
