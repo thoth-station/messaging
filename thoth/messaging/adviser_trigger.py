@@ -43,17 +43,13 @@ class MessageContents(BaseMessageContents):  # type: ignore
     origin: Optional[StrictStr]
     job_id: Optional[StrictStr]
     limit_latest_versions: Optional[StrictInt]
-    github_event_type: Optional[StrictStr]
-    github_check_run_id: Optional[StrictInt]
-    github_installation_id: Optional[StrictInt]
-    github_base_repo_url: Optional[StrictStr]
     re_run_adviser_id: Optional[StrictStr]
     source_type: Optional[StrictStr]
     kebechet_metadata: Optional[Dict[StrictStr, Any]]
     justification: Optional[List[Dict[StrictStr, Any]]]
     stack_info: Optional[List[Dict[StrictStr, Any]]]
 
-    version: StrictStr = "v4"
+    version: StrictStr = "v5"
 
     class Config:
         """Config for pydantic."""
