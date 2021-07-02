@@ -705,3 +705,11 @@ all the things that you see...
 * :medal_sports: set badges for easy access to content
 ### Bug Fixes
 * fix issue1445 on user-api
+
+## Release 0.15.0 (2021-07-02T07:08:43)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Remove parameters from adviser trigger message
+* :arrow_up: Automatic update of dependencies by Kebechet
+* Deprecate qeb-hwt trigger message
