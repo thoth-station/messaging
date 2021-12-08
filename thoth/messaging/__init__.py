@@ -36,6 +36,7 @@ from .package_releases import package_released_message
 from .provenance_checker_trigger import provenance_checker_trigger_message
 from .si_unanalyzed_package import si_unanalyzed_package_message
 from .solved_package import solved_package_message
+from .thoth_repo_init import thoth_repo_init_message
 from .unresolved_package import unresolved_package_message
 from .unrevsolved_package import unrevsolved_package_message
 from .update_provides_src_distro import update_provides_source_distro_message
@@ -56,6 +57,7 @@ ALL_MESSAGES = [
     provenance_checker_trigger_message,
     si_unanalyzed_package_message,
     solved_package_message,
+    thoth_repo_init_message,
     unresolved_package_message,
     unrevsolved_package_message,
     update_provides_source_distro_message,
@@ -77,6 +79,7 @@ __all__ = [
     "provenance_checker_trigger_message",
     "si_unanalyzed_package_message",
     "solved_package_message",
+    "thoth_repo_init_message",
     "unresolved_package_message",
     "unrevsolved_package_message",
     "update_provides_source_distro_message",
