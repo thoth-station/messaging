@@ -1,5 +1,9 @@
 # Changelog for Thoth's Messaging GitHub Project
 
+## Release 0.16.0 (2022-01-10T19:33:16)
+* :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* add new message for triggering thoth-repo-init
+
 ## [0.2.0] - 2019-Oct-05 - goern
 
 ### Added
