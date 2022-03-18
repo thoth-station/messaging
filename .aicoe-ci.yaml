@@ -4,7 +4,7 @@ release:
   - upload-pypi-sesheta
 build:
   base-image: quay.io/thoth-station/s2i-thoth-ubi8-py38:v0.32.3
-  build-stratergy: Source
+  build-strategy: Source
   registry: quay.io
   registry-org: thoth-station
   registry-project: messaging
