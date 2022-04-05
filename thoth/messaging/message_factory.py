@@ -24,7 +24,8 @@ from .message_base import MessageBase, BaseMessageContents
 
 
 def message_factory(
-    b_name: str, message_model: Type[BaseMessageContents],
+    b_name: str,
+    message_model: Type[BaseMessageContents],
 ):
     """Create new message types dynamically."""
     return MessageBase(base_name=b_name, model=message_model)
