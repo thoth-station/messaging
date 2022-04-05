@@ -1,5 +1,12 @@
 # Changelog for Thoth's Messaging GitHub Project
 
+## Release 0.16.1 (2022-04-05T15:52:21)
+* bb0efe7 updating pre-commit protocol and aicoe build-strategy (#454)
+* 1b49cda :ship: Bump up base image initialized in CI. (#455)
+* fa34ff7 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment (#456)
+* 2f5c9b0 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* c7705e3 Enable TLS verification
+
 ## Release 0.16.0 (2022-01-10T19:33:16)
 * :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
 * add new message for triggering thoth-repo-init
