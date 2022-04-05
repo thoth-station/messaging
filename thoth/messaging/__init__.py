@@ -90,4 +90,4 @@ __all__ = [
 
 
 __name__ = "thoth-messaging"
-__version__ = "0.16.0"
+__version__ = "0.16.1"

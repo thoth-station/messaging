@@ -40,7 +40,10 @@ class MessageBase:
     """Class used for Package Release events on Kafka topic."""
 
     def __init__(
-        self, *, base_name: Optional[str] = None, model: Optional[Type[BaseMessageContents]] = None,
+        self,
+        *,
+        base_name: Optional[str] = None,
+        model: Optional[Type[BaseMessageContents]] = None,
     ):
         """Create general message."""
         self.base_name = base_name or "thoth.base-topic"

@@ -47,7 +47,14 @@ def create_all_topics(admin: AdminClient, partitions: int = 1, replication_facto
         if t_name in topics:
             continue
         admin.create_topics(
-            [NewTopic(t_name, partitions, replication_factor=replication_factor, config=topic_config_from_env(),)]
+            [
+                NewTopic(
+                    t_name,
+                    partitions,
+                    replication_factor=replication_factor,
+                    config=topic_config_from_env(),
+                )
+            ]
         )
 
 
@@ -64,7 +71,10 @@ def create_topic(admin: AdminClient, message: MessageBase, partitions: int = 1, 
     admin.create_topics(
         [
             NewTopic(
-                message.topic_name, partitions, replication_factor=replication_factor, config=topic_config_from_env(),
+                message.topic_name,
+                partitions,
+                replication_factor=replication_factor,
+                config=topic_config_from_env(),
             )
         ]
     )
