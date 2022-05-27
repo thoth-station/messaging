@@ -41,6 +41,7 @@ confluent_config = {
     "group.instance.id": ("KAFKA_CONSUMER_GROUP_INSTANCE_ID", str),
     "max.poll.interval.ms": ("KAFKA_CONSUMER_MAX_POLL_INTERVAL_MS", float),
     "enable.auto.commit": ("KAFKA_CONSUMER_ENABLE_AUTO_COMMIT", bool),
+    "auto.offset.reset": ("KAFKA_CONSUMER_AUTO_OFFSET_RESET", str),
 }
 
 topic_config = {
