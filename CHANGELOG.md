@@ -1,5 +1,12 @@
 # Changelog for Thoth's Messaging GitHub Project
 
+## Release 0.16.2 (2022-05-27T20:05:25)
+* 595111d :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment (#466)
+* 9ec5f19 :ship: Bump up base image initialized in CI. (#465)
+* ba4b84b Enable auto offset reset for kafka consumer (#464)
+* 21311c6 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* 4627385 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+
 ## Release 0.16.1 (2022-04-05T15:52:21)
 * bb0efe7 updating pre-commit protocol and aicoe build-strategy (#454)
 * 1b49cda :ship: Bump up base image initialized in CI. (#455)
