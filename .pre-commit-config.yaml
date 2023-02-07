@@ -1,13 +1,12 @@
-
 ---
 repos:
   - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.1.13
+    rev: v1.4.2
     hooks:
       - id: remove-tabs
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.4.0
     hooks:
       - id: trailing-whitespace
       - id: check-merge-conflict
@@ -24,12 +23,12 @@ repos:
       - id: debug-statements
 
   - repo: https://github.com/pycqa/pydocstyle.git
-    rev: 6.1.1
+    rev: 6.3.0
     hooks:
       - id: pydocstyle
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.4.0
     hooks:
       - id: check-toml
       - id: check-yaml
@@ -37,21 +36,22 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.942
+    rev: v0.991
     hooks:
       - id: mypy
         exclude: '^(docs|tasks|tests)|setup\.py'
-        args: [--ignore-missing-imports]
+        args: [--ignore-missing-imports, --explicit-package-bases]
 
   - repo: https://github.com/psf/black
-    rev: 22.3.0
+    rev: 23.1.0
     hooks:
       - id: black
 
-  - repo: https://gitlab.com/PyCQA/flake8
-    rev: 3.9.2
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
     hooks:
       - id: flake8
-        additional_dependencies: ['pep8-naming']
+        additional_dependencies: ["pep8-naming"]
         # Ignore all format-related checks as Black takes care of those.
-        args: ['--ignore', 'E2,W5', '--select', 'E,W,F,N', '--max-line-length=120']
+        args:
+          ["--ignore", "E2,W5", "--select", "E,W,F,N", "--max-line-length=120"]
